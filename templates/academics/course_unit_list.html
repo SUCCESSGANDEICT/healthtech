@@ -1,0 +1,184 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+            <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center ">
+                    
+                    <!--Alert Template-->
+                    {% include 'admission/partials/_alerts.html' %}
+                    <!--Alert Template-->
+            
+                    <div class="col-xl-12 col-lg-12 col-md-9">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    
+                                </div>
+                                <div class="col-6">
+                                    <a class="btn btn-success" href="{% url 'add_course_unit' %}">Add Course Unit</a>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    
+                                    <div class="col-lg-12">
+
+                                        
+
+                                        <div class="p-1">
+                                            
+
+                                            <div class="table-responsive">
+                                                {% if course_units %}
+                                                  <table class="table myCard-body">
+                                                      <thead class="bg-info text-white">
+                                                        <tr>
+                                                          <th scope="col">#</th>
+                                                          <th scope="col" style="color: white;" nowrap>Academic Session</th>
+                                                          <th scope="col" style="color: white;">Course Code</th>
+                                                        
+                                                          <th scope="col" style="color: white;" nowrap>Course Title</th>
+
+                                                          <th scope="col" style="color: white;" nowrap>Creadit Unit</th>
+                        
+                                                          <th scope="col" style="color: white;" nowrap>Level</th>
+                         
+                                                          <th scope="col" style="color: white;" nowrap>Semester</th>
+
+                                                          <th scope="col" style="color: white;" nowrap>Status</th>
+
+                                                          <th scope="col" style="color: white;" nowrap>Action</th>
+                                                         
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                        
+                                    
+                                                        {% for course_unit in course_units %}
+                                                        <tr>
+                                                          <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                                                          <td style="color:black;" nowrap>{{ course_unit.academic_session|default:"Not assigned" }}</td>
+                        
+                                                          <td style="color:black;" nowrap>{{ course_unit.course_code|upper}}</td>
+                        
+                                                          <td nowrap style="color:black;">{{ course_unit.course_title|title }}</td>
+                        
+                                                          <td nowrap style="color:black;">{{ course_unit.credit_load }}</td>
+
+                                                          <td nowrap style="color:black;">{{ course_unit.level }}</td>
+                        
+                                                          <td nowrap style="color:black;">{{ course_unit.semester }}</td>
+
+                                                          <td nowrap style="color:black;">
+                                                            {% if course_unit.is_core_course %}
+                                                            Core Course 
+                                                            {% else %}
+                                                            Elective Course
+                                                            {% endif %}
+                                                          </td>
+                                                          
+                                                          
+                                                          <td nowrap>
+                                                              
+                                                            <div class="button-container">
+                                                                
+                                                                <a class="btn btn-danger withdraw-button" href="{% url 'delete_course_unit' course_unit.pk %} ">Delete</a>
+                                                              
+                                                                <a class="btn btn-info deposit-button" href="{% url 'update_course_unit' course_unit.pk %}  ">Edit</a>
+                                                                
+                                                              
+                                                            </div>
+                                                              
+                                                          </td>
+                                                        </tr>
+                                                        {% endfor %}    
+                                                        
+                                                        
+                                                         
+                                                      </tbody>
+                                                  </table>
+                                                  {% else %}  
+                                                  <span style="text-align: center; color:red;">No Course Unit Added Yet</span>    
+                                             {% endif %}
+                                                
+                                                  
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <!--Pagination-->
+            
+                        </div>
+            
+                    </div>
+            
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pagination-box">
+                            <ul class="pagination">
+                                {% if departments.has_previous %}
+                                    <li><a href="?page=1"><i class="fa fa-angle-double-left"></i></a></li>
+                                    <li><a href="?page={{ departments.previous_page_number }}">{{ departments.previous_page_number }}</a></li>
+                                {% endif %}
+                                
+                                <li class="active"><a href="?page={{ departments.number }}">{{ departments.number }}</a></li>
+                                
+                                {% if departments.has_next %}
+                                    <li><a href="?page={{ departments.next_page_number }}">{{ departments.next_page_number }}</a></li>
+                                    <li><a href="?page={{ departments.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

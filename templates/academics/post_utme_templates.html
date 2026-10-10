@@ -1,0 +1,150 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+            <div class="container">
+                <div class="row">
+                    <h4 style="color:black;">
+                        {{page_title}}
+                    </h4>
+                </div>
+
+            </div>
+          
+             <!-- Begin Page Content -->
+            <div class="container"> 
+              
+              {% include 'admission/partials/_alerts.html' %}
+                <!-- Outer Row -->
+
+                <div class="row justify-content-center">
+            
+                    <div class="col-xl-12 col-lg-12 col-md-9">
+            
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    
+                                    <div class="col-lg-12">
+
+                                        <div class="p-1">
+                                        
+                                            <div class="table-responsive">
+                                                {% if templates %} 
+                                                  <table class="table myCard-body">
+                                                      <thead class="bg-info text-white">
+                                                        <tr>
+                                                          <th scope="col">#</th>
+                                                          <th scope="col" style="color: white;"> POST-UTME Template Description</th>
+
+                                                          
+                                                        {% if user.is_superuser or user.profile.role == 'Admin' %}
+                                                          <th scope="col" style="color: white;" nowrap>Added Date</th>
+                                                          
+                                                          <th scope="col" style="color: white;" nowrap>Action</th>
+                                                        {% elif user.profile.role == 'ADMISSION-OFFICER' %}
+                                                        <th scope="col" style="color: white;" nowrap>Action</th>
+                                                        {% endif %}
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                        
+                                    
+                                                        {% for template in templates %}
+                                                        <tr>
+                                                          <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                        
+                                                          <td style="color:black;" nowrap>{{ template.name|capfirst}}</td>
+
+                                                          
+                                                          {% if user.is_superuser or user.profile.role == 'Admin' %}
+                                                          <td nowrap style="color:black;">{{ template.uploaded_date}}</td>
+                                                          
+                                                          <td nowrap>
+                                                              
+                                                            <div class="button-container">
+                                                                
+                                                                <a class="btn btn-danger withdraw-button" href=" ">Delete</a>
+                                                             
+                                                                <a class="btn btn-info deposit-button" href=" {% url 'update_post_utme_template' template.id %} ">Update</a>
+                                                                
+                                                              
+                                                            </div>
+                                                              
+                                                          </td>
+                                                          {% elif user.profile.role == 'ADMISSION-OFFICER' %}
+                                                          <td>
+                                                            <div class="button-container">
+                                                                
+                                                              <a class="btn btn-danger withdraw-button" href="{% url 'download_csv_file' template.id %} ">Download Template</a>
+                                                            
+                                                              <a class="btn btn-info deposit-button" href=" {% url 'jamb_candidates_upload' %} ">Upload Candidates</a>
+                                                              
+                                                              <a class="btn btn-info deposit-button" href=" {% url 'update_post_utme_template' template.id %} ">Update</a>
+                                                            
+                                                          </div>
+                                                          </td>
+                                                          {% endif %}
+                                                        </tr>
+                                                        {% endfor %}    
+                                                        
+                                                        
+                                                         
+                                                      </tbody>
+                                                  </table>
+                                                    
+                                                {% else %}  
+                                                     <h4 style="text-align: center; color:red; font-size:0.8rem;">No Template Added Yet</h4>    
+                                                {% endif %}
+                                                  
+                                            </div>
+                                           
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                    </div>
+            
+                </div>
+
+            </div>
+        <!-- End Main Content -->
+
+ 
+    </div>
+    <!-- End Content Wrapper -->
+    
+
+
+</div>
+
+
+
+{% endblock %}

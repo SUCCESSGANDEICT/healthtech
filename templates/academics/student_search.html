@@ -1,0 +1,48 @@
+{% extends 'account_base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+  {% include 'accounts/partials/_sideBar.html' %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      {% include 'accounts/partials/_topBar.html' %}
+      <main class="container student-search-page py-4"
+            data-results-url="{% url 'student_search_results' %}"
+            data-selection-url="{% url 'student_search_selection' %}">
+        <section class="student-search-panel" aria-labelledby="student-search-title">
+          <div class="student-search-heading">
+            <div>
+              <p class="student-search-kicker">Academics</p>
+              <h1 id="student-search-title">Student Search</h1>
+              <p>Find a student by name, email, application number, or matriculation number.</p>
+            </div>
+          </div>
+
+          <form id="student-search-form" class="student-search-form" role="search" novalidate>
+            {% csrf_token %}
+            <label for="student-search-input">Search students</label>
+            <div class="student-search-control">
+              <span class="student-search-icon" aria-hidden="true"><i class="fas fa-search"></i></span>
+              <input id="student-search-input" type="search" autocomplete="off"
+                     placeholder="Start typing a name, email, application or matric number"
+                     aria-controls="student-search-results" aria-autocomplete="list" aria-expanded="false">
+              <span id="student-search-spinner" class="spinner-border spinner-border-sm" role="status" aria-label="Searching" hidden></span>
+            </div>
+            <p class="student-search-hint">Results update automatically as you type.</p>
+          </form>
+
+          <div id="student-search-status" class="student-search-status" aria-live="polite"></div>
+          <div id="student-search-results" class="student-search-results" role="listbox"></div>
+        </section>
+
+        <section id="student-selection" class="student-selection" aria-live="polite" hidden></section>
+      </main>
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" href="{% static 'academics/student_search.css' %}">
+<script src="{% static 'academics/student_search.js' %}" defer></script>
+{% endblock %}

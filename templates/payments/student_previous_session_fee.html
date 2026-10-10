@@ -1,0 +1,173 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {% include 'accounts/partials/_sideBar.html' %}
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                {% include 'accounts/partials/_dashboard_heading.html' %}
+                <!-- End Page Heading -->
+
+
+                 <!--Alert Template-->
+                 {% include 'admission/partials/_alerts.html' %}
+                 <!--Alert Template-->
+
+                 <!--Profile and Notice Board Container-->
+                  <div class="row">
+                        
+                        
+                        
+                      
+                        <div class="col-md-8 mb-5"> 
+                            <div class="card">
+                                  <div class="card-header bg-info text-white">
+                                    {{student.candidate.profile.last_name|capfirst}} {{previous_level}} - {{previous_session}} Academic Session Outstanding School Fee information
+                                  </div>
+                                  <div class="card-body">
+                                  <div class="row">
+                                      <div class="col-md-8">
+                                            
+                                           
+                                          <table class="table myCard-body table-borderless">
+                                              <tbody>
+                                                <tr>
+                                                  <th scope="row" style="color: black;" nowrap>Student ID:</th>
+                                                  <td style="color: black;">{{student.student_id}}</td>                                   
+                                              </tr>
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Full Name</th>
+                                                      <td style="color: black;">{{student.candidate.profile.last_name|title}}  {{student.candidate.profile.first_name|title}}
+                                                        {% if student.candidate.profile.middle_name %}
+                                                        {{student.candidate.profile.middle_name|title}}
+                                                        {% endif %}
+                                                      </td>
+                                                    </tr>
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>State Origin:</th>
+                                                      <td style="color: black;">{{student.candidate.profile.state_origin}}</td>                                   
+                                                  </tr>
+                                                  <tr>
+                                                    <th scope="row" style="color: black;" nowrap>Student Indigence:</th>
+                                                    <td style="color: black;">{{indigence}}</td>                                   
+                                                </tr>
+                                                    
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>Previous Level:</th>
+                                                        <td style="color: black;">{{previous_level}}</td>                                   
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>Current Level:</th>
+                                                        <td style="color: black;">{{current_level}}</td>                                   
+                                                    </tr>
+                                        
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Previous Session:</th>
+                                                      <td style="color: black;">{{previous_session}}</td>                                   
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Previous Session Fee:</th>
+                                                      <td style="color: black;">N{{total_fee_previous|intcomma}}</td>                                   
+                                                    </tr> 
+                                                    
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>Total Paid:</th>
+                                                        <td style="color: black;">N{{total_paid_previous|intcomma}}</td>                                   
+                                                      </tr> 
+                                                    
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Outstanding Fee:</th>
+                                                      <td style="color: black;">N{{outstanding_amount|intcomma}}</td>                                   
+                                                    </tr>  
+                                                                
+                                                </tbody>
+                                          </table>
+                                      </div>
+                                      <div class="col-md-4"> 
+                                      
+                                          <img class="img-thumbnail" src=" {% image_url student.candidate.profile.image %} " alt="profile image">
+                                        
+                                        </div>
+                                    
+                                  </div>
+                                 
+                                  </div>
+                                  
+                            </div>
+                        </div>
+                        <!--School Fees Payment Section -->
+                        
+                        <div class="col-md-4">
+                          <div class="card">
+                              <div class="card-header bg-info text-white">
+                                  Select and Pay School Fee
+                              </div>
+                              <div class="card-body">
+                                <h4 class="text-center" style="font-size: 0.9rem;">
+                                  Choose Payment Option and Pay
+                                </h4>
+                                <hr>
+                                <form method="POST">
+                                  {% csrf_token %}
+                
+                                  {{ form | crispy }}
+              
+                                  <!--Check Page Title and Allocate Submit Value-->
+                                 
+                                  <input class="btn btn-info btn-block" type="submit"  value="Pay Fee">
+                                  
+                
+                                </form>
+                                  
+                              </div>
+                          </div> 
+                      </div>
+                      
+
+
+                  </div>
+                  <!-- End of Profile and Notice Board Container-->
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,1775 @@
+/***** TEXT SIZE ADJUST *****/
+html {
+    -webkit-text-size-adjust: 100%; 
+    -ms-text-size-adjust: 100%;
+}
+
+/***** BOX MODEL *****/
+* { 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box; 
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+/* Grid Rules */
+
+.clear-row {
+    clear:both;
+}
+
+.limited{
+    max-width: 1000px;
+    margin: auto;
+}
+
+.column{
+    float: left;
+}
+
+.small-12{
+    width: 100%;
+    padding: 1vw 1vw;
+    margin:0 0 .15rem 0;
+}
+
+.small-6{
+    width: 50%;
+}
+
+
+
+
+/* Header Rules */
+header{
+    background-color:rgba(100, 143, 70, 0.92); 
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    padding-top:0.2%;
+    height: 10vw;
+}
+
+
+
+.header h1 {
+  color: #fff;
+  font-weight: 700;
+  padding: 0.1rem 0 0 0;
+  font-size: 4.1vw;
+  float: left;
+  margin-left: 1%;
+  margin-top: 1.8%;
+}
+
+
+
+.header h2{
+    padding:.2rem 0 0 0;
+    font-size: 1.09rem;
+    font-weight: 500;
+    float: left;
+
+}
+
+header a{
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+.header img{
+  margin-right: 0.2%;
+  margin-top:0.8%;
+  width: 8vw;
+  height: auto;
+  float:left;
+}
+
+.header ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  background-color: rgb(95, 143, 71);
+}
+
+.header ul a {
+  display: block;
+  padding: 10px;
+  border-right: 1px solid #aaa;
+  text-decoration: none;
+  text-align: center;
+}
+
+.header ul a:hover{
+  background-color: #ddd ;
+}
+
+.active{
+  background-color:#ddd ;
+}
+
+.header .logo{
+  float: left;
+  display: block;
+  font-size: 2em;
+  padding: 10px 7px;
+}
+
+.header .menu{
+  clear: both;
+  max-height: 0;
+  transition: max-height .2s ease-out;
+}
+
+.header .menu-icon{
+  padding: 4vw;
+  position: relative;
+  float: right;
+  cursor: pointer;
+  margin-top:0.2%;
+  margin-bottom: 0.2%;
+}
+
+.header .menu-icon .nav-icon{
+  background: #333;
+  display: block;
+  height: 2px;
+  width: 18px;
+  position: relative;
+  transition: background .2s ease-out;
+}
+
+.header .menu-icon .nav-icon:before{
+  background: #333;
+  content:"";
+  display:block;
+  height:100%;
+  width: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  top: 5px;
+}
+
+.header .menu-icon .nav-icon:after{
+  background: #333;
+  content:"";
+  display:block;
+  height:100%;
+  width: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  top: -5px;
+}
+
+.header .menu-btn{
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu{
+  max-height: 240px;
+}
+
+.header .menu-btn:checked ~ .menu-icon .nav-icon{
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .nav-icon:before{
+  transform: rotate(-45deg);
+  top:0;
+}
+
+.header .menu-btn:checked ~ .menu-icon .nav-icon:after{
+  transform: rotate(45deg);
+  top:0;
+}
+
+
+
+
+/***** CSS FOR HAMBURGER
+button#hamburgerBtn { 
+background: none;
+border:none;
+color: #fff;
+font-size: 2.4rem;
+cursor: pointer;
+padding: 0 30px 0 2vw;
+outline: none;
+} *****/
+
+.bg-green{
+    background-color: rgb(95, 143, 71);
+}
+
+
+nav ul{
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li{
+    list-style-type: none;
+}
+
+.navbar a{
+    display: block;
+    padding: .8rem 0;
+    color: #eee;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+nav li.active{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+nav a:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+nav ul.open{
+    display: block;
+}
+
+nav ul{
+    display: none;
+}
+
+/* Main Content Rules */
+
+/*.jumbotron-detail-family-church{
+    background: url('../images/extraordinary-ministers.jpeg') no-repeat fixed;
+    
+  }
+  
+.jumbotron-other{
+    background: url('../images/extraordinary-ministers.jpeg') no-repeat fixed;
+ }
+ 
+.jumbotron{
+      box-shadow: inset 0 0 0 100vw rgba(0,0,0,0.1);
+      height: 70vh;
+      background-size: cover;
+      background-position: center;
+}*/
+
+/****** IMAGE SLIDER RULES ******/
+
+.container-fluid {
+	overflow: hidden;
+	padding: 0px;
+}
+.col-auto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-adjust {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-indicators {
+	bottom: 0;
+}
+.carousel-control.right, .carousel-control.left {
+	background-image: none;
+}
+.carousel-item {
+	min-height: 100%;
+	height: 100%;
+	width: 100%;
+  margin-top: 0.5%;
+}
+.carousel-caption h3 {
+	background-color: rgb(4 4 4 / 35%);
+}
+.carousel-caption button {
+	background-color: rgb(0 0 0 / 75%);
+}
+.carousel-caption button:hover {
+	background-color: #000;
+	border-color: #000;
+  font-size: 0.5rem !important;
+}
+.carousel-caption h3 {
+	padding: .5em;
+  font-size:1rem;
+}
+.carousel .icon-container {
+	display: inline-block;
+	font-size: 25px;
+	line-height: 25px;
+	padding: 1em;
+	text-align: center;
+	border-radius: 50%;
+}
+.carousel-caption button {
+	border-color: #000;
+	margin-top: 1em;
+}
+/* Animation delays */
+.carousel-caption h3:first-child {
+	-webkit-animation-delay: 1s;
+	animation-delay: 1s;
+  padding: 0.6%;
+}
+.carousel-caption h3:nth-child(2) {
+	-webkit-animation-delay: 2s;
+	animation-delay: 2s;
+}
+.carousel-caption button {
+	-webkit-animation-delay: 3s;
+	animation-delay: 3s;
+}
+h1 {
+	text-align: center;
+	margin-bottom: 30px;
+	font-size: 30px;
+	font-weight: bold;
+}
+.p {
+	padding-top: 125px;
+	text-align: center;
+}
+.p a {
+	text-decoration: underline;
+}
+.logoIcon {
+	width: 30%;
+	height: 30%;
+	border-radius: 100px;
+}
+.back-btn {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+	.carousel-item img	{
+		object-fit: cover;
+    width: 100%;
+    margin-top: 8%;
+	}
+
+/* Rules for Main*/
+
+main img{
+    width: 100%;
+    height: auto;
+}
+
+main h1{
+    color: rgb(95, 143, 71);
+    font-style: italic;
+    margin: .5rem 0 .1rem 0;
+    font-size: 0.8rem;
+}
+
+/* Lead Pastor Welcome Message Rules*/
+
+/* Lead Pastor and Msg Container */
+
+.welcome-container{
+  width: 90%;
+  border: 0.7px solid white;
+  border-radius:10px;
+  padding: 0.9%;
+  margin-top:10%;
+  margin-bottom:5%;
+  margin-left:10%;
+  float:left;
+}
+
+/* Pastor Welcome Picture Container Rule*/
+.welcome-img {
+  border-radius: 100%;
+  border: 6px solid goldenrod;
+  max-width: 60%; /* This ensures the image is not wider than the column */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove default inline styling */
+  margin-left: 30%; /* Center the image */
+  margin-right: auto; /* Center the image */
+}
+
+
+.rector-name{
+  margin-left:3%;
+  margin-top:2%;
+  color:forestgreen;
+  font-size:0.9rem;
+}
+
+.rector-title-name{
+  margin-left:32%;
+  margin-top:0.5%;
+  color:darkorange;
+  font-weight: 700;
+}
+
+.welcome-msg-container{
+  width: 60%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  margin-left:20%;
+}
+
+.welcome-msg-heading {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: green;
+  margin-left:40%;
+  margin-top:3%;
+}
+
+/* Message Container Rule*/
+.welcome-msg-content{
+  width: 90%;
+  height:auto;
+  border: 0.7px solid rgb(223, 220, 220);
+  border-radius:7px;
+  background-color:rgb(223, 220, 220) ;
+  padding:2%;
+  margin-bottom: 2%;
+  margin-left: 5%;
+  float: left;
+
+}
+
+.welcome-msg{
+  color: rgb(95, 143, 71);
+  font-style: italic;
+  margin: .1rem 0 .1rem 0;
+  font-size:3.5vw;
+  font-family: 'Montsterrat', sans-serif;
+  font-weight:bold;
+  text-align: center;
+}
+
+/* Message Content Rule*/
+
+.message{
+  font-family: Helvetica, sans-serif;
+  font-size: 0.8em;
+}
+
+/* Core Values */
+.core-value-heading{
+  text-align: center;
+  color: RGB(210, 180, 100);
+  font-size: 1em;
+  margin-top:5%;
+  margin-bottom: 5%;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+
+/*Core Value Line*/
+hr.core-value {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+/* Page Instruction*/
+.read-m{
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  text-align: center;
+  color:rgb(95, 143, 71);
+}
+
+
+/* About Us Container*/
+.aboutus-container{
+  width: 90%;
+  border: 0.7px solid rgb(223, 220, 220);
+  border-radius:10px;
+  padding: 0.9%;
+  margin-top:10%;
+  margin-bottom:5%;
+  margin-left:5%;
+  background-color: #e7e4e4;
+}
+
+/* History of the Church Write up Container*/
+.aboutus-content {
+  width: 98%;
+  border: 0.7px solid #e7e4e4;
+  border-radius: 10px;
+  padding: 4%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 1%;
+  background-color: white;
+}
+
+.aboutus-title-container{
+  width: 30%;
+  height: auto;
+  border: 0.7px solid #e7e4e4;
+  border-radius: 5px;
+  padding: 1%;
+  margin-top: 1%;
+  margin-left:35%;
+  background-color: white;
+}
+
+
+
+
+/* About Us Top Heading*/
+.aboutus-title-text{
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  font-weight:bold;
+  margin-top:0.3%;
+  color: rgb(4, 68, 4);
+  text-align: center;
+}
+
+.vision-mission-values-container{
+  width: 90%;
+  border: 0.7px solid rgb(223, 220, 220);
+  border-radius:10px;
+  padding: 0.9%;
+  margin-top:10%;
+  margin-bottom:5%;
+  margin-left:5%;
+  background-color: #e7e4e4;
+  float:left;
+}
+
+.vision-mission-values-inner {
+  width: 98%;
+  border: 0.7px solid #e7e4e4;
+  border-radius: 10px;
+  padding: 4%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 1%;
+  background-color: white;
+}
+
+.vision-container{
+  width:70%;
+  height: auto;
+  border: 10px solid goldenrod;
+  border-radius: 100%;
+  margin-top: 10%;
+  margin-left: 15%;
+  padding: 5%;
+}
+
+
+/*About The Church Container*/
+.about-church{
+  width:90%;
+  padding: 1%;
+  border-radius: 8px;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  color: #98927C;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.about-church p{
+  font-family: sans-serif;
+  font-size:0.8rem;
+  line-height: 1.6;
+  color:black;
+}
+
+.vision-mission-title{
+  font-size: 1rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 1.5%;
+  color: black;
+  font-weight: 700;
+}
+
+.vision-title{
+  font-size: 1rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 2%;
+  color: green;
+  font-weight: bold;
+}
+
+#vision-text{
+  text-align: center;
+  font-size: 0.9em;
+  font-family: 'Times New Roman', Times, serif;
+  margin-top:8%;
+  margin-left:2%;
+}
+
+/* Core Values */
+.core-values-container{
+  width: 98%;
+  height: auto;
+  border: 0.7px solid #e7e4e4;
+  border-radius:10px;
+  padding: 7% 1% 1%;
+  margin: 10% 1%;
+  background-color: white;
+}
+
+#core-values-title{
+  font-family: sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  color:green;
+  margin-top: 2%;
+  margin-bottom: 7%;
+}
+
+.core-value-name{
+  font-size: 1rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin: 10% 5%;
+  color: black;
+  font-weight: bold;
+}
+
+.core-value-people-container{
+  width: 96%;
+  height: 80px;
+  border: 0.7px solid #e7e4e4;
+  border-radius:7px 7px 2px 2px;
+  padding: 0.3%;
+  margin: 4% 2%;
+  background-color: white;
+}
+
+.core-value-progress-container{
+  width: 96%;
+  height: auto;
+  border: 0.7px solid #e7e4e4;
+  margin: 4% 2%;
+  padding-bottom: 5%;
+  background-color: white;
+}
+
+.core-value-purity-container{
+  width: 96%;
+  height: 80px;
+  border: 0.7px solid #e7e4e4;
+  border-radius:2px 2px 7px 7px;
+  margin: 4% 2%;
+  background-color: white;
+}
+
+.core-value-img{
+  width: 50%;
+  height: 100%;
+  float: left;
+  border-radius: 8px 0px 0px;
+}
+
+.core-value-progress-img{
+  width: 50%;
+  height: 100%;
+  float: left;
+  margin-top: 0.5%;
+  margin-bottom:0.3%;
+  margin-left: 0.3%;
+}
+
+
+.core-value-purity-img{
+  width: 50%;
+  height: 100%;
+  float: left;
+  border-radius: 0px 0px 0px 8px;
+}
+
+.pastors-container{
+  width: 90%;
+  border: 0.7px solid #e7e4e4;
+  border-radius:10px;
+  padding: 4%;
+  margin-top:5%;
+  margin-bottom:5%;
+  margin-left:5%;
+  background-color: white;
+  float: left;
+}
+
+
+
+
+/*About the Church Read More*/
+#more {display: none;}
+
+/* CONTACT US COMPONENTS*/
+#contact-us-title{
+  font-family:sans-serif;
+  font-size: 1rem;
+  color: goldenrod;
+  margin-top:1%;
+  text-align: center;
+  font-weight: 550;
+}
+
+.contact-us-container {
+  width: 100%;
+  margin: 0;
+  background-color: #e7e6e6;
+  padding: 3%;
+  margin-bottom: 3%;
+}
+
+.toggle-container{
+  width:96%;
+  border: 0.7px solid rgb(242, 242, 242);
+  background-color: white;
+  border-radius: 5px 5px 5px 5px;
+  padding: 2%;
+  margin-top:2%;
+}
+
+#btn-toggle{
+  width:40%;
+  margin-top:1%;
+  margin-left: 5%;
+  font-size:0.7rem;
+  font-family: sans-serif;
+  font-weight: 450;
+  padding-left: 3%;
+}
+
+.toggle-container p{
+  text-align: center;
+  font-size: 0.9em;
+  font-family: 'Times New Roman', Times, serif;
+  margin:3% 0.7%;
+}
+
+.toggle-container p > b{
+  color:goldenrod;
+  font-weight:750;
+}
+
+#contact-address{
+  font-size: 0.8rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 2%;
+  color: green;
+  font-weight: 700;
+}
+
+#email-toggle-contact{
+  font-size: 2.3vw;
+}
+
+.special-services-prayer{
+  width: 90%;
+  border: 0.7px solid #e6dfdf;
+  border-radius: 8px;
+  padding:0;
+  margin: 5% 5%;
+  float: left;
+}
+
+.special-services-prayer-top{
+  width:100%;
+  margin:0;
+  float: left;
+  background-color: rgb(223, 188, 100);
+  border-radius: 8px 8px 0px 0px;
+  height: auto;
+  padding: 5%;
+}
+
+#special-services-title{
+  font-size: 1.5rem;
+  font-family: 'Markazi Text', serif;
+  font-weight: 800;
+  text-align: center;
+  color: white;
+}
+
+.special-service-name-container{
+  width:65%;
+  border: 0.7px solid #e1e0e0;
+  background-color: #e1e0e0;
+  margin-top: 5%;
+  margin-left: 18%;
+}
+
+
+hr.style-six {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  width:80%;
+  margin-left: 10%;
+}
+
+#sunday-service-day{
+  font-size: 1rem;
+  font-family: sans-serif;
+  color: #8a3939;
+  text-align: center;
+  margin-top:3.5%;
+}
+
+#special-services-text{
+  font-size: 1rem;
+  font-family: 'Charm', cursive;
+  color: black;
+  text-align: center;
+  margin-top: 2%;
+}
+
+#church-departments-text{
+  font-size: 1rem;
+  font-family: 'Charm', cursive;
+  color: black;
+  text-align: center;
+  margin-top: 1%;
+}
+
+.special-services-prayer-bottom{
+  width:100%;
+  margin:0;
+  padding:1%;
+}
+
+.services-content{
+  width: 99%;
+  height: auto;
+  border: 1px solid white;
+  border-radius: 0px 0px 8px 8px;
+  margin: 0.5%;
+  padding-bottom: 2%;
+  background-color: white;
+  float:left;
+}
+
+
+
+/* About Us Page Instruction
+.read-m-aboutus{
+  font-family: sans-serif;
+  font-size:0.8rem;
+  text-align:center;
+  color:#333;
+}*/
+
+.card{
+  margin: 3% 3% 3% 3%;
+}
+
+/* Flip Cards on About Page*/
+.flip-card {
+    background-color: transparent;
+    width: 90%;
+    height: 30vw;
+    perspective: 1000px;
+    margin: 3%;
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    cursor: pointer;
+  }
+  
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .flip-card-front {
+    background-color: #2980b9;
+    color: white;
+  }
+
+  .flip-card-front h4{
+      font-size: 1.2rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      margin-top: 0.9%;
+  }
+
+  .flip-card-back h4{
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    margin-top: 0.9%;
+  }
+
+  .flip-card-front p{
+      font-size: 0.86em;
+      font-family:'Times New Roman', Times, serif;
+      margin-top: 0.5%;
+      margin-bottom: 0.4%;
+      color:black;
+  }
+  
+  .flip-card-back {
+    background-color: #bbb;
+    color: black;
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-back h4{
+      font-size: 1rem;
+      margin-top: 1%;
+  }
+
+  .flip-card-back p{
+      font-size: 1rem;
+      font-family: 'Times New Roman', Times, serif;
+      margin-top: 0.5%;
+      margin-bottom: 0.4%;
+      color:black;
+  }
+
+  
+  .service-back p{
+    font-size: 0.85em;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 0.5%;
+    margin-bottom: 0.4%;
+    color:black;
+}
+
+/* Address, Services, on About Us Page */
+.service-bg{
+  width: 100%;
+  height: auto;
+  background: url('https://westfieldcc.files.wordpress.com/2011/10/simple-blur-ipad-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+.wrapper {
+  margin: 5% auto;
+  width: 90%;
+  font-family: sans-serif;
+  color: #98927C;
+  font-size: 14px;
+  line-height: 24px;
+  max-width: 100%;
+  min-width: 100%;
+  overflow: hidden;
+}
+.tabs li {
+  list-style: none;
+  float: left;
+  width: 20%;
+}
+.tabs a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  text-transform: capitalize;
+  color: #fff;
+  height: 70px;
+  line-height: 90px;
+  background: linear-gradient(165deg, transparent 29%, #98927C 30%);
+}
+.tabs a:hover,
+.tabs a.active {
+  background: linear-gradient(165deg, transparent 29%, #F2EEE2 30%);
+  color: #98927C;
+}
+.tabs a:before {
+  content: '';
+  position: absolute;
+  z-index: 11;
+  left: 100%;
+  top: -100%;
+  height: 70px;
+  line-height: 90px;
+  width: 0;
+  border-bottom: 70px solid rgba(0, 0, 0, 0.1);
+  border-right: 7px solid transparent;
+}
+.tabs a.active:before {
+  content: '';
+  position: absolute;
+  z-index: 11;
+  left: 100%;
+  top: -100%;
+  height: 70px;
+  line-height: 90px;
+  width: 0;
+  border-bottom: 70px solid rgba(0, 0, 0, 0.2);
+  border-right: 20px solid transparent;
+}
+.tabgroup {
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.tabgroup div {
+  padding: 30px;
+  background: #F2EEE2;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+
+/*Worship Days Page Rules*/
+
+#worship-days-title {
+  font-size: 1.1rem;
+  font-family: 'Markazi Text', serif;
+  font-weight: 800;
+  text-align: center;
+  color: goldenrod;
+}
+
+.u-float-right {
+  float: right;
+}
+
+.u-flex-center {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.subtle {
+  color: #888;
+  font-size: 0.9rem;
+  font-weight:550;
+}
+
+.card-media {
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+  height: 125px;
+  margin-bottom: 25px;
+  transition: all 300ms ease-out;
+  width: 100%;
+}
+
+.card-media:hover {
+  box-shadow: 0 5px 14px rgba(0, 0, 0, .2);
+}
+
+.card-media-object-container {
+  background: none;
+  float: left;
+  height: 100%;
+  width: 35%;
+  position: relative;
+}
+
+.card-media-object {
+  background-position: center center;
+  background-size: cover;
+  height: 100%;
+}
+
+.card-media-object:after {
+  content: " ";
+  display: block;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 300ms ease-out;
+  z-index: 10;
+}
+
+.card-media:hover .card-media-object:after {
+  background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 52%, rgba(0,0,0,0.4) 100%);
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 52%,rgba(0,0,0,0.4) 100%);
+  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 52%,rgba(0,0,0,0.4) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 );
+  opacity: 1;
+}
+
+.card-media-object-tag {
+  background-color: #fff;
+  border-radius: 2px;
+  padding: 2px 7px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.card-media-object-social-list {
+  bottom: 4px;
+  left: 10px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 20;
+}
+
+.card-media-object-social-list li {
+  border-radius: 50%;
+  display: inline-block;
+  height: 30px;
+  margin-right: 6px;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(5px);
+  transition: all 300ms ease-out;
+  width: 30px;
+}
+
+.card-media:hover .card-media-object-social-list li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-media-object-social-list li:nth-child(1) {
+  transition-delay: 0;
+}
+.card-media-object-social-list li:nth-child(2) {
+  transition-delay: 75ms;
+}
+.card-media-object-social-list li:nth-child(3) {
+  transition-delay: 150ms;
+}
+
+.card-media-object-social-list-item-additional {
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 12px;
+  padding-top: 7px;
+  text-align: center;
+}
+
+.card-media-body {
+  background-color: #fff;
+  float: left;
+  height: 100%;
+  padding: 12px 15px;
+  position: relative;
+  width: 65%;
+}
+
+.card-media-body-top {
+  display: block;
+}
+
+.card-media-body-top-icons {
+  margin-top: -2px;
+  opacity: 0;
+  transition: all 300ms ease-out;
+  transform: translateY(-5px);
+}
+
+.card-media:hover .card-media-body-top-icons {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-media-body-top-icons > svg {
+  cursor: pointer;
+  margin-left: 10px;
+  transition: all 300ms ease-out;
+}
+
+.card-media-body-top-icons > svg:hover {
+  fill: #444;
+}
+
+.card-media-body-heading {
+  display: block;
+  margin-top: 2%;
+  color:green;
+  font-weight: 600;
+  font-size: 0.8em;
+}
+
+.card-media-body-supporting-bottom {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  opacity: 1;
+  padding: 0 15px;
+  transition: all 300ms ease-out;
+  width: 100%;
+}
+
+.card-media:hover .card-media-body-supporting-bottom {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.card-media-body-supporting-bottom-text {
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+.card-media-body-supporting-bottom-reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 300ms ease-out;
+}
+
+.card-media:hover .card-media-body-supporting-bottom-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-media-link {
+  color: #41C1F2;
+  text-decoration: none;
+}
+
+
+  
+
+  /* Flip Images on Events*/
+  .flip-box {
+    background-color: transparent;
+    width: 100%;
+    height: 50vw;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    margin-bottom: 2%;
+    float: left;
+  }
+  
+  /* This container is needed to position the front and back side */
+  .flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-box:hover .flip-box-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .flip-box-front, .flip-box-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+
+  .flip-box-front img{
+    width:100%; 
+    height:50vw;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-box-front {
+    background-color: #bbb;
+    color: black;
+  }
+  
+  /* Style the back side */
+  .flip-box-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+  
+.vision-mission{
+    width: 100%;
+    height: 7vw;
+    margin-top:0;
+
+}
+
+.vision-mission-text-contain{
+    width:auto;
+    height: auto;
+    float: left;
+    margin-left: 12rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.vision-mission h5{
+    
+    font-size: 1rem;
+}
+
+.vision-mission h1{
+    font-family: 'Itim', cursive;
+    font-weight:400;
+    text-align: center;
+    font-size: 2rem;
+}
+
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 5.5px;
+    text-align: center;
+    background-color: #fff;
+    border-radius:10px;
+    cursor:pointer;
+    margin: 3.6%;
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    cursor: pointer;
+  }
+  .card .profile{
+     border-radius:5px;
+     transition: 0.2s;
+  }
+
+  .profile{
+    width:100%;
+    height:100%;
+  }
+  .card:hover .profile{
+    transform:scale(1.4);
+    border-top-right-radius:50px;
+    border-top-left-radius:50px;
+  }
+  
+  .card .content{
+    width:100%;
+    height:100%;
+    position:relative;
+    overflow:hidden;
+  }
+  .card .content .back{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color: #f1f1f1e6;
+    transition:1s;
+    
+    z-index:1;
+    padding:10px;
+  }
+  
+  .from-left{
+    top:0;
+    left:-100%;
+  }
+
+
+  .card:hover .content .from-left {
+     left:0%;
+  }
+  
+  .from-bottom{
+    top:100%;
+    left:0;
+  }
+  .card:hover .content .from-bottom {
+     top:0%;
+  }
+  
+  .from-right{
+    top:0%;
+    right:-100%;
+  }
+  .card:hover .content .from-right {
+     right:0;
+  }
+  
+  .card .content h2{
+      font-size: 1rem;
+      color: rgb(95, 143, 71);
+      font-weight: 600;
+      margin-top:2%;
+  }
+
+  #card-pastor-title{
+    font-family: sans-serif;
+    font-size: 1rem;
+    margin-top: 1%;
+  }
+
+  .card .content .back h3{
+    font-size:0.9rem;
+    color: RGB(210, 180, 100);
+    letter-spacing:1px;
+    color:black;
+  }
+  .card .content .back .tem-img{
+    border-radius:100%;
+    width:15%;
+    height:auto;
+  }
+  
+  .card .content .back .des{
+    font-size:0.7rem;
+    padding:1px 0px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .card .content .back .social-icon{
+    list-style:none;
+    margin:0px;
+    padding:0px;
+  }
+  .card .content .back .social-icon li{
+    display:inline-block;
+  }
+  
+  .card .content .back .social-icon li a{
+    display:block;
+    background:#333;
+    color:#fff;
+    width:40px;
+    height:40px;
+    text-align:center;
+    line-height:40px;
+    border-radius:100%;
+  }
+  
+
+/*.pastors-container{
+    width: 100%;
+    border: solid 1px rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+}*/
+
+.pastors-heading{
+    text-align: center;
+    color: green;
+    font-size:1.5rem;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.contact-address-heading{
+    width: 100%;
+    background-color: rgba(49, 160, 54, 0.287);
+    font-size: 14px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:400;
+    text-align:center;
+}
+
+.contact-address{
+    font-size: 13px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    background-color: white;
+    border: solid 0.5px black;
+    text-align: center;
+    box-shadow: 5px 5px 5px  #aaaaaa;
+}
+
+
+
+.core-value{
+    width: 100%;
+    height: 20%;
+    border: solid 1px rgb(189, 176, 176);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin-bottom: 10%;
+    animation: shake 20s cubic-bezier(.36,.07,.19,.97) both;
+    animation-iteration-count: infinity;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/**.core-value-img{
+    width:50%;
+    height: 100%;
+    float: left;
+    
+}*/
+
+
+
+.card-heading{
+  color: rgb(95, 143, 71);
+  font-size: 1.2rem;
+  font-family: 'Lato', sans-serif;
+  font-weight:600;
+}
+
+.core-value img{
+  width: 100%;
+  height: 60vw;
+}
+
+.core-value h3{
+    color:rgb(95, 143, 71);
+    text-align: center;
+    font-size: 1.3rem;
+    
+}
+
+.pastor{
+    width: 100%;
+    height: 20%;
+    border: solid 1px green;
+    border-radius: 5px;  
+}
+
+.pastor img{
+    width: 100%;
+    height: 70%;
+}
+
+.pastor h3{
+    font-size: 1.3rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    font-weight: 400;
+    text-align: center;
+    background-color: green;
+    margin-top: 0;
+}
+
+.pastor h4{
+    font-size: 1rem;
+    font-family: sans-serif;
+    color:RGB(15, 30, 225);
+    font-weight:350;
+    text-align:center;
+}
+
+.pastor button{
+   background-color: RGB(210, 180, 100); 
+   padding: 0.6rem;
+   text-align: center;
+   margin: 2% 36% 5%;
+   border: solid 1px RGB(210, 180, 100);
+   border-radius: 5px;
+}
+
+/* Stylish Line */
+hr.style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+    margin-top: 10%;
+}
+hr.style-eight:after {
+    content: url('../images/Bible.png');
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
+
+/*Home Page Cards Rules*/
+.card-text{
+  font-family:Helvetica, sans-serif;
+  font-size: 0.8rem;
+
+}
+
+
+
+/* Footer Rules */
+footer{
+    -position: fixed;
+    background-color: RGB(210, 180, 100);
+    font-size: 1.1rem;
+    bottom: 0px;
+    width:100%;
+}
+
+
+
+.developed-by{
+  font-size: 0.7rem;
+  font-weight: 450;
+  text-align: center;
+  background-color: forestgreen;
+  width:100%;
+  height: 5;
+  padding:1%;
+  color:white;
+  font-family: sans-serif;
+}
+
+footer ul li{
+    list-style-type: none;
+    text-align: center;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+footer img{
+    float: left;
+    width:50px;
+    padding-right: 2px;
+}
+
+footer a{
+  text-decoration: none;
+  text-transform: none;
+}
+
+
+.footer-dark {
+  padding:5px 0;
+  color:#f0f9ff;
+  background-color: rgb(95, 143, 71);
+}
+
+.footer-dark h3 {
+  margin-top:5%;
+  margin-bottom:5%;
+  font-weight:bold;
+  font-size:1rem;
+}
+
+.footer-dark ul {
+  padding:0;
+  list-style:none;
+  line-height:1.6;
+  font-size:14px;
+  margin-bottom:0;
+}
+
+.footer-dark ul a {
+  color:black;
+  text-decoration:none;
+  opacity:0.6;
+  font-size: 0.93rem;
+
+}
+
+.footer-dark ul a:hover {
+  opacity:0.8;
+  text-decoration: none;
+}
+
+@media (max-width:767px) {
+  .footer-dark .item:not(.social) {
+    text-align:center;
+    padding-bottom:20px;
+  }
+}
+
+.footer-dark .item.text {
+  margin-bottom:36px;
+}
+
+@media (max-width:767px) {
+  .footer-dark .item.text {
+    margin-bottom:0;
+  }
+}
+
+.footer-dark .item.text p {
+  opacity:0.6;
+  margin-bottom:0;
+  color:black;
+  font-size: 1rem;
+  font-family: sans-serif;
+}
+
+.footer-dark .item.social {
+  text-align:center;
+}
+
+@media (max-width:991px) {
+  .footer-dark .item.social {
+    text-align:center;
+    margin-top:1.5%;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+}
+
+.footer-dark .item.social > a {
+  font-size:20px;
+  width:36px;
+  height:36px;
+  line-height:36px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.4);
+  color:#fff;
+  opacity:0.75;
+  margin: 4%;
+}
+
+.footer-dark .item.social > a:hover {
+  opacity:0.9;
+}
+
+.footer-dark .copyright {
+  text-align:center;
+  padding-top:7px;
+  font-size:0.7rem;
+  font-family: sans-serif;
+  margin-bottom:0;
+  color:black;
+}
+
+
+
+
+
+
+
+
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .container{
+    color: white !important;
+  }

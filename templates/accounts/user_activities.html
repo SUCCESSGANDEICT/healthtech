@@ -1,0 +1,191 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+            
+            
+            <!--Search Transaction Container Start-->
+        <div class="container">
+            
+            
+            
+          </div>
+             <!-- Begin Page Content -->
+            <div class="container"> 
+
+                 
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+                    <!--Alert Template-->
+                 {% include 'admission/partials/_alerts.html' %}
+                 <!--Alert Template--> 
+                </div>
+                
+                <!--SEARCH USER FORM -->
+                <div class="row my-4">
+      
+                    <div class="col-md-12">
+                      <div class="border myCard-body p-3">
+                         
+                          <h4 class="text-center">
+                            Search Portal User by Username
+                          </h4>
+                          <hr>
+                          <form method="GET">
+                            {% csrf_token %}
+          
+                            {{ search_form | crispy }}
+        
+                           
+                            <!--Check Page Title and Allocate Submit Value-->
+                           
+                            <input class="btn btn-info btn-block" type="submit"  value="Search">
+                            
+          
+                          </form>
+                      </div>
+                    </div>
+        
+                </div>
+                 <!--SEARCH USER FORM END -->
+
+            
+                    <div class="col-xl-12 col-lg-12 col-md-9">
+                        <!-- Hidden Card Body -->
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+
+                                    <div class="col-lg-12">
+                                       <div class="p-1">
+                                            <div class="table-responsive">
+                                                {% if activities %} 
+                                                  <table class="table myCard-body">
+                                                      <thead class="bg-info text-white">
+                                                        <tr>
+                                                          <th scope="col">#</th>
+                                                          <th scope="col" style="color: white;">Staff Role</th>
+                                                        
+                                                          <th scope="col" style="color: white;" nowrap>Username</th>
+                        
+                                                          <th scope="col" style="color: white;" nowrap>Action and Page Visited</th>
+                                                          
+                                                          <th scope="col" style="color: white;" nowrap>Date & Time</th>
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                        
+                                    
+                                                        {% for user_activity in activities %}
+                                                        <tr>
+                                                          <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                        
+                                                          <td style="color:black;" nowrap>{{ user_activity.user.profile.role|capfirst}}</td>
+                        
+                                                          <td nowrap style="color:black;">{{ user_activity.user.username }}</td>
+                        
+                                                          <td nowrap style="color:black;">{{ user_activity.action }}</td>
+                                                         
+                                                          <td nowrap style="color:black;">{{ user_activity.timestamp }}</td>
+                                                        </tr>
+                                                        {% endfor %}    
+                                                        
+                                                        
+                                                         
+                                                      </tbody>
+                                                  </table>
+                                                    
+                                                {% else %}  
+                                                     <h4 style="text-align: center; font-size:0.9rem; color:red;">No User Activity Yet</h4>    
+                                                {% endif %}
+                                                
+                                                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                                <!-- Nested Row within Card Body END -->
+                            </div>
+                             
+                        </div>
+                        <!-- Hidden Card Body END -->
+                        <!--Pagination--><!--PAGINATION THAT PRESERVES SEARCH QUERRY-->
+                        <div class="row ml-5 mb-3">
+                            <div class="col-md-12">
+                                <div class="pagination-box"> 
+                                    <ul class="pagination">
+                                        {% if activities.has_previous %}
+                                          <li class="page-item">
+                                            <a class="page-link" href="{% url 'user_activities' %}?q={{ search_query }}&page=1">
+                                              <i class="fa fa-angle-double-left"></i> </a>
+                                          </li>
+                                          <li class="page-item">
+                                            <a class="page-link" href="{% url 'user_activities' %}?q={{ search_query }}&page={{ activities.previous_page_number }}">
+                                              {{ activities.previous_page_number }}
+                                            </a>
+                                          </li>
+                                        {% endif %}
+                                      
+                                        <li class="page-item active">
+                                          <a class="page-link" href="{% url 'user_activities' %}?q={{ search_query }}&page={{ activities.number }}">
+                                            {{ activities.number }}
+                                          </a>
+                                        </li>
+                                      
+                                        {% if activities.has_next %}
+                                          <li class="page-item">
+                                            <a class="page-link" href="{% url 'user_activities' %}?q={{ search_query }}&page={{ activities.next_page_number }}">
+                                              {{ activities.next_page_number }}
+                                            </a>
+                                          </li>
+                                          <li class="page-item">
+                                            <a class="page-link" href="{% url 'user_activities' %}?q={{ search_query }}&page={{ activities.paginator.num_pages }}">
+                                              <i class="fa fa-angle-double-right"></i> </a>
+                                          </li>
+                                        {% endif %}
+                                    </ul>  
+                                </div>
+                            </div>
+                        </div>
+                        <!--PAGINATION THAT PRESERVES SEARCH QUERRY END-->
+            
+                      </div>
+            
+                </div>
+
+            </div>
+        <!-- End Main Content -->
+
+       
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

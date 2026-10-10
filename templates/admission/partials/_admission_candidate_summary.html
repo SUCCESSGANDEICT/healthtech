@@ -1,0 +1,156 @@
+<style>
+    .summary-review {
+        color: #1f2933;
+    }
+
+    .summary-review__section {
+        border: 1px solid #d9e2ec;
+        margin-bottom: 1rem;
+        padding: .9rem;
+    }
+
+    .summary-review__title {
+        color: #0f609b;
+        font-size: .9rem;
+        font-weight: 700;
+        margin-bottom: .65rem;
+        text-transform: uppercase;
+    }
+
+    .summary-review__item {
+        border-bottom: 1px solid #edf2f7;
+        display: block;
+        padding: .55rem 0;
+    }
+
+    .summary-review__item:last-child {
+        border-bottom: 0;
+    }
+
+    .summary-review__label {
+        color: #627d98;
+        display: block;
+        font-size: .75rem;
+        font-weight: 700;
+        margin-bottom: .15rem;
+        text-transform: uppercase;
+    }
+
+    .summary-review__value {
+        display: block;
+        overflow-wrap: anywhere;
+    }
+
+    .summary-review__table {
+        min-width: 560px;
+    }
+
+    @media (min-width: 768px) {
+        .summary-review__item {
+            display: grid;
+            grid-template-columns: 150px minmax(0, 1fr);
+            gap: 1rem;
+        }
+
+        .summary-review__label {
+            margin-bottom: 0;
+        }
+    }
+</style>
+
+<div class="summary-review">
+    <div class="row">
+        <div class="col-lg-6">
+            <section class="summary-review__section">
+                <h6 class="summary-review__title">Candidate Profile</h6>
+                <div class="summary-review__item"><span class="summary-review__label">Full Name</span><span class="summary-review__value">{{ profile.first_name|title }} {{ profile.middle_name|title }} {{ profile.last_name|title }}</span></div>
+                <div class="summary-review__item"><span class="summary-review__label">Application No.</span><span class="summary-review__value">{{ application.applicant.pre_applicant.application_number|default:application.applicant.username }}</span></div>
+                <div class="summary-review__item"><span class="summary-review__label">Gender</span><span class="summary-review__value">{{ profile.gender|default:'-' }}</span></div>
+                <div class="summary-review__item"><span class="summary-review__label">Date of Birth</span><span class="summary-review__value">{{ profile.date_birth|date:'d M Y'|default:'-' }}</span></div>
+                <div class="summary-review__item"><span class="summary-review__label">State/LGA</span><span class="summary-review__value">{{ profile.state|default:'-' }} / {{ profile.lga|default:'-' }}</span></div>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section class="summary-review__section">
+                <h6 class="summary-review__title">Application and Contact</h6>
+                <div class="summary-review__item"><span class="summary-review__label">Email</span><span class="summary-review__value">{{ application.applicant.email|default:application.applicant.username }}</span></div>
+                <div class="summary-review__item"><span class="summary-review__label">Phone</span><span class="summary-review__value">{{ profile.phone_number|default:'-' }}</span></div>
+                <div class="summary-review__item"><span class="summary-review__label">Programme</span><span class="summary-review__value">{{ application.course_name }}</span></div>
+                <div class="summary-review__item"><span class="summary-review__label">Category</span><span class="summary-review__value">{{ screening_payment.fee_category|default:'-' }}</span></div>
+                <div class="summary-review__item"><span class="summary-review__label">Session</span><span class="summary-review__value">{{ application.academic_sess }}</span></div>
+            </section>
+        </div>
+    </div>
+
+    <section class="summary-review__section">
+        <h6 class="summary-review__title">Payment Confirmation</h6>
+        <div class="summary-review__item">
+            <span class="summary-review__label">Screening Fee</span>
+            <span class="summary-review__value">
+                {% if screening_payment %}
+                    <span class="badge badge-success">Verified</span>
+                    {{ screening_payment.amount }} ({{ screening_payment.fee_category }}) on {{ screening_payment.payment_date|date:'d M Y' }}
+                {% else %}
+                    <span class="badge badge-danger">Not Verified</span>
+                {% endif %}
+            </span>
+        </div>
+        <div class="summary-review__item"><span class="summary-review__label">Reference</span><span class="summary-review__value">{{ screening_payment.pay_ref|default:'-' }}</span></div>
+        <div class="summary-review__item">
+            <span class="summary-review__label">Application Form</span>
+            <span class="summary-review__value">
+                {% if application_form_payment %}
+                    <span class="badge badge-success">Verified</span>
+                    {{ application_form_payment.amount }} on {{ application_form_payment.payment_date|date:'d M Y' }}
+                {% else %}
+                    <span class="badge badge-secondary">Not Verified</span>
+                {% endif %}
+            </span>
+        </div>
+    </section>
+
+    <section class="summary-review__section">
+        <h6 class="summary-review__title">Education History</h6>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered summary-review__table">
+                <thead class="thead-light">
+                    <tr><th>School</th><th>Certificate</th><th>Years</th></tr>
+                </thead>
+                <tbody>
+                    {% for record in education_records %}
+                    <tr>
+                        <td>{{ record.school_name|default:'-' }}</td>
+                        <td>{{ record.certificate|default:'-' }}</td>
+                        <td>{{ record.admitted_year|default:'-' }} - {{ record.end_year|default:'-' }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="3" class="text-center">No education records found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="summary-review__section">
+        <h6 class="summary-review__title">SSCE/O-Level Results</h6>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered summary-review__table">
+                <thead class="thead-light">
+                    <tr><th>Exam</th><th>Subject</th><th>Grade</th><th>Year</th></tr>
+                </thead>
+                <tbody>
+                    {% for result in result_records %}
+                    <tr>
+                        <td>{{ result.result_name }}</td>
+                        <td>{{ result.subject_name }}</td>
+                        <td>{{ result.subject_grade }}</td>
+                        <td>{{ result.exam_year|default:'-' }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4" class="text-center">No O-Level result records found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

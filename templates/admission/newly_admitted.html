@@ -1,0 +1,236 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+<style>
+    .serial-number-column { /* Add a class for better targeting */
+        width: 30px; /* Adjust width as needed */
+        padding: 1px;
+      }
+
+      .gender-column { /* Add a class for better targeting */
+        width: 50px; /* Adjust width as needed */
+        padding: 1px;
+      }
+
+      .id-column { /* Add a class for better targeting */
+        width: 110px; /* Adjust width as needed */
+        padding: 1px;
+      }
+
+      .state-column { /* Add a class for better targeting */
+        width: 100px; /* Adjust width as needed */
+        padding: 1px;
+      }
+      .total_scores-column { /* Add a class for better targeting */
+        width: 45px; /* Adjust width as needed */
+        padding: 1px;
+      }
+</style>
+
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+                <!--Alert Template-->
+                {% include 'admission/partials/_alerts.html' %}
+                <!--Alert Template-->
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    
+            
+                    <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white;!important">
+                              <div class="slip-logo-passport-contain">
+                                  <div class="slip-logo">
+                                      <img width="100" height="100" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo">
+                                  </div>
+                          
+                                  <div class="slip-head-container">
+                                      <h1 class="slip-header">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1>
+                                      <h2 class="slip-sub-header">P.M.B 1166 GBOKO, BENUE STATE</h2>
+                                      <h4 class="slip-sub-header">Registry Department</h4>
+                                      <h3 class="slip-sub-under"> {{ page_title }}</h3>
+                                      {% if page_title != 'POST-UTME Admission Report' %}
+                                      <h2 class="slip-sub-header" style="color:red; font-size:0.8rem;">{{ latest_academic_session }}  Academic Session.</h2>
+                                        {% endif %}
+                                    </div>
+                                  
+                              </div>
+                            </div>
+                       
+                            <div class="card-body">
+                             <div class="row">
+                                <div class="col-md-12">
+                                    {% if admitted_students %}
+                                    <div class="table-responsive">
+                                        
+
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                   
+                                                    <h2 style="color: black; text-align:center; font-size:1rem; font-weight:700;">{{ page_title }} List for {{latest_academic_session}} Academic Session. </h2>
+                                                    
+                                                    <hr>
+                                                    <table id="app-slip-table">
+                                                    <thead class="bg-info text-white">
+                                                        <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col" nowrap>Full Name</th>
+
+                                                        <th scope="col" style="color: white;">Gender</th>
+
+                                                        
+                                                        <th scope="col" style="color: white;" nowrap>Student ID</th>
+                        
+                                                        <th scope="col" style="color: white;" nowrap>Program</th>
+
+                                                        <th scope="col" style="color: white;" nowrap>Department</th>
+
+                                                        <th scope="col" style="color: white;" nowrap>Admitted Level</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                    
+                                                        {% for student in admitted_students %}
+                                                        <tr>
+                                                        <th scope="row" >{{ forloop.counter }}</th>
+                        
+                                                        <td style="color:black;">{{ student.applicant.profile.first_name|title}} 
+                                                            {{ student.applicant.profile.middle_name|title}}
+                                                            {{ student.applicant.profile.last_name|title}}
+                                                        </td>
+                        
+                                                        <td nowrap style="color:black;">{{ student.applicant.profile.gender }}</td>
+                        
+                                                        <td nowrap style="color:black;">{{ student.applicant.submitted_application.student_id }}</td>
+
+                                                        
+                                                        <td style="color:black;">{{  student.admitted_course }}</td>
+
+                                                        <td style="color:black;">{{  student.admitted_course.department.name}}</td>
+
+                                                        <td style="color:black;">{{ student.admitted_level }}</td>
+
+                                                        
+                                                        </tr>
+                                                        {% endfor %}    
+                                                        
+                                                        <tr id="printButtonRow">
+                                                            <th colspan="5">
+                        
+                                                            </th>
+                                                            <td>
+                                                                <a class="btn btn-success" href="{% url 'download_newly_admitted_pdf' %}?admitted_level={{ admitted_level }}&academic_session={{ latest_academic_session.id }}">Download PDF</a>
+
+                                                            </td>
+                                                          </tr> 
+                                                        
+                                                    </tbody>
+                                                    </table>
+                                                    
+                                                </div>
+                                        </div>
+
+                                       
+                                    </div>
+                                    {% else %}
+                                    <span style="color: red; font-size:1rem; font-weight:600; text-align:center;">No POST UTME Candidate Found.</span>
+                                    {% endif %}
+
+                                </div>
+                                   
+                             </div>
+                              
+    
+                            </div>
+                        </div>
+
+                    </div>
+            
+                      
+                     <!--Pagination-->
+                     <div class="pagination-box"> 
+                        <ul class="pagination">
+                            {% if admitted_students.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{{ request.GET.urlencode }}&page=1">
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ admitted_students.previous_page_number }}">
+                                        {{ admitted_students.previous_page_number }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            
+                            <li class="page-item active">
+                                <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ admitted_students.number }}">
+                                    {{ admitted_students.number }}
+                                </a>
+                            </li>
+                            
+                            {% if admitted_students.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ admitted_students.next_page_number }}">
+                                        {{ admitted_students.next_page_number }}
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ admitted_students.paginator.num_pages }}">
+                                        <i class="fa fa-angle-double-right"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>  
+                    </div>
+                    <!--PAGINATION END-->
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {% include 'accounts/partials/_sideBar.html' %}
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                {% include 'accounts/partials/_dashboard_heading.html' %}
+                <!-- End Page Heading -->
+
+
+                 <!--Alert Template-->
+                 {% include 'admission/partials/_alerts.html' %}
+                 <!--Alert Template-->
+
+                 <!--Profile and Notice Board Container-->
+                  <div class="row">
+                        
+                        
+                        <div class="col-md-12 mb-5"> 
+                            <div class="card">
+                                  <div class="card-header bg-info text-white">
+                                    {{object.last_name|capfirst}} {{page_title}} for Admission
+                                  </div>
+                                  <div class="card-body">
+                                  <div class="row">
+                                      <div class="col-md-10">
+                                            <span class="h4">{{page_title}}</span>
+                                           
+                                          <table class="table myCard-body table-borderless">
+                                              <tbody>
+                                                <tr>
+                                                  <th scope="row" style="color: black;" nowrap>Email/Username:</th>
+                                                  <td style="color: black;">{{object.applicant.email}}</td>                                   
+                                                </tr> 
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Full Name</th>
+                                                      <td style="color: black;">{{object.last_name|title}}  {{object.first_name|title}}
+                                                        {% if object.middle_name %}
+                                                        {{object.middle_name|title}}
+                                                        {% endif %}
+                                                      </td>
+                                                    </tr>
+                                                    {% if not page_title == 'Pre-Application Detail' %}
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>Application ID:</th>
+                                                        <td style="color: black;">{{object.student_id}}</td>                                   
+                                                    </tr>
+                                                    {% endif %}
+                                                    {% if page_title == 'Pre-Application Detail' %}
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Invoice ID:</th>
+                                                      <td style="color: black;">{{object.invoice_number}}</td>                                   
+                                                  </tr>
+
+                                                    {% endif %}
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>School:</th>
+                                                        <td style="color: black;">{{object.course_name.department.faculty.name}}</td>                                   
+                                                      </tr>
+                                        
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Program of Choice:</th>
+                                                      <td style="color: black;">{{object.course_name}}</td>                                   
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Department:</th>
+                                                      <td style="color: black;">{{object.course_name.department}}</td>                                   
+                                                    </tr>  
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Academic Session:</th>
+                                                      <td style="color: black;">{{recent_academic_session}}</td>                                   
+                                                    </tr>  
+                                                    {% if not page_title == 'Pre-Application Detail' %}
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>Application Session:</th>
+                                                        <td style="color: black;">{{object.academic_sess}}</td>                                   
+                                                    </tr> 
+                                                    {% endif %}
+                                                            
+                                                </tbody>
+                                          </table>
+                                      </div>
+                                      <div class="col-md-2"> 
+                                      
+                                          <img class="img-thumbnail" src=" {% image_url object.applicant.profile.image %} " alt="profile image">
+                                        
+                                        </div>
+                                    
+                                  </div>
+                                  {% if object %}
+                                  {% if not page_title == 'Pre-Application Detail' %}
+                                  <a href="{% url 'reset_submited_form' object.pk %} " class="btn btn-danger">
+                                    
+                                    Reset Application
+                                 
+                                  </a>
+                                  {% else %}
+                                  <a href="{% url 'edit_pre_applicant' object.pk %} " class="btn btn-danger">
+                                    
+                                    Edit Pre-Applicant
+                                 
+                                  </a>
+                                  {% endif %}
+                                  
+                                  {% endif %}
+                                  </div>
+                                  
+                            </div>
+                        </div>
+
+
+                  </div>
+                  <!-- End of Profile and Notice Board Container-->
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

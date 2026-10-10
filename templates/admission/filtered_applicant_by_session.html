@@ -1,0 +1,178 @@
+{% extends 'account_base.html' %}
+{% block title %} {{ page_title }} {% endblock%}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div id="wrapper">
+    <!-- Sidebar -->
+    {% include 'accounts/partials/_sideBar.html' %}
+    <!-- End Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+            
+             <!-- Begin Page Content -->
+             <div class="container"> 
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+                    <div class="col-md-12" id="application-slip">
+                        <div class="myCard">
+                            {% if not page_title == 'List of Applicants' %}
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white;!important">
+                              <div class="slip-logo-passport-contain">
+                                  <div class="slip-logo">
+                                      <img width="100" height="100" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo">
+                                  </div>
+                                  <div class="slip-head-container">
+                                      <h1 class="slip-header">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1> 
+                                      <h2 class="slip-sub-header" style=" font-weight:650;">P.M.B 1166 GBOKO, BENUE STATE</h2>
+                                      <h4 class="slip-sub-header" style="font-size:1.2rem; font-weight:650;">Academic Office</h4>
+                                      <h3 class="slip-sub-under" style=" font-size:1.2rem; font-weight:600; color:black;"> {{ page_title }} </h3>
+    
+                                  </div>
+                              </div>
+                            </div>
+                            {% endif %}
+                            <div class="card-body">
+                             <div class="row">
+                                <div class="col-md-12">
+                                    {% if submitted_applications %}
+                                    <div class="table-responsive" >
+                                        {% if not page_title == 'List of Applicants' %}  
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <hr>
+                                                <table id="app-slip-personal-detail-table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row" style="text-align: left; color:black;">Academic Session:</th>
+                                                            <td style="color:black;">{{academic_session}} </td>   
+                                                        </tr>
+                                                      
+                                                        <tr>
+                                                            <th scope="row" style="text-align: left; color:black;">Application Batch:</th>
+                                                            <td style="color:black;">From {{start_date}} To {{end_date}} </td>   
+                                                        </tr>
+                                                       
+                                                        <tr>
+                                                            <th scope="row" style="text-align: left; color:black;">Number of Applicants:</th>
+                                                            <td style="color:black;">{{count_submited_applications}} </td>   
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        {%  endif %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <hr>
+                                                <h4 style="color: black; font-size:1.3rem; font-weight:700; text-align:center;">{{page_title}} From {{start_date}} To {{end_date}}  </h4>
+                                                <hr>
+                                                <table id="applicant-list" class="table">
+                                                    <thead class="bg-info text-white">
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Applicant ID</th>
+                                                            <th scope="col">Full Name</th>
+                                                            <th scope="col">Gender</th>
+                                                            <th scope="col">State</th>
+                                                            <th scope="col">Programme Choice</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for applicant in submitted_applications %}
+                                                        <tr>
+                                                            <th scope="row" style="color:black">{{ forloop.counter }}</th>
+                                                            <td style="color:black">{{ applicant.student_id }}</td>
+                                                            <td style="color:black">{{ applicant.applicant.profile.first_name|title }} 
+                                                                {{ applicant.applicant.profile.middle_name|title }}
+                                                                {{ applicant.applicant.profile.last_name|title }}
+                                                            </td>
+                                                            <td style="color:black">{{ applicant.applicant.profile.gender }}</td>
+                                                            <td style="color:black">{{ applicant.applicant.profile.state }}</td>
+                                                            <td style="color:black">{{ applicant.course_name }}</td>
+                                                        </tr>
+                                                        {% endfor %}  
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <span style="color: red; font-size:1rem; font-weight:650; text-align:center;">No Submitted Application Found.</span>
+                                    {% endif %}
+                                </div>
+                             </div>
+                            </div>
+                            
+                        
+
+                            {% if not page_title == 'List of Applicants' %}  
+                            <div class="row">
+                                <a class="btn btn-success" href="{% url 'application_list_by_session' %}?download=true&{{ request.GET.urlencode }}">Download PDF</a>
+                            </div>                        
+                                                                
+                                                              
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!--Pagination--><!--PAGINATION THAT PRESERVES SEARCH QUERRY-->
+                    <!--Pagination-->
+<div class="pagination-box"> 
+    <ul class="pagination">
+        {% if submitted_applications.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{{ request.GET.urlencode }}&page=1">
+                    <i class="fa fa-angle-double-left"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ submitted_applications.previous_page_number }}">
+                    {{ submitted_applications.previous_page_number }}
+                </a>
+            </li>
+        {% endif %}
+        
+        <li class="page-item active">
+            <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ submitted_applications.number }}">
+                {{ submitted_applications.number }}
+            </a>
+        </li>
+        
+        {% if submitted_applications.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ submitted_applications.next_page_number }}">
+                    {{ submitted_applications.next_page_number }}
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ submitted_applications.paginator.num_pages }}">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>  
+</div>
+<!--PAGINATION END-->
+
+                    
+                    <!--PAGINATION THAT PRESERVES SEARCH QUERRY END-->
+                </div>
+            </div>
+        </div>
+        <!-- End Main Content -->
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+    </div>
+    <!-- End Content Wrapper -->
+</div>
+
+
+
+{% endblock %}

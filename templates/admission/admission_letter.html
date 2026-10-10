@@ -1,0 +1,315 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+<link href="{% static 'css/print_pre_application.css' %}" rel="stylesheet">
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container">  
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+                  <!--Alert Template-->
+                  {% include 'admission/partials/_alerts.html' %}
+                  <!--Alert Template-->
+            
+                    
+            
+                      <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; padding:0 !important;">
+                                <table id="customTable">
+                                    <tr>
+                                        <th class="logo" rowspan="6"><img width="120" height="120" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo"></th>
+                                        <td><h1 style="font-family:sans-serif; font-size:1.5rem; font-weight:700; color:rgb(61, 168, 245);">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1></td>
+                                        <th class="passport" rowspan="6"><img class="passport" width="120" height="150" src="{% image_url user.profile.image %}" alt="applicant picture"></th>
+                                    </tr>
+                                    <tr>
+                                        <td><h3 style="font-family:sans-serif; font-size: 1.2rem; font-weight:600;">P.M.B 1166 GBOKO, BENUE STATE</h3></td> 
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;">NIGERIA</h3> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> <h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;">(Office of the Registrar)</h3> </td>
+                                    </tr>
+                                    
+                                </table>
+
+                                        
+
+                                     
+                                
+                            </div>
+                       
+                            <!--Right Hand Side Address-->
+                            <div class="container" style="margin-top: 2%;">
+                                <div class="row">
+                                    <!-- Empty column occupying 50% width -->
+                                    <div class="col-8"></div>
+
+                                    <div class="col-4">
+                                        <table id="acceptance-slip-table">
+                                            <tbody>
+                                             <tr>
+                                               <th scope="row" style="text-align: left; color:black;">Date:</th>
+                                               <td style="color:black;">
+                                                {% if admitted_record.academic_session.name == '2023/2024' or admitted_record.academic_session.name == '2023/2024' %}
+                                                27th Jult, 2024
+                                                {% else %}
+                                                {{admitted_record.academic_session.admission_date|date:"jS F Y"}}
+                                                {% endif %}
+                                               </td>                                    
+                                             </tr> 
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!--Left Hand Side Address-->
+                             <div class="container" style="margin-top: 1%; margin-bottom:1%;">
+                                <div class="row">
+                                    
+                                    <div class="col-6">
+                                        <table id="acceptance-slip-table">
+                                            <tbody>
+                                               
+                                             <tr>
+                                               <th scope="row" style="text-align: left; color:black;">Ref. No: ECOSAHT/REG/STU/{{student.student_id}}/{{admitted_record.academic_session}} </th>
+                                                                  
+                                             </tr>
+                                            <tr>
+                                                <th  scope="row">To: {{student.candidate.profile.last_name}} {{student.candidate.profile.middle_name}} {{student.candidate.first_name}} </th>
+                                            </tr>
+                                             
+                                            
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Empty column occupying 50% width -->
+                                    <div class="col-6"></div>
+
+                                </div>
+                            </div>
+
+                          
+
+                            <h4 style="text-align: center; color:black; font-weight:700; font-size:1rem; font-family:sans-serif;">OFFER OF PROVISIONAL ADMISSION {{admitted_record.academic_session}} ACADEMIC SESSION</h4>
+                            
+                            <div class="card-body">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                  <p style="text-align: justify; line-height:1; color:black;">
+                                    With reference to your application for admission, I write to inform you that you have been offered provisional admission into 
+                                    Excellent College of Sciences and Health Technology, Gboko to pursue: 
+                                  </p>
+                                  <ul>
+                                    <li>Course: <b>{{admitted_record.admitted_course.name}}</b></li>
+                                    <li>Deparment: <b>{{admitted_record.admitted_course.department}}</b> </li>
+                                    <li>Level: <b>{{admitted_record.admitted_level}}</b></li>
+                                    <li>Duration of Programme:  {% if admitted_record.admitted_course.name == 'CERTIFICATE' %}
+                                       <b> 2 Semesters</b>
+                                        {% else %}
+                                        <b>4 Semesters</b> 
+                                        {% endif %}
+                                    </li>
+                                  </ul>
+                                  
+
+                                  <p id="declaration" style="text-align: justify; line-height:1; color:black;">
+                                    The confirmation of this admission offer is subject to fulfilling the following conditions::
+                                  </p>
+                                  <ol type="i">
+                                    <li>That you obtain the minimum requirements for entry into the course to which you have been offered admission.</li>
+                                    <li>That at the time of registration in the College, you will be required to present the <b>ORIGINAL(s)</b> 
+                                        or any other acceptable evidence of the qualifications on which this offer of admission has been based.</li>
+                                    <li>That if at anytime, even after registration , it is discovered that you do not satisfy the minimum entry requirements prescribed for your course of study or that any of  the qualifications you claimed to 
+                                        have is false or incorrect, you will be withdrawn from the College.</li>
+                                    <li>That you must sign and return to the Registrar at the time of registration, a letter of undertaking to be of good 
+                                        conduct throughout your course of stay in the Institution as a student.</li>
+                                    <li>That you must sign and return the attached acceptance letter as an indication of acceptance of this offer of 
+                                        provisional admission subject to the above conditions.</li>
+                                    
+                                    <li>
+                                        That you will remit into the College Account through the online portal, the sum of Five Thousand naira (N5,000) only as a fee for the admission letter.
+                                    </li>
+                                    
+                                  </ol>
+                                  
+
+                                  <h2 style="color:black; font-size:1rem; font-family:sans-serif;"><b>NOTE:</b> </h2>
+                                   <ol type="a">
+                                    <li>That the names by which you are admitted and by which you will be 
+                                        registered are the ones that will appear on any document/certificate 
+                                        that the College may issue to you on successful completion of your course.</li>
+                                    <li> <b>That the date of Resumption and Commencement of Registration is: {{admitted_record.academic_session.resumption_date|date:"jS F Y"}} </b> </li>
+                                    <li> <b>That the closing date for Registration is: {{admitted_record.academic_session.closing_date|date:"jS F Y"}} </b> </li>
+                                    <li>Prospective students who took GCE/NECO <b>before {{admitted_record.academic_session}} Academic Session</b> MUST present original copies
+                                         of their certificate(s) and NOT statement(s) of results for registration.</li>
+                                    
+                                    <li>That this admission is only provisional as only candidates who are successful 
+                                        at the screening exercise would be registered.</li>
+                                   </ol>
+                                    
+                                   
+                                   <h3 style="color:black; font-size:1rem; font-family:sans-serif;"> <b>Attached are:</b> </h3>
+                                   <ol type="i">
+                                    <li>Registration Form</li>
+                                    <li>Acceptance Letter</li>
+                                    <li> Letter of undertaking to be of good conduct (to be completed in triplicate)</li>
+                                    <li> Medical Examination Form</li>
+                                    <li> Schedule of Payments</li>
+                                    <li> Security Screening Form</li>
+                                   </ol>
+
+                                   <p>
+                                    Accept my congratulations on your admission.
+                                   </p>
+                                 </div>
+                                   
+                              </div>
+                              
+    
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8">
+
+                                    </div>
+                                    <div class="col-4">
+                                        <table id="acceptance-slip-table">
+                                            <tbody>
+                                               
+                                               
+                                             <tr>
+                                                <p style="text-align: center;"> <img src="{% static 'img/signature.png' %}" width="150px" alt="uchi joyce sign"> </p>
+                                                <p class="center-text"><b>Mrs. Barbara Ngiher Amah</b></p>
+                                                <p class="center-text">Office of the Registrar</p>
+                                                
+                                             </tr>
+
+                                             <tr id="printButtonRow">
+                                                <th colspan="5">
+            
+                                                </th>
+                                                <td>
+                                                  <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Letter</a>
+                                                </td>
+                                              </tr> 
+                                            
+                                             
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                     
+                      </div>
+            
+                      <script>
+                        function printSlip() {
+                            
+                            var printContents = document.getElementById('application-slip').innerHTML;
+                            var printWindow = window.open('', '', 'height=600,width=800');
+                            printWindow.document.write('<html><head><title>Print Slip</title>');
+                            printWindow.document.write('<style>');
+                            printWindow.document.write('@media print {');
+                            printWindow.document.write('#application-slip { border: 1px solid #ddd; padding: 10px; margin: 10px; }');
+                            printWindow.document.write('.btn-success { display: none; }');
+                            printWindow.document.write('#printButtonRow { display: none; }');
+                            // Additional styles for #customTable
+                            printWindow.document.write('#customTable { width: 100%; border-collapse: collapse; margin-top: 20px; }');
+                            printWindow.document.write('#customTable th, #customTable td { border: none; padding: 5px; }');
+                            
+                            printWindow.document.write('#customTable th { background-color: #f2f2f2; text-align: center; }');
+                            printWindow.document.write('#customTable td { text-align: center; }');
+                            
+                            printWindow.document.write('#customTable .logo img, #customTable .passport img { display: block; max-width: 100px; max-height: 100px; }');
+                            printWindow.document.write('#customTable h1, #customTable h3 { margin: 0; }');
+                            printWindow.document.write('#customTable h1, { margin: 0; color:rgb(3, 3, 121); font-weight:650;}');
+                            // Additional styles for .container and #acceptance-slip-table
+                            printWindow.document.write('.container { margin-top: 2%; }');
+                            printWindow.document.write('.row { margin-left: 0; margin-right: 0; }');
+                            printWindow.document.write('.col-8, .col-4 { display: inline-block; vertical-align: top; }');
+                            printWindow.document.write('.col-8 { width: 66.67%; }'); // Adjust width as needed
+                            printWindow.document.write('.col-4 { width: 33.33%; float: right; }'); // Adjust width as needed and float right
+
+                            printWindow.document.write('#acceptance-slip-table { width: 100%; }');
+                            printWindow.document.write('#acceptance-slip-table th, #acceptance-slip-table td { border: none; text-align: left; padding: 8px; }');
+                            printWindow.document.write('#acceptance-slip-table th { text-align: left; color: black; }');
+                            printWindow.document.write('#acceptance-slip-table td { color: black; }'); 
+                            // CSS for <p> tags
+                            printWindow.document.write('#declaration p, { text-align: justify; font-family: sans-serif; line-height:1; font-size: 1rem; color:black; margin-top:0; }');
+                            printWindow.document.write('p { text-align: justify; font-family: sans-serif; line-height:1; font-size: 1rem; color:black; margin-top:0; }');
+                            printWindow.document.write('h4 { font-family: sans-serif; font-size: 1rem; margin-top: 0; font-family: sans-serif; font-size: 1.2rem; }');
+                            printWindow.document.write('ol { list-style-type: none; display:block; font-family: sans-serif; font-size: 1rem; line-height:1; margin-left:0; margin-top:0; }');
+                            printWindow.document.write('#acceptance-slip-table tr p, { text-align: justify; font-family: sans-serif; line-height:1; font-size: 1.2rem; color:black; margin-top:0; }'); 
+                            // CSS for ordered lists
+                            printWindow.document.write('ol[type="i"] { list-style-type: lower-roman; line-height: 1.1; }');
+                            printWindow.document.write('ol[type="a"] { list-style-type: lower-alpha; line-height: 1.1; }');
+                            // Ensure margin and padding for ol and ul
+                            printWindow.document.write('ol, ul { margin-left: 20px; padding-left: 20px; line-height: 1.1; }');
+                            // Specific styles for the centered paragraphs
+                            printWindow.document.write('.center-text { text-align: center; font-size: 1rem; margin-top: 0; line-height: 0; }');
+                            printWindow.document.write('}');
+                            printWindow.document.write('</style>');
+                            printWindow.document.write('</head><body>');
+                            printWindow.document.write(printContents);
+                            printWindow.document.write('</body></html>');
+                            printWindow.document.close();
+                            printWindow.print();
+                        }
+                        </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

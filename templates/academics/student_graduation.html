@@ -1,0 +1,111 @@
+{% extends 'account_base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+  {% include 'accounts/partials/_sideBar.html' %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      {% include 'accounts/partials/_topBar.html' %}
+      <main class="container-fluid graduation-page py-4"
+            data-results-url="{% url 'student_graduation_results' %}"
+            data-graduate-url="{% url 'graduate_student_selection' %}">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+          <div>
+            <p class="graduation-kicker mb-1">Student Management</p>
+            <h1 class="h3 mb-1 text-gray-800">Student Graduation</h1>
+            <p class="text-muted mb-0">Find eligible students and record graduation against their actual academic progression.</p>
+          </div>
+        </div>
+
+        <section class="card shadow-sm border-0 graduation-filter-card" aria-labelledby="graduation-filter-title">
+          <div class="card-body">
+            <h2 id="graduation-filter-title" class="h5 text-gray-800 mb-3">Graduation query</h2>
+            <form id="graduation-filter-form" novalidate>
+              {% csrf_token %}
+              <div class="form-row">
+                <div class="form-group col-lg-4">
+                  <label for="{{ form.course.id_for_label }}">Course of Study</label>
+                  {{ form.course }}
+                </div>
+                <div class="form-group col-md-6 col-lg-2">
+                  <label for="{{ form.level.id_for_label }}">Level</label>
+                  {{ form.level }}
+                </div>
+                <div class="form-group col-md-6 col-lg-3">
+                  <label for="{{ form.session.id_for_label }}">Graduating Session</label>
+                  {{ form.session }}
+                </div>
+                <div class="form-group col-lg-3 d-flex align-items-end">
+                  <button id="graduation-query-button" class="btn btn-primary btn-block" type="submit">
+                    <i class="fas fa-search mr-1"></i> Load Students
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section id="graduation-results-card" class="card shadow-sm border-0 mt-3" hidden>
+          <div class="card-body border-bottom">
+            <div class="row align-items-end">
+              <div class="col-lg-6">
+                <label for="graduation-search">Search within results</label>
+                <div class="input-group">
+                  <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"></i></span></div>
+                  <input id="graduation-search" class="form-control" type="search" autocomplete="off"
+                         placeholder="Name, matric/application number, or email">
+                </div>
+              </div>
+              <div class="col-lg-6 mt-3 mt-lg-0 text-lg-right">
+                <span id="graduation-selection-count" class="selection-count mr-2">0 selected</span>
+                <button id="graduate-selected" class="btn btn-success" type="button" disabled>
+                  <i class="fas fa-user-graduate mr-1"></i> Graduate Selected
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="graduation-feedback" class="mx-3 mt-3" role="status" aria-live="polite"></div>
+          <div id="graduation-loading" class="graduation-loading py-5 text-center" hidden>
+            <span class="spinner-border text-primary" role="status" aria-label="Loading"></span>
+            <p class="text-muted mt-2 mb-0">Loading students…</p>
+          </div>
+          <div id="graduation-results" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="graduation-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="graduation-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h5" id="graduation-modal-title">Confirm Student Graduation</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-2"><strong id="graduation-modal-count">0 students selected</strong></p>
+        <dl class="row small mb-3">
+          <dt class="col-4">Course</dt><dd id="graduation-modal-course" class="col-8"></dd>
+          <dt class="col-4">Level</dt><dd id="graduation-modal-level" class="col-8"></dd>
+          <dt class="col-4">Session</dt><dd id="graduation-modal-session" class="col-8"></dd>
+        </dl>
+        <div class="alert alert-warning mb-0">
+          <i class="fas fa-exclamation-triangle mr-1"></i>
+          This action changes each selected student's academic status and records an auditable graduation event.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+        <button id="confirm-graduation" type="button" class="btn btn-success">Confirm Graduation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="{% static 'academics/student_graduation.css' %}">
+<script src="{% static 'academics/student_graduation.js' %}" defer></script>
+{% endblock %}

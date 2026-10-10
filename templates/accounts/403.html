@@ -1,0 +1,102 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div class="container">  
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-12 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- carousel code -->
+                            <div id="carouselExampleIndicators" class="carousel slide">
+                                <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li> 
+                                </ol>
+                                <div class="carousel-inner"> 
+                                        
+                                        <!-- first slide -->
+                                        <div class="carousel-item active"> <img src=" {% static 'img/slider/login_image_1.jpg' %} " alt="ECOSAHT Slide" class="img-fluid" />
+                                                <div class="carousel-caption d-md-block">
+                                                        
+                                                        
+                                                </div>
+                                        </div>
+                                        
+                                        <!-- second slide -->
+                                        <div class="carousel-item"> <img src="{% static 'img/slider/login_image_2.jpg' %}" alt="ECOSAHT Slide 2" class="img-fluid" />
+                                                <div class="carousel-caption d-md-block">
+                                                        
+                                                        
+                                                </div>
+                                        </div>
+                                        
+                                        <!-- third slide -->
+                                        <div class="carousel-item"> <img src="{% static 'img/slider/login_image_3.jpg' %}" alt="ECOSAHT Slide 3" class="img-fluid" />
+                                                <div class="carousel-caption d-md-block">
+                                                        
+                                                        
+                                                </div>
+                                        </div>
+                                        <!-- forth slide -->
+                                        <div class="carousel-item"> <img src="{% static 'img/slider/login_image_1.jpg' %}" alt="ECOSAHT Slide 4" class="img-fluid" />
+                                                <div class="carousel-caption d-md-block">
+                                                        
+                                                        
+                                                </div>
+                                        </div>
+                                </div>
+                                
+                                <!-- controls --> 
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> 
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            
+                            <div class="container">
+                                <div class="error-code">
+                                    <h1 style="text-align: center; color:red; margin-top:15%; font-size:2.5rem; font-weight:650;">
+                                        ERROR 403
+                                    </h1>
+                                </div>
+                                <div style="text-align: center; color:blue; margin-top:10%; font-size:1.2rem;">
+                                    <p >
+                                        Oops! The page you're looking for doesn't exist.
+                                    </p>
+                                </div>
+                                <p style="text-align: center;">
+                                    <a style="display: block; margin-top:5%; margin-left:2.5%;" class="btn btn-success" href="{% url 'accounts_login' %} ">Go back to the home page</a>
+                                </p>
+                            </div>
+                                
+                              
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

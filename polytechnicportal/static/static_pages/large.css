@@ -1,0 +1,90 @@
+@media screen and (min-width: 1024px) {
+  .header .logo .company_name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-top: 2px;
+  }
+  /* CARD FOR THE CONTAINER */
+  .container-fluid {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 0 !important;
+  }
+
+  .container {
+    margin-top: 0;
+    margin-left: 3%;
+  }
+
+  .card {
+    width: 24%;
+    margin: 5px;
+  }
+
+  .rector-card {
+  width: 50%;
+  height: auto;
+  background-color: var(--support-gray);
+  margin: 10px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* centers horizontally */
+  justify-content: center;  /* optional: centers vertically if height is fixed */
+  padding: 20px;  /* for internal spacing */
+}
+
+.news-card {
+  width: 23%;
+  height: auto;
+  margin: 5px;
+  border-radius: 15px;
+  padding: 1px;
+}
+
+.news-card-heading{
+  margin-top: 1;
+}
+
+.csc-organisation-card {
+  width: 25%;
+  height: auto;
+  background-color: var(--support-gray);
+  margin: 7px;
+  border-radius: 15px;
+  border: 0.9px solid var(--support-gray);
+}
+
+.csc-event-card {
+  width: 65%;
+  height: auto;
+  background-color: var(--support-gray);
+  margin: 7px;
+  border-radius: 15px;
+  border: 0.9px solid var(--support-gray);
+}
+
+.key-data-heading{
+  width: 100%;
+  margin-top: 3%;
+}
+
+.footer-section {
+    width: 20%;
+    border-right: 1px solid white;
+  }
+
+  .footer-section p {
+    padding: 3%;
+    text-align: left;
+  }
+
+  footer hr {
+    border: 1px solid white;
+  }
+
+  footer .footer-section ul li {
+    padding: 2.5%;
+  }
+}

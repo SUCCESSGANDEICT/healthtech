@@ -1,0 +1,302 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .admission-review {
+        color: #1f2933;
+    }
+
+    .admission-review__header {
+        border: 1px solid #d9e2ec;
+        background: #ffffff;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .admission-review__title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: .25rem;
+        line-height: 1.35;
+    }
+
+    .admission-review__subtitle {
+        color: #52606d;
+        font-size: .9rem;
+        margin-bottom: 0;
+    }
+
+    .review-section {
+        border: 1px solid #d9e2ec;
+        background: #ffffff;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .review-section__title {
+        color: #0f609b;
+        font-size: .95rem;
+        font-weight: 700;
+        margin-bottom: .8rem;
+        text-transform: uppercase;
+    }
+
+    .review-detail {
+        display: block;
+        border-bottom: 1px solid #edf2f7;
+        padding: .65rem 0;
+        min-width: 0;
+    }
+
+    .review-detail:last-child {
+        border-bottom: 0;
+    }
+
+    .review-detail__label {
+        color: #627d98;
+        display: block;
+        font-size: .78rem;
+        font-weight: 700;
+        margin-bottom: .2rem;
+        text-transform: uppercase;
+    }
+
+    .review-detail__value {
+        color: #1f2933;
+        display: block;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    .review-actions {
+        border: 1px solid #d9e2ec;
+        background: #ffffff;
+        bottom: 0;
+        padding: .75rem;
+        position: sticky;
+        z-index: 10;
+    }
+
+    .review-actions .btn {
+        margin-bottom: .5rem;
+        white-space: normal;
+    }
+
+    .review-table {
+        min-width: 640px;
+    }
+
+    @media (min-width: 768px) {
+        .admission-review__header,
+        .review-section {
+            padding: 1.25rem;
+        }
+
+        .review-detail {
+            display: grid;
+            grid-template-columns: 160px minmax(0, 1fr);
+            column-gap: 1rem;
+            align-items: start;
+        }
+
+        .review-detail__label {
+            margin-bottom: 0;
+        }
+
+        .review-actions .btn {
+            margin-bottom: 0;
+        }
+
+        .btn-md-inline-block {
+            display: inline-block;
+            width: auto;
+        }
+    }
+</style>
+
+<div id="wrapper">
+    {% include 'accounts/partials/_sideBar.html' %}
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            {% include 'accounts/partials/_topBar.html' %}
+
+            <div class="container-fluid admission-review my-4">
+                {% include 'admission/partials/_alerts.html' %}
+
+                <div class="admission-review__header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h1 class="admission-review__title">Review Application Summary</h1>
+                            <p class="admission-review__subtitle">
+                                {{ profile.first_name|title }} {{ profile.middle_name|title }} {{ profile.last_name|title }}
+                                &middot;
+                                {{ application.applicant.pre_applicant.application_number|default:application.applicant.username }}
+                            </p>
+                        </div>
+                        <div class="col-lg-4 text-lg-right mt-3 mt-lg-0">
+                            {% if can_admit %}
+                                <span class="badge badge-success p-2">Eligible for Admission</span>
+                            {% elif application.is_admitted %}
+                                <span class="badge badge-primary p-2">Already Admitted</span>
+                            {% else %}
+                                <span class="badge badge-warning p-2">Review Required</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-6">
+                        <section class="review-section">
+                            <h2 class="review-section__title">Candidate Biodata</h2>
+                            <div class="review-detail"><span class="review-detail__label">Full Name</span><span class="review-detail__value">{{ profile.first_name|title }} {{ profile.middle_name|title }} {{ profile.last_name|title }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Application No.</span><span class="review-detail__value">{{ application.applicant.pre_applicant.application_number|default:application.applicant.username }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Gender</span><span class="review-detail__value">{{ profile.gender|default:'-' }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Date of Birth</span><span class="review-detail__value">{{ profile.date_birth|date:'d M Y'|default:'-' }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">State/LGA</span><span class="review-detail__value">{{ profile.state|default:'-' }} / {{ profile.lga|default:'-' }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Nationality</span><span class="review-detail__value">{{ profile.nationality|default:'-' }}</span></div>
+                        </section>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <section class="review-section">
+                            <h2 class="review-section__title">Contact Details</h2>
+                            <div class="review-detail"><span class="review-detail__label">Email</span><span class="review-detail__value">{{ application.applicant.email|default:application.applicant.username }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Phone</span><span class="review-detail__value">{{ profile.phone_number|default:'-' }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Address</span><span class="review-detail__value">{{ profile.home_address|default:'-' }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Sponsor</span><span class="review-detail__value">{{ sponsor.full_name|default:'-' }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Sponsor Phone</span><span class="review-detail__value">{{ sponsor.phone_number|default:'-' }}</span></div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-6">
+                        <section class="review-section">
+                            <h2 class="review-section__title">Application Details</h2>
+                            <div class="review-detail"><span class="review-detail__label">Programme</span><span class="review-detail__value">{{ application.course_name }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Department</span><span class="review-detail__value">{{ application.course_name.department }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Category</span><span class="review-detail__value">{{ screening_payment.fee_category|default:'-' }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Academic Session</span><span class="review-detail__value">{{ application.academic_sess }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Submitted</span><span class="review-detail__value">{{ application.submitted_date|date:'d M Y' }}</span></div>
+                            <div class="review-detail"><span class="review-detail__label">Admission Status</span><span class="review-detail__value">{% if application.is_admitted %}Admitted{% else %}Not admitted{% endif %}</span></div>
+                        </section>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <section class="review-section">
+                            <h2 class="review-section__title">Payment Verification</h2>
+                            <div class="review-detail">
+                                <span class="review-detail__label">Screening Fee</span>
+                                <span class="review-detail__value">
+                                    {% if screening_payment %}
+                                        <span class="badge badge-success">Verified</span>
+                                        {{ screening_payment.amount }} on {{ screening_payment.payment_date|date:'d M Y' }}
+                                    {% else %}
+                                        <span class="badge badge-danger">Not Verified</span>
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="review-detail"><span class="review-detail__label">Screening Ref.</span><span class="review-detail__value">{{ screening_payment.pay_ref|default:'-' }}</span></div>
+                            <div class="review-detail">
+                                <span class="review-detail__label">Application Form</span>
+                                <span class="review-detail__value">
+                                    {% if application_form_payment %}
+                                        <span class="badge badge-success">Verified</span>
+                                        {{ application_form_payment.amount }} on {{ application_form_payment.payment_date|date:'d M Y' }}
+                                    {% else %}
+                                        <span class="badge badge-secondary">Not Verified</span>
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="review-detail"><span class="review-detail__label">Payment Category</span><span class="review-detail__value">{{ screening_payment.fee_category|default:'-' }}</span></div>
+                        </section>
+                    </div>
+                </div>
+
+                <section class="review-section">
+                    <h2 class="review-section__title">Education History</h2>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered review-table">
+                            <thead class="thead-light">
+                                <tr><th>School</th><th>Certificate</th><th>Admitted Year</th><th>End Year</th></tr>
+                            </thead>
+                            <tbody>
+                                {% for record in education_records %}
+                                <tr>
+                                    <td>{{ record.school_name|default:'-' }}</td>
+                                    <td>{{ record.certificate|default:'-' }}</td>
+                                    <td>{{ record.admitted_year|default:'-' }}</td>
+                                    <td>{{ record.end_year|default:'-' }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="4" class="text-center">No education records found.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="review-section">
+                    <h2 class="review-section__title">SSCE/O-Level Results</h2>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered review-table">
+                            <thead class="thead-light">
+                                <tr><th>Exam</th><th>Subject</th><th>Grade</th><th>Exam No.</th><th>Year</th></tr>
+                            </thead>
+                            <tbody>
+                                {% for result in result_records %}
+                                <tr>
+                                    <td>{{ result.result_name }}</td>
+                                    <td>{{ result.subject_name }}</td>
+                                    <td>{{ result.subject_grade }}</td>
+                                    <td>{{ result.exam_number|default:'-' }}</td>
+                                    <td>{{ result.exam_year|default:'-' }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="5" class="text-center">No O-Level result records found.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <div class="review-actions">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <a class="btn btn-secondary btn-block btn-md-inline-block" href="{% url 'search_for_admission' %}?academic_session={{ application.academic_sess.id }}&course_of_study={{ application.course_name.id }}">
+                                Back to Candidate List
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-md-right">
+                            {% if can_admit %}
+                            <form method="POST" action="{% url 'admit_candidates' %}" class="d-md-inline" onsubmit="return confirm('Confirm admission for this candidate?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="academic_session" value="{{ application.academic_sess.id }}">
+                                <input type="hidden" name="selected_applicant[]" value="{{ application.id }}">
+                                <button type="submit" class="btn btn-success btn-block btn-md-inline-block">
+                                    Confirm and Admit Candidate
+                                </button>
+                            </form>
+                            {% elif application.is_admitted %}
+                                <button type="button" class="btn btn-success btn-block btn-md-inline-block" disabled>Candidate Already Admitted</button>
+                            {% else %}
+                                <button type="button" class="btn btn-warning btn-block btn-md-inline-block" disabled>Candidate Not Eligible for Admission</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'accounts/partials/_footer.html' %}
+    </div>
+</div>
+
+{% endblock %}

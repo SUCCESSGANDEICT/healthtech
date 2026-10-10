@@ -1,0 +1,487 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+{% load static %}
+{% load image_tags %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+  .schedule-card {
+    background: #fff;
+    border: 1px solid #e3e6f0;
+    border-radius: 6px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.08);
+    overflow: hidden;
+  }
+
+  .schedule-header {
+    padding: 1rem;
+    border-bottom: 1px solid #e3e6f0;
+    text-align: center;
+  }
+
+  .schedule-print-header {
+    align-items: center;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 120px minmax(0, 1fr) 120px;
+    width: 100%;
+  }
+
+  .schedule-header-logo,
+  .schedule-header-passport {
+    align-items: center;
+    display: flex;
+  }
+
+  .schedule-header-logo {
+    justify-content: flex-start;
+  }
+
+  .schedule-header-passport {
+    justify-content: flex-end;
+  }
+
+  .schedule-header-logo img {
+    height: 105px;
+    max-width: 105px;
+    object-fit: contain;
+    width: 105px;
+  }
+
+  .schedule-header-passport img {
+    border: 1px solid #d1d5db;
+    height: 120px;
+    max-width: 105px;
+    object-fit: cover;
+    width: 105px;
+  }
+
+  .schedule-header-text {
+    min-width: 0;
+    text-align: center;
+  }
+
+  .schedule-school-name {
+    color: #2b6ea6;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .schedule-subtitle {
+    color: #111827;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0.25rem 0 0;
+  }
+
+  .schedule-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .schedule-meta-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.55rem 0.7rem;
+    min-width: 0;
+  }
+
+  .schedule-meta-label {
+    color: #6b7280;
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .schedule-meta-value {
+    color: #111827;
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .schedule-section-title {
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 1.5rem 0 0.25rem;
+  }
+
+  .schedule-section-description {
+    color: #6b7280;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .schedule-table {
+    border-collapse: collapse;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    border: 1px solid #d1d5db;
+    color: #111827;
+    font-size: 0.84rem;
+    padding: 0.5rem;
+    vertical-align: top;
+  }
+
+  .schedule-table th {
+    background: #f3f4f6;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .schedule-amount {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .schedule-empty {
+    border: 1px dashed #cbd5e1;
+    border-radius: 6px;
+    color: #374151;
+    padding: 1.2rem;
+    text-align: center;
+  }
+
+  @media (max-width: 767.98px) {
+    .schedule-print-header {
+      gap: 0.75rem;
+      grid-template-columns: 76px minmax(0, 1fr) 76px;
+    }
+
+    .schedule-header-logo img {
+      height: 72px;
+      max-width: 72px;
+      width: 72px;
+    }
+
+    .schedule-header-passport img {
+      height: 86px;
+      max-width: 72px;
+      width: 72px;
+    }
+
+    .schedule-school-name {
+      font-size: 0.88rem;
+    }
+
+    .schedule-subtitle {
+      font-size: 0.76rem;
+    }
+
+    .schedule-meta {
+      grid-template-columns: 1fr;
+    }
+
+    .schedule-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+
+  @media print {
+    @page {
+      margin: 12mm;
+      size: A4 portrait;
+    }
+
+    html,
+    body {
+      background: #fff !important;
+      color: #111827 !important;
+      height: auto !important;
+      margin: 0 !important;
+      overflow: visible !important;
+      width: 100% !important;
+    }
+
+    #wrapper,
+    #content-wrapper,
+    #content,
+    .container,
+    .row,
+    .col-md-12 {
+      display: block !important;
+      margin: 0 !important;
+      max-width: none !important;
+      padding: 0 !important;
+      width: 100% !important;
+    }
+
+    .sidebar,
+    .navbar,
+    .navbar-nav,
+    .topbar,
+    footer,
+    .sticky-footer,
+    .alert,
+    .btn,
+    #printButtonRow {
+      display: none !important;
+    }
+
+    #application-slip {
+      page-break-inside: auto;
+    }
+
+    .schedule-card {
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+      width: 100%;
+    }
+
+    .schedule-header {
+      border-bottom: 1px solid #9ca3af;
+      padding: 0 0 8mm;
+    }
+
+    .schedule-print-header {
+      align-items: center !important;
+      display: grid !important;
+      gap: 8mm !important;
+      grid-template-columns: 27mm minmax(0, 1fr) 27mm !important;
+      page-break-inside: avoid;
+      width: 100% !important;
+    }
+
+    .schedule-header-logo,
+    .schedule-header-passport {
+      display: flex !important;
+      min-width: 0;
+    }
+
+    .schedule-header-logo {
+      justify-content: flex-start !important;
+    }
+
+    .schedule-header-passport {
+      justify-content: flex-end !important;
+    }
+
+    .schedule-header-logo img {
+      height: 24mm !important;
+      max-height: 24mm !important;
+      max-width: 24mm !important;
+      object-fit: contain !important;
+      width: 24mm !important;
+    }
+
+    .schedule-header-passport img {
+      height: 28mm !important;
+      max-height: 28mm !important;
+      max-width: 24mm !important;
+      object-fit: cover !important;
+      width: 24mm !important;
+    }
+
+    .schedule-school-name {
+      color: #111827 !important;
+      font-size: 14pt;
+      line-height: 1.2;
+    }
+
+    .schedule-subtitle {
+      color: #111827 !important;
+      font-size: 9pt;
+      line-height: 1.25;
+    }
+
+    .card-body {
+      padding: 8mm 0 0 !important;
+    }
+
+    .schedule-meta {
+      gap: 3mm;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      page-break-inside: avoid;
+    }
+
+    .schedule-meta-item {
+      border-color: #9ca3af;
+      padding: 2.5mm 3mm;
+    }
+
+    .schedule-section-title {
+      page-break-after: avoid;
+    }
+
+    .schedule-table {
+      display: table !important;
+      margin-bottom: 5mm;
+      overflow: visible !important;
+      table-layout: fixed;
+      white-space: normal !important;
+      width: 100% !important;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      border-color: #9ca3af;
+      font-size: 8pt;
+      padding: 2mm;
+      word-break: break-word;
+    }
+
+    .schedule-table th {
+      background: #f3f4f6 !important;
+      color: #111827 !important;
+      white-space: normal;
+    }
+
+    .schedule-empty {
+      border-color: #9ca3af;
+      page-break-inside: avoid;
+    }
+
+    p {
+      color: #111827 !important;
+    }
+  }
+</style>
+
+<div id="wrapper">
+  {% include 'accounts/partials/_sideBar.html' %}
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      {% include 'accounts/partials/_topBar.html' %}
+
+      <div class="container">
+        <div class="row justify-content-center">
+          {% include 'admission/partials/_alerts.html' %}
+
+          <div class="col-md-12" id="application-slip">
+            <div class="schedule-card">
+              <div class="schedule-header">
+                <div class="schedule-print-header">
+                  <div class="schedule-header-logo">
+                    <img src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="school logo">
+                  </div>
+                  <div class="schedule-header-text">
+                    <h1 class="schedule-school-name">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY</h1>
+                    <p class="schedule-subtitle">P.M.B 1166 GBOKO, BENUE STATE</p>
+                    <p class="schedule-subtitle">NIGERIA</p>
+                    <p class="schedule-subtitle">OFFICE OF THE BURSAR</p>
+                    <p class="schedule-subtitle">FEE SCHEDULE</p>
+                  </div>
+                  <div class="schedule-header-passport">
+                    <img src="{% image_url user.profile.image %}" alt="profile picture">
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="schedule-meta">
+                  <div class="schedule-meta-item">
+                    <span class="schedule-meta-label">Full Name</span>
+                    <span class="schedule-meta-value">{{ user.profile.last_name|default:"" }} {{ user.profile.middle_name|default:"" }} {{ user.profile.first_name|default:user.username }}</span>
+                  </div>
+                  <div class="schedule-meta-item">
+                    <span class="schedule-meta-label">Academic Session</span>
+                    <span class="schedule-meta-value">{{ schedule_context.academic_session|default:"Not available" }}</span>
+                  </div>
+                  <div class="schedule-meta-item">
+                    <span class="schedule-meta-label">Programme/Course</span>
+                    <span class="schedule-meta-value">{{ schedule_context.programme|default:"Not available" }}</span>
+                  </div>
+                  <div class="schedule-meta-item">
+                    <span class="schedule-meta-label">Level</span>
+                    <span class="schedule-meta-value">{{ schedule_context.level|default:"Not applicable" }}</span>
+                  </div>
+                  <div class="schedule-meta-item">
+                    <span class="schedule-meta-label">Semester</span>
+                    <span class="schedule-meta-value">{{ schedule_context.semester|default:"Not applicable" }}</span>
+                  </div>
+                  <div class="schedule-meta-item">
+                    <span class="schedule-meta-label">Fee Category</span>
+                    <span class="schedule-meta-value">{{ user.profile.indigene_status|yesno:"INDIGENE,NON-INDIGENE" }}</span>
+                  </div>
+                </div>
+
+                {% if fee_schedule_sections %}
+                  {% for section in fee_schedule_sections %}
+                    <h4 class="schedule-section-title">{{ section.title }}</h4>
+                    <p class="schedule-section-description">{{ section.description }}</p>
+
+                    <table class="schedule-table">
+                      <thead>
+                        <tr>
+                          <th>S/N</th>
+                          <th>Fee Name</th>
+                          <th>Amount</th>
+                          <th>Session</th>
+                          <th>Programme/Course</th>
+                          <th>Category</th>
+                          <th>Level</th>
+                          <th>Semester</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for row in section.rows %}
+                          <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ row.name|default:"Fee" }}</td>
+                            <td class="schedule-amount">N{{ row.amount|default:0|intcomma }}</td>
+                            <td>{{ row.session|default:"-" }}</td>
+                            <td>{{ row.programme|default:"-" }}</td>
+                            <td>{{ row.category|default:row.indigene_type|default:"-" }}</td>
+                            <td>{{ row.level|default:"-" }}</td>
+                            <td>{{ row.semester|default:"-" }}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  {% endfor %}
+                {% else %}
+                  <div class="schedule-empty">
+                    {{ schedule_empty_message }}
+                  </div>
+                {% endif %}
+
+                <p class="mt-4 mb-1" style="color:#111827;">All payments are to be made via the college payment gateway.</p>
+              </div>
+
+              <div class="container pb-3">
+                <div class="row">
+                  <div class="col-md-8"></div>
+                  <div class="col-md-4 text-md-right">
+                    <div id="printButtonRow">
+                      <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Fee Schedule</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            function printSlip() {
+              window.print();
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+
+    {% include 'accounts/partials/_footer.html' %}
+  </div>
+</div>
+
+{% endblock %}

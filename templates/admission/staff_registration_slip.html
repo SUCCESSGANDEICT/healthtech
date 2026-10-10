@@ -1,0 +1,395 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+                  
+                  <!--Alert Template-->
+                  {% include 'admission/partials/_alerts.html' %}
+                  <!--Alert Template-->
+          
+            
+                    
+            
+                      <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white;">
+                              
+                              <table id="customTable">
+                                <tr>
+                                    <th class="logo" rowspan="6"><img width="120" height="120" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo"></th>
+                                    <td><h1 style="font-family:sans-serif; font-size:1.5rem; font-weight:700;">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1></td>
+                                    <th class="passport" rowspan="6"><img class="passport" width="120" height="150" src="{% image_url user.profile.image %}" alt="applicant picture"></th>
+                                </tr>
+                                <tr>
+                                    <td><h3 style="font-family:sans-serif; font-size: 1.2rem; font-weight:600;">P.M.B 1166 GBOKO, BENUE STATE </h3></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;">NIGERIA.</h3> </td>
+                                </tr>
+                                <tr>
+                                    <td> <h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;">STAFF ONLINE REGISTRATION SLIP.</h3> </td>
+                                </tr>
+                                
+                              </table>
+
+                            </div>
+                       
+                       
+                            
+                            <div class="card-body">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                  <span style="color: green; font-size:1.2rem;">Staff Personal Data.</span>
+                                          <hr>
+                                    <div class="table-responsive">
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          
+                                          <hr>
+                                          <table class="table myCard-body table-borderless" id="app-slip-personal-detail-table">
+                                              <tbody>
+                                                
+                                                
+                                                  
+                                                <tr>
+                                                  <th scope="row" style="text-align: left; color:black;">Surname:</th>
+                                                  <td style="color:black;">{{ user.profile.last_name }}</td> 
+                                                  {% if user.profile.middle_name %}    
+                                                  <th scope="row" style="text-align: left; color:black;">Middle Name:</th>
+                                                  <td style="color:black;">{{ user.profile.middle_name }}</td>      
+                                                  {% endif %}                            
+                                                </tr> 
+                                                
+                                                <tr>
+                                                  <th scope="row" style="text-align: left; color:black;">Other Names:</th>
+                                                  <td style="color:black;">{{ user.profile.first_name }}</td>   
+                                                  <th scope="row" style="text-align: left; color:black;">Gender:</th>
+                                                  <td style="color:black;">{{ user.profile.gender}}</td>                            
+                                                </tr>  
+                                                
+                                                <tr>
+                                                      
+                                                    <th scope="row" style="text-align: left; color:black;">Date of Birth:</th>
+                                                    <td style="color:black;">{{ user.profile.date_birth}}</td>   
+                                                    <th scope="row" style="text-align: left; color:black;">Phone Number:</th>
+                                                  <td style="color:black;">{{ user.profile.phone_number}}</td>                               
+                                                </tr>   
+                                                <tr>
+                                                  <th scope="row" style="text-align: left; color:black;">Marital Status:</th>
+                                                  <td style="color:black;">{{ user.profile.marital_status}}</td>     
+                                                  <th scope="row" style="text-align: left; color:black;">Religion:</th>
+                                                  <td style="color:black;">{{ user.profile.religion}}</td> 
+                                                                               
+                                              </tr>   
+                                                
+                                                <tr>
+                                                  <th scope="row" style="text-align: left; color:black;">Nationaligy:</th>
+                                                  <td style="color:black;">{{ user.profile.nationality}}</td>  
+                                                  <th scope="row" style="text-align: left; color:black;">State of Origin:</th>
+                                                  <td style="color:black;">{{ user.profile.state}}</td>                              
+                                                </tr>  
+                                                <tr>
+                                                        
+                                                  <th scope="row" style="text-align: left; color:black;">Local Govt. Origin:</th>
+                                                  <td style="color:black;">{{ user.profile.lga}}</td>  
+                                                  <th scope="row" style="text-align: left; color:black;">Contact Address:</th>
+                                                  <td style="color:black;">{{ user.profile.home_address}}</td>                              
+                                                </tr> 
+                                                 
+                                                  
+                                              </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+
+                                     <div class="row">
+                                        <div class="col-md-12">
+                                          <span style="color: green; font-size:1.2rem;">Staff Employment Details.</span>
+                                          <hr>
+                                          <table class="table myCard-body table-borderless" id="app-slip-table">
+                                            <tbody>
+                                             
+                                              <tr>
+                                                <th scope="row" style="text-align: left; color:black;">Name of Department:</th>
+                                                <td style="color:black;">{{ user.staff_profile.department }}</td> 
+                                                  
+                                                <th scope="row" style="text-align: left; color:black;">Staff Category:</th>
+                                                <td style="color:black;">{{ user.staff_profile.department.dept_type }}</td>      
+                                                                        
+                                              </tr> 
+                                              <tr>
+                                                <th scope="row" style="text-align: left; color:black;">Appointment Type:</th>
+                                                <td style="color:black;">{{ user.staff_profile.Appointment_type }}</td> 
+                                                
+                                                <th scope="row" style="text-align: left; color:black;">Mode of Appointment:</th>
+                                                <td style="color:black;">
+                                                  
+                                                  {{ user.staff_profile.Appointment_Mode }}
+                                                   
+                                                </td>                          
+                                              </tr>  
+                                              
+                                              <tr>
+                                                <th scope="row" style="text-align: left; color:black;">Pay Grade:</th>
+                                                <td style="color:black;">{{ user.staff_profile.Pay_grade }}</td> 
+                                                
+                                                <th scope="row" style="text-align: left; color:black;">Email:</th>
+                                                <td style="color:black;">
+                                                  
+                                                  {{ user.email}}
+                                                   
+                                                </td>                          
+                                              </tr>  
+                                              
+                                              <tr>
+                                                  
+                                                <th scope="row" style="text-align: left; color:black;">Promotion Status:</th>
+                                                <td style="color:black;">{{ user.staff_profile.Promotion_status }}</td>   
+                                                <th scope="row" style="text-align: left; color:black;">Date of First Appointment:</th>
+                                                <td style="color:black;">{{ user.staff_profile.First_appointment }}</td>                               
+                                              </tr>   
+                                              <tr>
+                                                  
+                                                <th scope="row" style="text-align: left; color:black;">File No.:</th>
+                                                <td style="color:black;">{{ user.staff_profile.file_number }}</td>   
+                                                <th scope="row" style="text-align: left; color:black;">NIN Number:</th>
+                                                <td style="color:black;">{{ user.staff_profile.nin_number }}</td>                               
+                                              </tr> 
+                                                
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+
+
+                                    </div>
+
+                                    <!-- Staff Publications Section-->
+
+                                    <div class="p-1">
+                                      <span style="color: green; font-size:1.2rem;">Staff Publication(s).</span>
+                                      <hr>   
+
+                                      <div class="table-responsive">
+                                          {% if staff_publication %} 
+                                              <table class="table myCard-body" id="app-slip-table">
+                                                  <thead class="bg-info text-white">
+                                                      <tr>
+                                                      <th scope="col">#</th>
+                                                      <th scope="col" style="color: white;" wrap>Publication Existence</th>
+                                                      
+                                                      <th scope="col" style="color: white;" wrap>Publication Platform</th>
+                      
+                                                      <th scope="col" style="color: white;" nowrap>Publication Refference</th>
+                      
+                                                      <th scope="col" style="color: white;" nowrap>Publication Link</th>
+
+                                                      <th scope="col" style="color: white;" nowrap>Year of Publication</th>
+
+                                                      <th scope="col" style="color: white;" nowrap>Added Date</th>
+                                                      
+                                                      
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      
+                                  
+                                                      {% for publication in staff_publication %}
+                                                      <tr>
+                                                      <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                      
+                                                      <td style="color:black;" nowrap>{{ publication.publication_existence|capfirst}}</td>
+                      
+                                                      <td nowrap style="color:black;">{{ publication.publication_platform }}</td>
+                      
+                                                      <td wrap style="color:black;">{{ publication.publication_reference }}</td>
+                                                         
+                                                      <td wrap style="color:black;">
+                                                          {% if publication.publication_url %}
+                                                              {{ publication.publication_url }}
+                                                          {% else %}
+                                                          Offline Publication, No Link available
+                                                          {% endif %}
+                                                          </td>
+
+                                                      <td nowrap style="color:black;">{{ publication.year_publication }}</td>
+
+                                                      <td nowrap style="color:black;">{{ publication.submission_date }}</td>
+                                                      
+                                                      
+                                                      
+                                                      </tr>
+                                                      {% endfor %}    
+                                                      
+                                                      
+                                                      
+                                                  </tbody>
+                                              </table>
+                                     
+                                          {% else %}  
+                                                  <h4 style="text-align: center; color:black;">No Publication Added Yet</h4>
+                                                    
+                                          {% endif %}
+                                            
+                                      </div>
+                                      
+                                  </div>
+                                  <!--Academic Record Section Starts Here-->
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <span style="color: green; font-size:1rem; font-weight:650;">Academic Records</span>
+                                      <hr>
+                                      <table class="table myCard-body table-borderless" id="app-slip-table">
+                                        <tbody>
+                                         
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Qualification with Dates:</th>
+                                            <td style="color:black;">{{  academic_staff.qualification_date }}</td> 
+                                              
+                                            <th scope="row" style="text-align: left; color:black;">Current Rank:</th>
+                                            <td style="color:black;" nowrap>{{academic_staff.current_rank }}</td>      
+                                                                    
+                                          </tr> 
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Industrial Experience:</th>
+                                            <td style="color:black;">{{ academic_staff.teaching_experience }}</td> 
+                                            
+                                            <th scope="row" style="text-align: left; color:black;">Courses Taught:</th>
+                                            <td style="color:black;">
+                                              
+                                              {{ academic_staff.courses_taught}}
+                                               
+                                            </td>                          
+                                          </tr>    
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Designation:</th>
+                                            <td style="color:black;">{{ academic_staff.staff_designation }}</td> 
+                                            
+                                            <th scope="row" style="text-align: left; color:black;">CV</th>
+                                            <td style="color:black;" >
+                                              {% if academic_staff.upload_cv %}
+                                                <span>CV Uploaded</span>
+                                                {% else %}
+                                                <span style="color:red;">No CV Uploaded</span>
+                                                {% endif %}
+                                              
+                                               
+                                            </td>                          
+                                          </tr> 
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  <!-- Academic Record Section Ends Here-->
+
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <hr>
+                                      
+                                     <hr>
+                                        <table >
+                                         
+                                          
+                                          <tbody>
+                                            
+                        
+                                            
+                                            <tr id="printButtonRow">
+                                              <th colspan="5">
+          
+                                              </th>
+                                              <th colspan="5">
+          
+                                              </th>
+                                              <td>
+                                                <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Slip</a>
+                                              </td>
+                                             
+                                              
+                                            </tr> 
+                                            
+                                            
+                                          </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+
+
+                                  
+                                 
+                                 </div>
+                                   
+                              </div>
+                              
+    
+                            </div>
+                        </div>
+
+                       
+                     
+                      </div>
+            
+                      <script>
+                        function printSlip() {
+                            var printContents = document.getElementById('application-slip').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                    
+                            document.body.innerHTML = printContents;
+                    
+                            window.print();
+                    
+                            document.body.innerHTML = originalContents;
+                        }
+                    </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

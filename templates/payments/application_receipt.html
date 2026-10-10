@@ -1,0 +1,179 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+<link href="{% static 'css/print_pre_application.css' %}" rel="stylesheet">
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container">  
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+                  <!--Alert Template-->
+                  {% include 'admission/partials/_alerts.html' %}
+                  <!--Alert Template-->
+            
+                    
+            
+                      <div class="col-md-12" id="slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white;">
+                              <div class="slip-logo-passport-contain">
+                                  <div class="slip-logo">
+                                      <img width="100" height="100" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo">
+                                  </div>
+                          
+                                  <div class="slip-head-container">
+                                      <h1 class="slip-header" style="color:rgb(70, 212, 234);">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY</h1>
+                                      <h2 class="slip-sub-header">PMB 1166 GBOKO, BENUE STATE </h2>
+                                     
+                                      <h2 class="slip-sub-header">NIGERIA</h2>
+                                      <h3 class="slip-sub-under">{{page_title}} </h3> 
+                                        
+                                    </div> 
+                          
+                              </div>
+                            </div>
+                       
+                       
+                            
+                            <div class="card-body">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                  <h3 class="slip-sub-header" style="text-align: center; font-size:1rem; color:red;!important">Transaction ID: <span style="color: black !important; font-weight:500;">{{ payment.transaction_id }}</span></h3>
+                                               <hr>
+                                   <div class="table-responsive">
+                                     <table id="app-slip-table">
+                                         <tbody>
+                                           
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">Application ID:</th>
+                                             <td style="color:black;">{{applicant.application_number }}</td>
+                                           </tr>
+                                            
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">Surname:</th>
+                                             <td style="color:black;">{{ applicant.last_name }}</td>                                   
+                                           </tr> 
+                                           {% if applicant.middle_name %} 
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">Middle Name:</th>
+                                             <td style="color:black;">{{ applicant.middle_name }}</td>                                   
+                                           </tr>  
+                                           {% endif %}
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">First Name:</th>
+                                             <td style="color:black;">{{ applicant.first_name }}</td>                                   
+                                           </tr>   
+                                           
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">Programme Choice:</th>
+                                             <td style="color:black;">{{ applicant.course_name }}</td>                                   
+                                           </tr>  
+                                           <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Academic Session:</th>
+                                            <td style="color:black;"> {{payment.academic_sess}} </td>                                   
+                                          </tr> 
+                                          <tr> 
+                                            <th scope="row" style="text-align: left; color:black;">Payment Source:</th>
+                                            <td style="color:black;">{{payment.payment_source}} </td>                                   
+                                        </tr>
+                                        <tr>
+                                            <th style="color:black;">Indigene Type</th>
+                                            <td style="color:black;">{{ payment.indigene_type }}</td>
+                                        </tr>
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Amount:</th> 
+                                            <td style="color:black;">N{{ payment.amount|intcomma }}</td>                                   
+                                          </tr> 
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Fee Category:</th>
+                                            <td style="color:black;">{{ payment.fee_category }}</td>                                   
+                                          </tr> 
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Payment Date:</th>
+                                            <td style="color:black;">{{ payment.payment_date }}</td>                                   
+                                          </tr> 
+                                          <tr id="printButtonRow">
+                                            <th colspan="5">
+        
+                                            </th>
+                                            <td>
+                                              <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Slip</a>
+                                            </td>
+                                          </tr> 
+                                                 
+                                         </tbody>
+                                     </table>
+                                   </div>
+                                 
+                                 </div>
+                                   
+                              </div>
+                              
+    
+                            </div>
+                        </div>
+
+                       
+                     
+                      </div>
+            
+                      <script>
+                        function printSlip() {
+                            var printContents = document.getElementById('slip').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                    
+                            document.body.innerHTML = printContents;
+                    
+                            window.print();
+                    
+                            document.body.innerHTML = originalContents;
+                        }
+                    </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

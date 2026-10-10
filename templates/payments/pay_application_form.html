@@ -1,0 +1,159 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content --> 
+             <div class="container"> 
+              
+               <!-- Page Heading -->
+               {% include 'accounts/partials/_dashboard_heading.html' %}
+               <!-- End Page Heading -->
+
+              <!--Alert Template-->
+              {% include 'admission/partials/_alerts.html' %}
+              <!--Alert Template-->
+
+                <!-- Outer Row -->
+                <div class="row">
+
+                    <div class="col-md-8 mb-5"> 
+                      <div class="card">
+                            <div class="card-header bg-info text-white">
+                              Application Information
+                            </div>
+                            <div class="card-body">
+                              <div class="row">
+                                  <div class="col-md-8">
+                                        <span class="h4" style="font-size:1.2rem;"> <b style="color:brown;">{{ applicant.last_name|title }} {{ applicant.first_name }}</b> Application Overview.</span>
+                                      
+                                      <table class="table myCard-body table-borderless">
+                                          <tbody>
+                                            <tr>
+                                              <th scope="row" style="text-align: left; color:black;" nowrap>Application ID:</th>
+                                              <td style="color:black;">{{ applicant.application_number }}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                              <th scope="row" style="text-align: left; color:black;" nowrap>Last Name:</th>
+                                              <td style="color:black;">{{ applicant.last_name }}</td>                                   
+                                            </tr>  
+                                            {% if applicant.middle_name %}
+                                            <tr>
+                                              <th scope="row" style="text-align: left; color:black;">Middle Name:</th>
+                                              <td style="color:black;">{{ applicant.middle_name }}</td>                                   
+                                            </tr>  
+                                            {% endif %}
+                                            <tr>
+                                              <th scope="row" style="text-align: left; color:black;">First Name:</th>
+                                              <td style="color:black;">{{ applicant.first_name }}</td>                                   
+                                            </tr>   
+                                            
+                                            <tr>
+                                              <th scope="row" style="text-align: left; color:black;" nowrap>Programme Choice:</th>
+                                              <td style="color:black;">{{ applicant.course_name }}</td>                                   
+                                            </tr>  
+                                            
+                                          
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">
+                                              {% if page_title == 'Pay Application Form' %}
+                                              Application Fee:
+                                              {% elif page_title == 'Pay Screening Fee' %}
+                                              Screening Fee
+                                              {% endif %}
+                                            </th>
+                                            <td style="color:black;">N{{ fee_amount|intcomma }}</td>                                   
+                                          </tr> 
+                                                    
+                                            </tbody>
+                                      </table>
+                                  </div>
+                                  <div class="col-md-4"> 
+                                  
+                                      <img class="img-thumbnail" src=" {% image_url applicant.applicant.profile.image %} " alt="profile image">
+                                    
+                                    </div>
+                                
+                              </div>
+                            </div>
+                            
+                      </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header bg-info text-white">
+                                Academic Session Choice
+                            </div>
+                            <div class="card-body">
+                              <h4 class="text-center">
+                                Select Acedemic Session
+                              </h4>
+                              <hr>
+                              <form method="POST">
+                                {% csrf_token %}
+              
+                                {{ form | crispy }}
+            
+                              
+                                <!--Check Page Title and Allocate Submit Value-->
+                              
+                                {% if page_title == 'Pay Application Form' %}
+                              <input class="btn btn-info btn-block" type="submit"  value="Pay Application Fee">
+                              {% elif page_title == 'Pay Screening Fee' %}
+                              <input class="btn btn-info btn-block" type="submit"  value="Pay Screening Fee">
+                              {% endif %}
+                                
+              
+                              </form>
+                                
+                            </div>
+                        </div> 
+                    </div>
+            
+                  
+                </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

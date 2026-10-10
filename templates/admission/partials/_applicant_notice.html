@@ -1,0 +1,48 @@
+{% load humanize %}
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            Notice!!!
+        </div>
+        <div class="card-body">
+            <marquee behavior="scroll" direction="left" scrollamount="2">
+               <h3 class="my-4" style="font-size:1.1rem; color:darkgreen; font-weight:700;"> {{user.profile.last_name|capfirst}}, You have 
+                {% if not has_application_form_payment %} 
+                pending Appliction Form Payment of <b style="color:red;">N{{fee_amount|intcomma}}</b>. <a href="{% url 'initiate_payment' %}?fee=application-form">Pay Online</a>
+                {% elif has_application_form_payment and not has_screening_fee_payment %}
+                pending Screening Fee Payment of <b style="color:red;">N{{fee_amount|intcomma}}</b>. <a href="{% url 'initiate_payment' %}?fee=screening-fee">Pay Online</a>
+                {% else %}
+                Paid the relevant Application for Admission Fees (Application and Screening).
+        
+                {% endif %}
+                </h3>
+            </marquee>
+            <hr>
+            <p style="font-size:1rem; text-align:justify; line-height:2.5;">
+                 <b>{{user.profile.first_name|capfirst}} {{user.profile.last_name|capfirst}}</b> 
+                 
+                 {% if not has_application_form_payment %} 
+                you have Pending Appliction Form Payment of <b style="color:red;">N{{fee_amount|intcomma}}</b> . <a href="{% url 'initiate_payment' %}?fee=application-form">Pay Online</a>
+                
+                For <b>{{course_name}}</b>
+                {% endif %}
+
+                {% if has_application_form_payment and not has_screening_fee_payment %}
+                you have Pending Screening Fee Payment of <b style="color:red;">N{{fee_amount|intcomma}}</b> . <a href="{% url 'initiate_payment' %}?fee=screening-fee">Pay Online.</a>
+                For <b>{{course_name}} Programme Application for Admission for {{latest_academic_session}} Academic Session. </b>
+                {% else %}
+                You have paid the relevant Application for Admission Fees and should follow all our
+                Social Media handles, our Website and Radio Announcement for update for {{latest_academic_session}}
+                Admissions. 
+                Once Admission is given, you will be required to pay a Non-refundable Acceptance Fee of 
+                <b>N10,000.00</b> and Caution Fee of <b>N35,000.00.</b>
+                Thanks.
+                {% endif %}
+            </p>
+            
+            <hr>
+            
+           
+        </div>
+    </div> 
+</div>

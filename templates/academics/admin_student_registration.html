@@ -1,0 +1,351 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    <!--Alert Template-->
+                    {% include 'admission/partials/_alerts.html' %}
+                    <!--Alert Template-->
+            
+                    <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white; !important"> 
+                                <table id="customTable">
+                                    <tr>
+                                        <th class="logo" rowspan="6"><img width="120" height="120" src="{% static 'img/logos/fedpolywannune_slip_logo.jpg' %}" alt="slip logo"></th>
+                                        <td><h1 style="font-family:sans-serif; font-size:1.5rem; font-weight:700;">FEDERAL POLYTECHNIC, WANNUNE.</h1></td>
+                                        <th class="passport" rowspan="6"><img class="passport" width="120" height="150" src="{% image_url student_instance.candidate.profile.image %}" alt="applicant picture"></th>
+                                    </tr>
+                                    <tr>
+                                        <td><h3 style="font-family:sans-serif; font-size: 1.2rem; font-weight:600;">PMB 102355</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;"> WANNUNE-BENUE STATE,</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;">OFFICE OF THE REGISTRAR</h3> </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td> <h3 style="font-family:sans-serif; font-size: 0.8rem; font-weight:600;"><span style="color:black;">(Academic Unit)</span> </h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;"></h3> <b>STUDENTS' REGISTRATION FORM</b> </td>
+                                    </tr>
+                                </table> 
+                            </div>
+                            <h6 style="font-size: 0.9rem; text-align:center; text-decoration:underline;">To be completed in Triplicate</h6>
+                            
+                            <div class="card-body">
+                             <div class="row">
+                                <div class="col-md-12">
+                                    {% if student_reg_courses %}
+                                    <div class="table">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            <h2 style="font-size: 0.9rem; font-weight:650; color:black;">
+                                                <b style="color:black;">Portal Username:</b> {{student_instance.candidate.username}}
+                                            </h2>
+                                            <table id="app-slip-personal-detail-table">
+                                                <tbody>
+                                                  
+                                                  <tr>
+                                                    <th scope="row" style="text-align: left; color:black;">Student ID:</th>
+                                                    <td style="color:black;">{{ student_instance.candidate.student_profile.student_id }}</td>
+                                                    <th scope="row" style="text-align: left; color:black;">Academic Session:</th>
+                                                    <td style="color:black;">{{latest_academic_session}}</td> 
+                                                  </tr>
+                                                    
+                                                  <tr>
+                                                    <th scope="row" style="text-align: left; color:black;">Surname:</th>
+                                                    <td style="color:black;">{{ student_instance.candidate.profile.last_name }}</td> 
+                                                    {% if student_instance.candidate.profile.middle_name %}    
+                                                    <th scope="row" style="text-align: left; color:black;">Middle Name:</th>
+                                                    <td style="color:black;">{{ student_instance.candidate.profile.middle_name }}</td>      
+                                                    {% endif %}                            
+                                                  </tr> 
+                                                  
+                                                  <tr>
+                                                    <th scope="row" style="text-align: left; color:black;">Other Names:</th>
+                                                    <td style="color:black;">{{ student_instance.candidate.profile.first_name }}</td>   
+                                                    <th scope="row" style="text-align: left; color:black;">Gender:</th>
+                                                    <td style="color:black;">{{ student_instance.candidate.profile.gender}}</td>                            
+                                                  </tr>  
+                                                  
+                                                  <tr>
+                                                        
+                                                      <th scope="row" style="text-align: left; color:black;">Academic Programme:</th>
+                                                      <td style="color:black;">{{ student_programme}}</td>   
+                                                      <th scope="row" style="text-align: left; color:black;">School:</th>
+                                                    <td style="color:black;">{{ student_programme.department.faculty}}</td>                               
+                                                  </tr>   
+                                                  
+                                                  <tr>
+                                                          
+                                                    <th scope="row" style="text-align: left; color:black;">Department:</th>
+                                                    <td style="color:black;">{{ student_programme.department}}</td>  
+                                                    <th scope="row" style="text-align: left; color:black;">Level:</th>
+                                                    <td style="color:black;">{{student_level}}</td>                              
+                                                  </tr>  
+                                                  <tr>
+                                                          
+                                                    <th scope="row" style="text-align: left; color:black;">Semester:</th>
+                                                    <td style="color:black;">{{ current_semester}}</td>  
+                                                    <th scope="row" style="text-align: left; color:black;">Contact Address:</th>
+                                                    <td style="color:black;">{{ student_instance.candidate.profile.home_address}}</td>                              
+                                                  </tr> 
+                                                    
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+
+                                            
+
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2 style="text-align: center; margin-top:1%; color:black; font-size:1rem; font-weight:650; font-family:sans-serif;">
+                                                        {{current_semester}} Course Registration for {{latest_academic_session}} Academic Session.
+                                                    </h2>
+                                                    <hr>
+                                                    
+
+                                                        <table id="app-slip-table">
+                                                        <thead class="bg-info text-white">
+                                                            <tr>
+                                                            <th scope="col" wrap>#</th>
+                                                            <th scope="col" style="color: white;">Course Code</th>
+
+                                                            <th scope="col" style="color: white;" nowrap>Course Title</th>
+                                                            {% if not student_instance.current_level == 'Remedial Programme' %}
+                                                            <th scope="col" style="color: white;" nowrap>Credit Hour</th>
+                                                            {% endif %}
+                                                            <th scope="col" style="color: white;" >Course Lecturer's Signature</th>
+                                
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                             <!--Check and Display Registered Carry Over Courses -->
+                                                             {% if check_carryover %}
+                                                             <tr>
+                                                                 <th colspan="5" style="text-align: center;">
+                                                                     <b style="text-align: center; color:brown;"> {{previous_level}} {{current_semester}} Registered Carryover Course(s)  </b>
+                                                                 </th>
+                                                             </tr>
+
+                                                            {% for carryover in check_carryover %}
+                                                            
+                                                            
+                                                            <tr>
+                                                                
+
+                                                                <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                            
+                                                                <td style="color:black;" nowrap> {{carryover.course_unit.course_code|upper}} </td>
+
+                                                                <td nowrap style="color:black;">{{ carryover.course_unit.course_title|title }}</td>
+
+                                                                
+                                                                <td nowrap style="color:black;">{{ carryover.course_unit.credit_load }}</td>
+                                                             
+                                                                <td nowrap style="color:black;"> 
+                                                            
+                                                                    
+                                                                    
+                                                                </td>  
+                                                            </tr>
+                                                            {% endfor %}
+                                                            <!--Display Total Credit Hours for Carryover-->
+                                                            <tr>
+                                                                <th colspan="3" style="text-align: center;">Total Carryover Credit Hours</th>
+                                                                <td>
+                                                                    {{carryover_credit_hours}}
+                                                                </td>
+                                                                <td>
+
+                                                                </td>
+                                                            </tr>
+
+                                                            {% endif %}
+                                                            <!-- End the Display of Registered Carry Over Courses SECTION -->
+                                                            
+                                                            <!-- DISPLAY CURRENT SEMESTER LEVEL COURSES -->
+                                                            <tr>
+                                                                <th colspan="5" style="text-align: center;">
+                                                                    <b style="text-align: center;"> {{student_instance.current_level}} {{current_semester}} Courses </b>
+                                                                </th>
+                                                            </tr>
+                                        
+                                                            {% for course_unit in student_reg_courses %}
+                                                            <tr>
+                                                            <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                            
+                                                            <td style="color:black;" nowrap> {{course_unit.course_unit.course_code|upper}} </td>
+                            
+                                                            
+                                                            <td nowrap style="color:black;">{{ course_unit.course_unit.course_title|title }}</td>
+
+                                                            {% if not student_instance.current_level == 'Remedial Programme' %}
+                                                            <td nowrap style="color:black;">{{ course_unit.course_unit.credit_load }}</td>
+                                                            {% endif %}
+                                                            <td></td>
+       
+                                                            </tr>
+                                                            
+                                                            {% endfor %}  
+
+                                                            {% if not student_instance.current_level == 'Remedial Programme' %}
+                                                            <tr>
+                                                                <th colspan="3" style="text-align: center;">
+                                                                    <b style="text-align: center;">Total Credit Hours</b>
+                                                                </th>
+
+                                                                <td>
+                                                                   <b>{{total_credit_load}} </b>
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>  
+                                                            {% endif %}
+                                                            <!--DISPLAY TOTAL CREDIT HOURS INCLUDING CARRYOVER COURSES-->
+                                                            {% if check_carryover %}
+                                                            <tr>
+                                                                <th colspan="3" style="text-align: center;">
+                                                                    <b style="text-align: center; color:brown;">Total Credit Hours Including Carryover Courses.</b>
+                                                                </th>
+
+                                                                <td>
+                                                                   <b style="color:brown;">{{total_credit_hours}} </b>
+                                                                </td>
+                                                                <td></td>
+                                                            </tr> 
+
+
+                                                            {% endif %}
+                                                            <tr>
+                                                                <th colspan="5">
+                                                                    <b>DECLARATION:</b> <span style="font-weight: normal;">
+                                                                        I agree to abide by all rules of <b>Federal Polytechnic, Wannune</b>.
+                                                                    Failure of which should result to being disciplined.
+                                                                    </span>
+                                                                </th>
+
+                                                                
+                                                            </tr>
+                                                            <tr>
+                                                                <th colspan="3" style="font-weight: normal;">
+                                                                    STUDENT SIGNATURE:............................................................
+                                                                </th>
+
+                                                                <td colspan="2">
+                                                                   Date:...................................................................
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            <tr id="printButtonRow">
+                                                                <th colspan="5">
+                            
+                                                                </th>
+                                                                <td> 
+                                                                  <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Slip</a>
+                                                                </td>
+                                                               
+                                                                <td>
+                                                                  <a class="btn btn-success" href=" ">Print Back Page</a>
+                                                                 
+                                                                </td>
+                                                                <td>
+                                                                    
+                                                                    <a class="btn btn-success" href="{% url 'delete_student_courses' student_id %} ">Reset Course Registration</a>
+                                                                  </td>
+                                                              </tr> 
+                                                            
+                                                            
+                                                        </tbody>
+                                                        </table>
+                                                        <div class="container">
+                                                            
+                                                    </div>
+                                                   
+                                                </div>
+                                        </div>
+
+                                       
+                                    </div>
+                                    {% else %}
+                                    <span style="color: red; font-size:1rem; font-weight:600; text-align:center;">No Courses Found.</span>
+                                    {% endif %}
+
+                                </div>
+                                   
+                             </div>
+                              
+    
+                            </div>
+                        </div>
+
+                    </div>
+            
+                      <script>
+                        function printSlip() {
+                            var printContents = document.getElementById('application-slip').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                    
+                            document.body.innerHTML = printContents;
+                    
+                            window.print();
+                    
+                            document.body.innerHTML = originalContents;
+                        }
+                    </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

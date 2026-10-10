@@ -1,0 +1,262 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    <div class="col-xl-12 col-lg-12 col-md-9">
+            
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    
+                                    <div class="col-lg-12">
+                                        
+                                        <div class="p-5">
+                                            
+                                            <!--Message Alert-->
+                                            {% include 'admission/partials/_alerts.html' %}
+                                            <!--Message Alert End Here-->
+                                            <div class="p-1">
+                                           
+
+                                                <div class="table-responsive">
+                                                    {% if staff_publication %} 
+                                                        <table class="table myCard-body">
+                                                            <thead class="bg-info text-white">
+                                                                <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col" style="color: white;" wrap>Publication Existence</th>
+                                                                
+                                                                <th scope="col" style="color: white;" wrap>Publication Platform</th>
+                                
+                                                                <th scope="col" style="color: white;" wrap>Publication Refference</th>
+                                
+                                                                <th scope="col" style="color: white;" wrap>Publication Link</th>
+        
+                                                                <th scope="col" style="color: white;" wrap>Year of Publication</th>
+
+                                                                <th scope="col" style="color: white;" nowrap>Added Date</th>
+                                                                
+                                                                <th scope="col" style="color: white;" nowrap>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                            
+                                                                {% for publication in staff_publication %}
+                                                                <tr>
+                                                                <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                                
+                                                                <td style="color:black;" wrap>{{ publication.publication_existence|capfirst}}</td>
+                                
+                                                                <td nowrap style="color:black;">{{ publication.publication_platform }}</td>
+                                
+                                                                <td wrap style="color:black;">{{ publication.publication_reference }}</td>
+                                                                   
+                                                                <td wrap style="color:black;">
+                                                                    {% if publication.publication_url %}
+                                                                        {{ publication.publication_url }}
+                                                                    {% else %}
+                                                                    Offline Publication, No Link available
+                                                                    {% endif %}
+                                                                    </td>
+
+                                                                <td nowrap style="color:black;">{{ publication.year_publication }}</td>
+
+                                                                <td nowrap style="color:black;">{{ publication.submission_date }}</td>
+                                                                
+                                                                
+                                                                <td nowrap>
+                                                                    
+                                                                    <div class="button-container">
+                                                                        
+                                                                        <a class="btn btn-danger withdraw-button" href="{% url 'delete_publication' publication.id %}  ">Delete</a>
+                                                                    
+                                                                        <a class="btn btn-info deposit-button" href=" {% url 'update_publication' publication.id %} ">Edit</a>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                                    
+                                                                </td>
+                                                                </tr>
+                                                                {% endfor %}    
+                                                                
+                                                                
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                               
+                                                    {% else %}  
+                                                            <h4 style="text-align: center; color:red;">No Publication Added Yet</h4>
+                                                            <div class="text-center">
+                                                                <h6 class="admission-login-header">{{page_title}}</h1>
+                                                            </div>    
+                                                    {% endif %}
+                                                      
+                                                </div>
+                                                {% if staff_publication %}
+                                                {% if user.profile.role == 'Super Admin' %}
+                                                <div class="container">
+                                                    <a href="{% url 'super_admin_academic_staff_record' staff_id %} " class="btn btn-success">Proceed to Staff Academic Record</a>
+                                                </div>
+                                                
+                                                {% else %}
+                                                <div class="container">
+                                                    <a href="{% url 'staff_academic_staff_record' %} " class="btn btn-success">Proceed to Academic Record</a>
+                                                </div>
+                                                {% endif %}
+                                                {% endif %}
+                                            </div>
+            
+                                            
+                                       
+                                            <form method="POST" class="user" id="staffPublicationForm">
+                                                
+                                                {% csrf_token %}
+                                                {{ form|crispy }}
+
+                                               
+                                                <div id="submit-container">
+                                                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Add Publication" id="submitBtn">
+                                                </div>
+                                               
+                                                <hr>
+                                                
+                                                
+                                            </form>
+                                           
+
+                                            <script>
+                                                document.addEventListener('DOMContentLoaded', function () {
+                                                    // Function to hide or display form fields based on publication existence and platform
+                                                    function toggleFields() {
+                                                        var existenceValue = document.getElementById('id_publication_existence').value;
+                                                        var platformValue = document.getElementById('id_publication_platform').value;
+                                            
+                                                        // Hide or display based on publication existence
+                                                        if (existenceValue === 'NO') {
+                                                            hideFields();
+                                                            replaceSubmitButton();
+                                                        } else {
+                                                            showFields();
+                                                            restoreSubmitButton();
+                                                            togglePublicationUrl(platformValue);
+                                                        }
+                                                    }
+                                            
+                                                    // Function to hide form fields
+                                                    function hideFields() {
+                                                        document.getElementById('id_publication_platform').parentNode.parentNode.style.display = 'none';
+                                                        document.getElementById('id_publication_reference').parentNode.parentNode.style.display = 'none';
+                                                        document.getElementById('id_publication_url').parentNode.parentNode.style.display = 'none';
+                                                    }
+                                            
+                                                    // Function to show form fields
+                                                    function showFields() {
+                                                        document.getElementById('id_publication_platform').parentNode.parentNode.style.display = '';
+                                                        document.getElementById('id_publication_reference').parentNode.parentNode.style.display = '';
+                                                    }
+                                            
+                                                    // Function to replace the submit button
+                                                    function replaceSubmitButton() {
+                                                        document.getElementById('submit-container').innerHTML = '<button class="btn btn-primary btn-user btn-block" id="customBtn">Proceed to Academic Record</button>';
+                                            
+                                                        // Add click event listener to the custom button
+                                                        document.getElementById('customBtn').addEventListener('click', function () {
+                                                            // Replace 'another_page_url' with the actual URL you want to redirect to
+                                                            window.location.href = 'staff/academic/record/'; 
+                                                        });
+                                                    }
+                                            
+                                                    // Function to restore the original submit button
+                                                    function restoreSubmitButton() {
+                                                        document.getElementById('submit-container').innerHTML = '<input type="submit" class="btn btn-primary btn-user btn-block" value="Add Publication" id="submitBtn">';
+                                                    }
+                                            
+                                                    // Function to toggle publication URL based on platform
+                                                    function togglePublicationUrl(platformValue) {
+                                                        if (platformValue === 'OFFLINE') {
+                                                            document.getElementById('id_publication_url').parentNode.parentNode.style.display = 'none';
+                                                        } else {
+                                                            document.getElementById('id_publication_url').parentNode.parentNode.style.display = '';
+                                                        }
+                                                    }
+                                            
+                                                    // Initial call to toggleFields to set the initial state
+                                                    toggleFields();
+                                            
+                                                    // Event listener for changes in publication existence field
+                                                    document.getElementById('id_publication_existence').addEventListener('change', toggleFields);
+                                            
+                                                    // Event listener for changes in publication platform field
+                                                    document.getElementById('id_publication_platform').addEventListener('change', function () {
+                                                        toggleFields();
+                                                        // Retrieve the updated platform value after toggling fields
+                                                        var updatedPlatformValue = document.getElementById('id_publication_platform').value;
+                                                        togglePublicationUrl(updatedPlatformValue);
+                                                    });
+                                                });
+                                            </script>
+                                            
+                                            
+                                            
+                                            
+                                        
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                    </div>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

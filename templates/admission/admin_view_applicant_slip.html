@@ -1,0 +1,367 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    <!--Alert Template-->
+                    {% include 'admission/partials/_alerts.html' %}
+                    <!--Alert Template-->
+            
+                    <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white;!important">
+                              <!--Header Table with Logo and Passport-->
+                              <table id="customTable">
+                                <tr>
+                                    <th class="logo" rowspan="6"><img width="120" height="120" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo"></th>
+                                    <td><h1 style="font-family:sans-serif; font-size:1.5rem; font-weight:700; color:rgb(61, 168, 245);">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1></td>
+                                    <th class="passport" rowspan="6"><img class="passport" width="120" height="150" src="{% image_url applicant.applicant.profile.image %}" alt="applicant picture"></th>
+                                </tr>
+                                <tr>
+                                    <td><h3 style="font-family:sans-serif; font-size: 1.2rem; font-weight:600;">P.M.B 1166 GBOKO, BENUE STATE</h3></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;">NIGERIA.</h3> </td>
+                                </tr>
+                                <tr>
+                                    <td> <h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;">APPLICATION FORM FOR ADMISSION.</h3> </td>
+                                </tr>
+                                <tr>
+                                    <td> <h4 style="font-family:sans-serif; font-size: 1rem; font-weight:700; color:red;"><span >PROGRAMME:</span> {{applicant.course_name}}</h3></td>
+                                </tr>
+                              </table>
+       
+                              
+                              
+                            </div>
+                       
+                            <div class="card-body">
+                             <div class="row">
+                                <div class="col-md-12">
+                                  
+                                    <div class="table">
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <span style="color: black; font-size:1rem; font-weight:600;">Applicant's Personal Data.</span> 
+                                          <span style="color: rgb(184, 98, 13);">(Username for Account Login: {{applicant.applicant.username}}) </span> <span> <b style="color:black;">{{application_form_sess}} Academic Session</b> </span>
+                                          <hr>
+                                          <table id="app-slip-personal-detail-table"> 
+                                              <tbody>
+                                                
+                                                <tr>
+                                                  <th scope="row" style="text-align: left; color:black;">Application ID:</th>
+                                                  <td style="color:black;">{{ applicant.application_number }}</td>
+                                                  <th scope="row" style="text-align: left; color:black;">Nationality:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.nationality}}</td> 
+                                                </tr>
+                                                  
+                                                <tr>
+                                                  <th scope="row" style="text-align: left; color:black;">Surname:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.last_name }}</td> 
+                                                  {% if applicant.applicant.profile.middle_name %}    
+                                                  <th scope="row" style="text-align: left; color:black;">Middle Name:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.middle_name }}</td>      
+                                                  {% endif %}                            
+                                                </tr> 
+                                                
+                                                <tr>
+                                                  <th scope="row" style="text-align: left; color:black;">Other Names:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.first_name }}</td>   
+                                                  <th scope="row" style="text-align: left; color:black;">Gender:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.gender}}</td>                            
+                                                </tr>  
+                                                
+                                                <tr>
+                                                      
+                                                    <th scope="row" style="text-align: left; color:black;">Date of Birth:</th>
+                                                    <td style="color:black;">{{ applicant.applicant.profile.date_birth}}</td>   
+                                                    <th scope="row" style="text-align: left; color:black;">Phone Number:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.phone_number}}</td>                               
+                                                </tr>   
+                                                
+                                                <tr>
+                                                        
+                                                  <th scope="row" style="text-align: left; color:black;">Marital Status:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.marital_status}}</td>  
+                                                  <th scope="row" style="text-align: left; color:black;">State of Origin:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.state}}</td>                              
+                                                </tr>  
+                                                <tr>
+                                                        
+                                                  <th scope="row" style="text-align: left; color:black;">Local Govt. Origin:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.lga}}</td>  
+                                                  <th scope="row" style="text-align: left; color:black;">Contact Address:</th>
+                                                  <td style="color:black;">{{ applicant.applicant.profile.home_address}}</td>                              
+                                                </tr> 
+                                                  
+                                              </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+
+                                     <div class="row">
+                                        <div class="col-md-12">
+                                          
+                                          <span style="color: black; font-size:1rem; font-weight:600;">Applicant's Sponship Record.</span>
+                                          <hr>
+                                          <table id="app-slip-table">
+                                            <tbody>
+                                             
+                                              <tr>
+                                                <th scope="row" style="text-align: left; color:black;">Full Name:</th>
+                                                <td style="color:black;">{{ applicant.applicant.candidate_sponsorship.full_name }}</td> 
+                                                  
+                                                <th scope="row" style="text-align: left; color:black;">Occupation:</th>
+                                                <td style="color:black;">{{ applicant.applicant.candidate_sponsorship.occupation }}</td>      
+                                                                        
+                                              </tr> 
+                                              
+                                              <tr>
+                                                <th scope="row" style="text-align: left; color:black;">Phone Number:</th>
+                                                <td style="color:black;">{{ applicant.applicant.candidate_sponsorship.phone_number }}</td> 
+                                                
+                                                <th scope="row" style="text-align: left; color:black;">Email:</th>
+                                                <td style="color:black;">
+                                                  {% if applicant.applicant.candidate_sponsorship.email %}  
+                                                  {{ applicant.applicant.candidate_sponsorship.email}} 
+                                                  {% else %}
+                                                  Nil
+                                                  {% endif %}  
+                                                </td>                          
+                                              </tr>  
+                                              
+                                              <tr>
+                                                  
+                                                <th scope="row" style="text-align: left; color:black;">Contact Address:</th>
+                                                <td style="color:black;">{{ applicant.applicant.candidate_sponsorship.home_address}}</td>   
+                                                <th scope="row" style="text-align: left; color:black;">Relationship:</th>
+                                                <td style="color:black;">{{ applicant.applicant.candidate_sponsorship.sponsor_relationship}}</td>                               
+                                              </tr>   
+                                                
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+
+                                      <div class="row">
+                                          <div class="col-md-12">
+                                            
+                                            <span style="color: black; font-size:1rem; font-weight:600;">Schools Attended with Dates & Certificates Obtained.</span>
+                                            <hr>
+                                            <table id="app-slip-table">
+                                              <thead class="bg-info text-white">
+                                                <tr>
+                                                  <th scope="col" wrap>#</th>
+                                                  <th scope="col" style="color: white;">School Name</th>
+                                                
+                                                  <th scope="col" style="color: white;" nowrap>Admitted Year</th>
+                
+                                                  <th scope="col" style="color: white;" nowrap>Year Ended</th>
+                
+                                                  <th scope="col" style="color: white;" nowrap>Certificate Obtained</th>
+
+                                                  
+                                                
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                
+                            
+                                                {% for school in schools_attended %}
+                                                <tr>
+                                                  <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                
+                                                  <td style="color:black;" wrap>{{ school.school_name|capfirst}}</td>
+                
+                                                  <td wrap style="color:black;">{{ school.admitted_year }}</td>
+                
+                                                  <td wrap style="color:black;">{{ school.end_year }}</td>
+                
+                                                  
+                                                  <td wrap style="color:black;">{{ school.certificate }}</td>
+                                                 
+                                                  
+                                                  
+                                                </tr>
+                                                {% endfor %}    
+                                                
+                                                
+                                                
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                      </div>
+
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <hr>
+                                            <span style="color: black; font-size:1rem; font-weight:600;">Ordinary Level Examination Result</span>
+                                           <hr>
+                                              <table id="app-slip-table">
+                                                <thead class="bg-info text-white">
+                                                  <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col" style="color: white;">Subject</th>
+                                                  
+                                                    <th scope="col" style="color: white;" nowrap>Exam Body</th>
+                  
+                                                    <th scope="col" style="color: white;" nowrap>Exam Number</th>
+                  
+                                                    <th scope="col" style="color: white;" nowrap>Grade</th>
+
+                                                    <th scope="col" style="color: white;" nowrap>Exam Year</th>
+                                                  
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  
+                              
+                                                  {% for result in applicant_result %}
+                                                  <tr>
+                                                    <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                  
+                                                    <td style="color:black;" nowrap>{{ result.subject_name|capfirst}}</td>
+                  
+                                                    <td nowrap style="color:black;">{{ result.result_name }}</td>
+                  
+                                                    <td nowrap style="color:black;">{{ result.exam_number }}</td>
+                  
+                                                    
+                                                    <td nowrap style="color:black;">{{ result.subject_grade }}</td>
+
+                                                    <td nowrap style="color:black;">{{ result.exam_year }}</td>
+                                                    
+                                                    
+                                                  </tr>
+                                                  {% endfor %}    
+                                                  <tr id="printButtonRow">
+                                                    <th colspan="5">
+                
+                                                    </th>
+                                                    <td>
+                                                      <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Slip</a>
+                                                    </td>
+                                                   
+                                                    <td>
+                                                      <a class="btn btn-success" href="{% url 'admin_view_applicant_slip_back_page' applicant_id %}">Print Back Page</a>
+                                                    </td>
+                                                  </tr> 
+                                                  
+                                                  
+                                                </tbody>
+                                              </table>
+                                          </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                   
+                             </div>
+                              
+    
+                            </div>
+                        </div>
+
+                    </div>
+            
+                    <script>
+                      function printSlip() {
+                          
+                          var printContents = document.getElementById('application-slip').innerHTML;
+                          var printWindow = window.open('', '', 'height=600,width=800');
+                          printWindow.document.write('<html><head><title>Print Slip</title>');
+                          printWindow.document.write('<style>');
+                          printWindow.document.write('@media print {');
+                          printWindow.document.write('#application-slip { border: 1px solid #ddd; padding: 10px; margin: 10px; }');
+                          printWindow.document.write('.btn-success { display: none; }');
+                          printWindow.document.write('#printButtonRow { display: none; }');
+                          // Ordinary School Certificate table
+                          printWindow.document.write('#app-slip-table { width: 100%; border-collapse: collapse; }');
+                          printWindow.document.write('#app-slip-table th, #app-slip-table td { border: 1px solid black; padding: 5px; color:black; }');
+                          printWindow.document.write('#app-slip-table td { text-align: left; }');
+                          // Additional styles for #customTable 
+                          printWindow.document.write('#customTable { width: 100%; border-collapse: collapse; margin-top: 20px; }');
+                          printWindow.document.write('#customTable th, #customTable td { border: none; padding: 5px; }');
+                          printWindow.document.write('#customTable th { background-color: #f2f2f2; text-align: center; }');
+                          printWindow.document.write('#customTable td { text-align: center; }');
+                          printWindow.document.write('#customTable .logo img, #customTable .passport img { display: block; max-width: 100px; max-height: 100px; }');
+                          printWindow.document.write('#customTable h1, #customTable h3 { margin: 0; }');
+                          printWindow.document.write('#customTable h1 { margin: 0; color:rgb(3, 3, 121); }');
+                          printWindow.document.write('#customTable h4 { margin: 0; color:red; }');
+                          // Additional styles for .container and #acceptance-slip-table
+                          printWindow.document.write('.container { margin-top: 2%; }');
+                          printWindow.document.write('.row { margin-left: 0; margin-right: 0; }');
+                          printWindow.document.write('.col-8, .col-4 { display: inline-block; vertical-align: top; }');
+                          printWindow.document.write('.col-8 { width: 66.67%; }'); // Adjust width as needed
+                          printWindow.document.write('.col-4 { width: 33.33%; float: right; }'); // Adjust width as needed and float right
+
+                          printWindow.document.write('#acceptance-slip-table { width: 100%; }');
+                          printWindow.document.write('#acceptance-slip-table th, #acceptance-slip-table td { border: none; text-align: left; padding: 8px; }');
+                          printWindow.document.write('#acceptance-slip-table th { text-align: left; color: black; }');
+                          printWindow.document.write('#acceptance-slip-table td { color: black; }');
+                          // CSS for <p> tags
+                          printWindow.document.write('#declaration { font-family: sans-serif; font-size: 1rem; line-height: 0.5; }');
+                          // CSS for <p> tags
+                          printWindow.document.write('h4 { font-family: sans-serif; font-size: 1rem; margin-top: 0; }');
+                          printWindow.document.write('}');
+                          printWindow.document.write('</style>');
+                          printWindow.document.write('</head><body>');
+                          printWindow.document.write(printContents);
+                          printWindow.document.write('</body></html>');
+                          printWindow.document.close();
+                          printWindow.print();
+                      }
+                      </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

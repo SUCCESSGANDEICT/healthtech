@@ -1,0 +1,571 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+{% block content %} 
+<style>
+    .student-dashboard-page {
+        background: #f6f8fb;
+        min-height: calc(100vh - 4.375rem);
+        padding-bottom: 2rem;
+    }
+
+    .student-dashboard-page .alert {
+        border: 0;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.25rem 1rem rgba(31, 45, 61, 0.06);
+        font-size: 0.92rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+        padding: 0.9rem 1rem;
+    }
+
+    .student-dashboard-cards {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+    }
+
+    .student-dashboard-cards > [class*="col-"] {
+        display: flex;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .student-dashboard-cards .student-summary-card {
+        border: 0;
+        border-left: 0.25rem solid #4e73df !important;
+        border-radius: 0.6rem;
+        min-height: 12.5rem;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .student-summary-card .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.05rem;
+    }
+
+    .student-card-header {
+        align-items: flex-start;
+        display: flex;
+        gap: 0.75rem;
+        min-width: 0;
+    }
+
+    .student-card-icon {
+        align-items: center;
+        background: #eef3ff;
+        border-radius: 0.5rem;
+        display: inline-flex;
+        flex: 0 0 2.25rem;
+        font-size: 1rem;
+        height: 2.25rem;
+        justify-content: center;
+        width: 2.25rem;
+    }
+
+    .student-card-label {
+        color: #1f2937;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        line-height: 1.25;
+        text-transform: uppercase;
+    }
+
+    .student-card-meta {
+        color: #6b7280;
+        font-size: 0.8rem;
+        font-weight: 700;
+        line-height: 1.35;
+        margin-top: 0.2rem;
+    }
+
+    .student-card-content {
+        color: #111827;
+        flex: 1 1 auto;
+        font-size: 0.88rem;
+        min-width: 0;
+    }
+
+    .student-card-list ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .student-card-list li {
+        align-items: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem 0.5rem;
+        justify-content: space-between;
+        line-height: 1.35;
+        min-width: 0;
+    }
+
+    .student-card-list span {
+        color: #4b5563;
+        font-weight: 700;
+    }
+
+    .student-card-list strong,
+    .student-card-list b {
+        color: #0f766e;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+    }
+
+    .student-card-list a:not(.btn) {
+        color: #b91c1c;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+        text-decoration: none;
+    }
+
+    .student-card-list a:not(.btn):hover {
+        color: #7f1d1d;
+        text-decoration: underline;
+    }
+
+    .student-card-list .btn {
+        align-items: center;
+        border-radius: 0.4rem;
+        display: inline-flex;
+        gap: 0.35rem;
+        justify-content: center;
+        line-height: 1.25;
+        min-height: 2.25rem;
+        white-space: normal;
+        width: 100%;
+    }
+
+    .student-dashboard-section {
+        margin-top: 1rem;
+    }
+
+    .student-dashboard-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.65rem;
+        box-shadow: 0 0.3rem 1.25rem rgba(15, 23, 42, 0.06);
+        overflow: hidden;
+    }
+
+    .student-action-card {
+        border-left: 0.3rem solid #dc3545;
+    }
+
+    .student-action-card .card-body,
+    .student-history-card .card-header {
+        padding: 1rem;
+    }
+
+    .student-payment-cta {
+        align-items: center;
+        color: #111827;
+        display: flex;
+        font-size: 0.94rem;
+        font-weight: 800;
+        gap: 0.7rem;
+        justify-content: center;
+        line-height: 1.35;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .student-payment-cta:hover {
+        color: #7f1d1d;
+        text-decoration: none;
+    }
+
+    .student-action-card a,
+    .student-action-card span {
+        align-items: center;
+        background: transparent !important;
+        color: #111827 !important;
+        display: flex !important;
+        font-size: 0.94rem;
+        font-weight: 800;
+        gap: 0.65rem;
+        justify-content: center;
+        line-height: 1.4;
+        min-height: 2.25rem;
+        padding: 0.15rem;
+        text-align: center !important;
+        text-decoration: none;
+        white-space: normal;
+    }
+
+    .student-action-card a::before,
+    .student-action-card span::before {
+        color: #dc3545;
+        content: "\f06a";
+        display: inline-block;
+        flex: 0 0 auto;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+    }
+
+    .student-action-card a:hover {
+        color: #7f1d1d !important;
+        text-decoration: none;
+    }
+
+    .student-history-card .card-header {
+        align-items: center;
+        background: #0f766e;
+        border: 0;
+        color: #fff;
+        display: flex;
+        gap: 0.65rem;
+        justify-content: space-between;
+    }
+
+    .student-history-card h6 {
+        color: inherit;
+        font-size: 0.98rem;
+        font-weight: 800;
+        line-height: 1.3;
+        margin: 0;
+    }
+
+    .student-table-wrap {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .student-payment-table {
+        color: #111827;
+        margin-bottom: 0;
+        min-width: 720px;
+    }
+
+    .student-payment-table thead th {
+        background: #f3f4f6;
+        border-bottom: 1px solid #e5e7eb;
+        color: #374151;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        padding: 0.85rem 0.75rem;
+        text-transform: uppercase;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .student-payment-table tbody td,
+    .student-payment-table tbody th {
+        border-top: 1px solid #edf0f4;
+        color: #111827;
+        font-size: 0.86rem;
+        padding: 0.85rem 0.75rem;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .student-status-badge {
+        border-radius: 999px;
+        display: inline-flex;
+        font-size: 0.72rem;
+        font-weight: 800;
+        line-height: 1;
+        padding: 0.35rem 0.55rem;
+        white-space: nowrap;
+    }
+
+    .student-status-badge.is-success {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .student-status-badge.is-pending {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .student-empty-state {
+        align-items: center;
+        color: #6b7280;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        justify-content: center;
+        min-height: 10rem;
+        padding: 2rem 1rem;
+        text-align: center;
+    }
+
+    .student-empty-state i {
+        color: #9ca3af;
+        font-size: 1.75rem;
+    }
+
+    .student-empty-state h3 {
+        color: #6b7280;
+        font-size: 0.95rem;
+        font-weight: 800;
+        line-height: 1.4;
+        margin: 0;
+    }
+
+    .student-pagination-wrap {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0 0;
+    }
+
+    .student-pagination-wrap .pagination {
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .student-pagination-wrap .pagination a {
+        align-items: center;
+        background: #fff;
+        border: 1px solid #d1d5db;
+        border-radius: 0.4rem;
+        color: #374151;
+        display: inline-flex;
+        font-weight: 800;
+        min-height: 2.1rem;
+        min-width: 2.1rem;
+        justify-content: center;
+        padding: 0.35rem 0.65rem;
+        text-decoration: none;
+    }
+
+    .student-pagination-wrap .pagination .active a {
+        background: #4e73df;
+        border-color: #4e73df;
+        color: #fff;
+    }
+
+    @media (min-width: 768px) {
+        .student-dashboard-page {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .student-action-card .card-body,
+        .student-history-card .card-header {
+            padding: 1.1rem 1.25rem;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .student-dashboard-cards .student-summary-card {
+            min-height: 13rem;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .student-dashboard-page {
+            padding-left: 0.85rem;
+            padding-right: 0.85rem;
+        }
+
+        .student-dashboard-cards > [class*="col-"] {
+            margin-bottom: 0.85rem !important;
+        }
+
+        .student-dashboard-cards .student-summary-card {
+            min-height: 11.25rem;
+        }
+
+        .student-card-label,
+        .student-history-card h6 {
+            font-size: 0.9rem;
+        }
+
+        .student-payment-cta {
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+        }
+    }
+</style>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {% include 'accounts/partials/_sideBar.html' %}
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+            <div class="container-fluid student-dashboard-page">
+
+                <!-- Page Heading -->
+                {% include 'accounts/partials/_dashboard_heading.html' %}
+                <!-- End Page Heading -->
+
+
+                 <!--Alert Template-->
+                 {% include 'admission/partials/_alerts.html' %}
+                 <!--Alert Template-->
+
+                 {% if dashboard_session_message %}
+                 <div class="alert alert-info text-center" role="alert">
+                    {{ dashboard_session_message }}
+                 </div>
+                 {% endif %}
+
+                 {% if dashboard_semester_message %}
+                 <div class="alert alert-warning text-center" role="alert">
+                    {{ dashboard_semester_message }}
+                 </div>
+                 {% endif %}
+                 
+                {% if is_graduate %}
+                <div class="alert alert-success" role="status">
+                    <h1 class="h4 mb-2">Graduate Dashboard</h1>
+                    <p class="mb-1"><strong>Academic status:</strong> Graduate</p>
+                    <p class="mb-0"><strong>Graduation session:</strong> {{ graduation_session|default:"Not recorded" }}</p>
+                </div>
+                {% endif %}
+                <!-- Content Card Row -->
+                    {% include 'accounts/partials/_content_cards.html' %}
+                <!-- End Content Card Row -->
+             
+                <div class="student-dashboard-section">
+                    <div class="student-dashboard-card student-action-card">
+                        <div class="card-body">
+                                {% if can_pay_next_fee and next_fee_payment_url %}
+                                 <a class="collapse-item" style="display: block; color:white; text-align:center;" href="{{ next_fee_payment_url }}">{{ next_fee_name }}: {{ next_fee_action_label|default:"Pay Now" }}</a>
+                                {% elif next_fee_message %}
+                                 <span class="collapse-item" style="display: block; color:black; text-align:center;">{{ next_fee_message }}</span>
+                                {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!--STUDENT PAYMENT INFORMATION-->
+                <div class="student-dashboard-section">
+                    <div class="student-dashboard-card student-history-card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-history"></i> {{user.profile.last_name}} Payment History</h6>
+                            </div>
+
+                            <div class="card-body">
+                                
+                                <div class="student-table-wrap">
+                                    {% if student_payments %}
+                                      <table class="table student-payment-table">
+                                          <thead>
+                                            <tr>
+                                              <th scope="col">#</th>
+                                              <th scope="col">Payment Source</th>
+                                            
+                                              <th scope="col">Pay Method</th>
+
+                                              <th scope="col">Amount</th>
+            
+                                              <th scope="col">Payment Date</th>
+                                              
+                                              <th scope="col">Status</th>
+
+                                              <th scope="col">Session</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            
+                        
+                                            {% for payment in student_payments %}
+                                            <tr>
+                                              <th scope="row">{{ forloop.counter }}</th>
+            
+                                              <td>{{ payment.dashboard_payment_source|default:payment.payment_source }}</td>
+            
+                                              <td>{{ payment.payment_method }}</td>
+            
+                                              <td>N{{ payment.amount|intcomma }}</td>
+                                             
+                                              <td>{{ payment.payment_date }}</td>
+
+                                              <td>{% if payment.dashboard_is_successful %}<span class="student-status-badge is-success">{{ payment.dashboard_status_label }}</span>{% else %}<span class="student-status-badge is-pending">{{ payment.dashboard_status_label|default:"Unverified" }}</span>{% endif %}</td>
+
+                                              <td>{{ payment.academic_sess}}</td>
+                                            </tr>
+                                            {% endfor %}    
+                                            
+                                            
+                                             
+                                          </tbody>
+                                      </table>
+                                        
+                                      {% else %}
+                                      <div class="student-empty-state">
+                                        <i class="fas fa-receipt"></i>
+                                        <h3>{{ dashboard_payment_message|default:"You have NOT made any Payment yet" }}</h3>
+                                      </div>
+                                      {% endif %}
+                                    
+                                      
+                                </div>
+                                
+                            </div>
+                            
+                        <div class="student-pagination-wrap">
+                                    <ul class="pagination">
+                                        {% if student_payments.has_previous %}
+                                            <li><a href="?page=1"><i class="fa fa-angle-double-left"></i></a></li>
+                                            <li><a href="?page={{ student_payments.previous_page_number }}">{{ student_payments.previous_page_number }}</a></li>
+                                        {% endif %}
+                                        
+                                        <li class="active"><a href="?page={{ student_payments.number }}">{{ student_payments.number }}</a></li>
+                                        
+                                        {% if student_payments.has_next %}
+                                            <li><a href="?page={{ student_payments.next_page_number }}">{{ student_payments.next_page_number }}</a></li>
+                                            <li><a href="?page={{ student_payments.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i></a></li>
+                                        {% endif %}
+                                    </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--STUDENT FEED PAYMENT INFORMATION ENDS-->
+                
+
+
+
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,484 @@
+{% load humanize %}
+<div class="row{% if user.profile.role == 'Student' %} student-dashboard-cards{% endif %}">
+<!--MIS Admin Cards-->
+{% if user.profile.role == 'MIS ADMIN-2' or user.is_superuser or user.profile.role == 'Rector' %}
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                            <span style="color:rgb(235, 112, 11); font-size:0.7rem; font-weight:700;"> <span style="font-size: 0.8rem;">Submitted Applications:</span> </span></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <span style="color:rgb(17, 6, 143); font-size:0.8rem;">
+                                {% if recently_added_session %}
+                                 {{recently_added_session}} Session
+                                {% else %}
+                                No Session Yet
+                                {% endif %} 
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i style="color:rgb(41, 122, 6); font-size:1rem; font-weight:700;">{{confirmed_submissions}}</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form SOld Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                            <span style="font-size: 0.8rem;">Sold Forms</span> </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                           <span style="color:rgb(17, 6, 143); font-size:0.8rem;">
+                            {% if recently_added_session %}
+                                 {{recently_added_session}} Session
+                                {% else %}
+                                No Session Yet
+                                {% endif %} 
+                            </span> 
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i style="font-size:0.8rem; color:black; font-weight:650;">N{{total_amount_paid|intcomma }} </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Number of Students Paid Fee
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold" style="font-size:0.8rem;">
+                                    {% if recently_added_session %}
+                                 {{recently_added_session}} 
+                                {% else %}
+                                No Session Yet
+                                {% endif %} 
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div >
+                                    <div class="progress-bar" role="progressbar"
+                                         aria-valuemin="0"
+                                        aria-valuemax="100">{{count_fees_payment}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Amount Paid Fees</div>
+                        <div class="h5 mb-0 font-weight-bold" style="font-size:0.7rem;">
+                            {% if recently_added_session %}
+                                 {{recently_added_session}} 
+                                {% else %}
+                                No Session Added Yet
+                                {% endif %} 
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i >N{{total_paid_fees|intcomma}} </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--MIS Admin-1 Cards-->
+{% elif user.profile.role == 'MIS ADMIN-1' %}
+
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <span style="color:rgb(235, 112, 11); font-size:0.7rem; font-weight:700;">Number of Schools:</span></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <span style="color:rgb(17, 6, 143); font-size:0.8rem;"> {{recently_added_session}} Session</span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class=" fa-2x text-gray-300"><span style="color:orange;">{{count_schools}}</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Number of Departments</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                       <span style="color:rgb(17, 6, 143); font-size:0.8rem;">{{recently_added_session}} Session</span> 
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class=" fa-2x text-gray-300"><span style="color:blue;">{{count_departments}}</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Number of Programs Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                        Number of Programs
+                    </div>
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                <span style="color:rgb(17, 6, 143); font-size:0.8rem;">{{recently_added_session}} Session</span> 
+                            </div>
+                        </div>
+                        <div class="col">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class=" fa-2x text-gray-300"><span style="color:green;">{{count_programs}}</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pending Requests Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <span style="color:rgb(235, 112, 11); font-size:0.7rem; font-weight:700;">Number of Paid Applicants:</span></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <span style="color:rgb(17, 6, 143); font-size:0.8rem;"> {{recently_added_session}} Session</span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i style="color:rgb(41, 122, 6); font-size:1rem; font-weight:700;">{{count_applicants}}</i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End MIS Admin-1 Cards-->
+
+<!--STAFF CARDS-->
+{% elif user.profile.role == 'Staff' %}
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <span style="color:rgb(235, 112, 11); font-size:0.7rem; font-weight:700;">Number of Publications:</span></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <span style="color:rgb(17, 6, 143); font-size:0.8rem;">  Publication(s)</span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class=" fa-2x text-gray-300"><span style="color:orange;">{{no_staff_publication}}</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Department</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                       <span style="color:rgb(17, 6, 143); font-size:0.8rem;">{{staff_instance.department}} </span> 
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class=" fa-2x text-gray-300"><span style="color:blue;">{{count_departments}}</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Number of Programs Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                        Staff Category
+                    </div>
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                <span style="color:rgb(17, 6, 143); font-size:0.8rem;">{{staff_instance.department.dept_type}} Staff </span> 
+                            </div>
+                        </div>
+                        <div class="col">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class=" fa-2x text-gray-300"><span style="color:green;">{{count_programs}}</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pending Requests Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <span style="color:rgb(235, 112, 11); font-size:0.7rem; font-weight:700;">Staff Salary Grade:</span></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <span style="color:rgb(17, 6, 143); font-size:0.8rem;"> </span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class=" fa-2x text-gray-300"><span style="color:green; font-size:1.1rem;">{{staff_instance.Pay_grade}}</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--STAFF CARDS ENDS-->
+
+<!--Student Cards-->
+{% elif user.profile.role == 'Student' or user.profile.role == 'Graduate' %}
+
+<!--Current Session Fee Schedule Card-->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2 student-summary-card">
+        <div class="card-body">
+            <div class="student-card-header">
+                <div class="student-card-icon text-primary"><i class="fas fa-table"></i></div>
+                <div>
+                    <div class="student-card-label">School Fees Schedule</div>
+                    <div class="student-card-meta">{{current_session}} Academic Session</div>
+                </div>
+            </div>
+            <div class="student-card-content">
+                <div class="student-card-list">
+                    {% if is_remedial_science %}
+                    <ul>
+                        <li><span>Full Fee</span><strong>N{{full_session_fee_amount|intcomma}}</strong></li> 
+                        <li><span class="text-danger">Only Full Payment is Allowed.</span></li>
+                    </ul>
+                    {% else %}
+                    <ul>
+                        <li><span>Full Fee</span><strong>N{{total_expected_payment|intcomma}}</strong></li>
+                        <li><span>{{current_semester|default:"Semester"}} Fee</span><strong>N{{total_fee_for_first_semester|intcomma}}</strong></li>
+                    </ul>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Current Session Summary Card-->
+
+<!-- Student School Fee Payment Summary Card -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2 student-summary-card">
+        <div class="card-body">
+            <div class="student-card-header">
+                <div class="student-card-icon text-success"><i class="fas fa-money-bill-alt"></i></div>
+                <div>
+                    <div class="student-card-label">Payment Summary</div>
+                    <div class="student-card-meta">{{current_session}} Academic Session</div>
+                </div>
+            </div>
+            <div class="student-card-content">
+                <div class="student-card-list">
+                    {% if is_remedial_science %}
+                        <ul>
+                            {% if total_paid_current_session  %}
+                            <li><span>Paid</span><strong>N{{total_paid_current_session|intcomma}}</strong></li>
+                            <li><span>Balance</span><strong class="text-danger">N
+                                {% if not total_paid_current_session  > total_expected_payment %}
+                                {{current_session_balance|intcomma}} 
+                                {% endif %}
+
+                            </strong></li>
+                            {% else %}
+                            <li><span class="text-warning">No Payment Yet</span></li>
+
+                            <li><a href="  ">Pay Fee Now</a></li>
+                            {% endif %} 
+                        
+                        </ul>
+                    {% else %}
+                    <ul>
+                        <li><span>Next Fee</span><strong>{{ next_fee_name|default:"Payment Review" }}</strong></li>
+                        {% if next_fee_amount %}
+                            <li><span>Amount</span><strong>N{{ next_fee_amount|intcomma }}</strong></li>
+                        {% endif %}
+                        <li><span>Status</span><strong class="text-{{ next_fee_status_class|default:'secondary' }}">{{ next_fee_status|default:"Review Required" }}</strong></li>
+                        {% if next_fee_message %}
+                            <li><span class="text-muted">{{ next_fee_message }}</span></li>
+                        {% endif %}
+                        {% if can_pay_next_fee and next_fee_payment_url %}
+                            <li><a href="{{ next_fee_payment_url }}">{{ next_fee_action_label|default:"Pay Now" }}</a></li>
+                        {% endif %}
+                    </ul>
+
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Semester Course Registeration Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2 student-summary-card">
+        <div class="card-body">
+            <div class="student-card-header">
+                <div class="student-card-icon text-info"><i class="fas fa-clipboard-list"></i></div>
+                <div>
+                    <div class="student-card-label">Course Registration</div>
+                    <div class="student-card-meta">{{current_semester|default:"Semester"}} Registration</div>
+                </div>
+            </div>
+            <div class="student-card-content">
+                <div class="student-card-list">
+                    <!--CHECK IF STUDENT HAS PAID CURRENT FEE AND ON TIME BE COURSE REGISTRATION-->
+                    <ul>
+                        {% if is_graduate %}
+                            <li><span>Historical access</span><strong>Read-only</strong></li>
+                            <li><a class="btn btn-success" href="{% url 'student_semester_registered_courses' %}"><i class="fas fa-print"></i> Print Course(s)</a></li>
+                        {% else %}
+                        {% if total_paid_current_session  %}
+                            {% if has_caution_fee_payment and has_other_charges_payment %}
+
+
+                                {% if current_semester == 'First Semester' or current_semester == 'Second Semester' and has_paid_full_session and has_paid_first_semester or total_paid_current_session >= current_semester_fee_amount %}
+                                    {% if student_reg_courses %}
+                                    <li><a class="btn btn-success" href="{% url 'student_semester_registered_courses' %}  "><i class="fas fa-print"></i> Print Course(s)</a></li>
+                                    {% elif late_payment %}
+                                        {% if not has_late_registration_payment %}
+                                            <li> <b style="color:red; font-weight: 700; font-size:0.78rem;"> <a href="{% url 'initiate_payment' %}?fee=late-registration">Pay ₦{{late_registration_fee_amount|intcomma}} Late Reg. Fee</a> </b> </li>
+                                        {% elif current_semester == 'First Semester' and has_paid_first_semester or current_semester == 'Second Semester' and has_paid_full_session  %}
+                                            <li><a class="btn btn-success" href=" {% url 'confirm_student_carryover' %} "><i class="fas fa-edit"></i> Register Course(s)</a></li>
+                                        {% elif not total_paid_current_session  >= total_expected_payment    %}
+                                            <li><a href="{% url 'select_fee_payment' %} ">Pay Outstanding</a></li>
+                                        {% endif %}
+                                    {% elif current_semester == 'First Semester' and has_paid_first_semester or current_semester == 'Second Semester' and has_paid_full_session %}
+                                        <li><a class="btn btn-success" href=" {% url 'confirm_student_carryover' %} "><i class="fas fa-edit"></i> Register Course(s)</a></li>
+                                   {% elif not total_paid_current_session  >= total_expected_payment    %}
+                                        <li><a href="{% url 'select_fee_payment' %} ">Pay Outstanding</a></li>
+                                   {% else %} 
+                                        <li><a class="btn btn-success" href=" {% url 'confirm_student_carryover' %} "><i class="fas fa-edit"></i> Register Course(s)</a></li>
+                                   {% endif %}
+                                {% else %}
+                                <li><span>Outstanding</span><strong>N{{current_session_balance}}</strong></li>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                        <li><span class="text-warning">No School Fee Payment yet.</span></li>
+                        {% endif %} 
+                        {% endif %}
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Previous Academic Records -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-warning shadow h-100 py-2 student-summary-card">
+        <div class="card-body">
+            <div class="student-card-header">
+                <div class="student-card-icon text-warning"><i class="fas fa-folder-open"></i></div>
+                <div>
+                    <div class="student-card-label">My Academic Record</div>
+                    <div class="student-card-meta">Previous Record</div>
+                </div>
+            </div>
+            <div class="student-card-content">
+                <div class="student-card-list">
+                    <ul>
+                    
+                    {% if is_remedial_science and current_semester == 'First Semester' %}
+                        <li><span class="text-warning">No Previous Record Yet.</span></li>
+                    {% else %}
+                        {% if is_graduate %}
+                            <li><a class="btn btn-outline-success btn-sm" href="{% url 'student_semester_registered_courses' %}"><i class="fas fa-print"></i> View Historical Courses</a></li>
+                        {% elif student_previous_course_enrollment  %}
+                            
+                            <li><a class="btn btn-outline-success btn-sm" href="{% url 'student_previous_academic_record' %}  "><i class="fas fa-print"></i> Print Previous Records</a></li>
+                            
+                        {% else %}
+                            
+                             <li><span class="text-warning">No Previous Record Yet.</span></li> 
+
+                        {% endif %} 
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+</div>

@@ -1,0 +1,117 @@
+{% load humanize %}
+{% load pagination_tags %}
+
+{% if School_fees %}
+    <div class="tuition-table-wrap" aria-label="School fees table">
+        <table class="table table-hover tuition-table myCard-body">
+            <thead>
+                <tr>
+                    <th scope="col" class="tuition-col-action">Actions</th>
+                    <th scope="col" class="tuition-col-number">#</th>
+                    <th scope="col" class="tuition-col-session">Session</th>
+                    <th scope="col" class="tuition-col-name">Fee Type</th>
+                    <th scope="col" class="tuition-col-programme">Programme</th>
+                    <th scope="col" class="tuition-col-level">Level</th>
+                    <th scope="col" class="tuition-col-indigene">Indigene</th>
+                    <th scope="col" class="tuition-col-payment">Payment Option</th>
+                    <th scope="col" class="tuition-col-amount">Amount</th>
+                    <th scope="col" class="tuition-col-added">Added By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for school_fee in School_fees %}
+                    <tr>
+                        <td class="tuition-col-action">
+                            <div class="tuition-actions">
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary view-tuition-details"
+                                    data-session="{{ school_fee.academic_session|default:'Not assigned' }}"
+                                    data-name="{{ school_fee.name }}"
+                                    data-programme="{{ school_fee.course_of_study|default:'General / Non-tuition' }}"
+                                    data-level="{{ school_fee.level }}"
+                                    data-indigene="{{ school_fee.indigene_type }}"
+                                    data-payment="{% if school_fee.semester == 'Full' %}{{ school_fee.semester }} Academic Session{% else %}{{ school_fee.semester }}{% endif %}"
+                                    data-amount="N{{ school_fee.amount|intcomma }}"
+                                    data-added-by="{{ school_fee.added_by }}"
+                                    data-edit-url="{% url 'update_school_fee' school_fee.pk %}"
+                                >
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                                <a class="btn btn-info" href="{% url 'update_school_fee' school_fee.pk %}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger" href="{% url 'delete_school_fee' school_fee.pk %}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                        <th scope="row" class="tuition-col-number">{{ page_obj.start_index|add:forloop.counter0|default:forloop.counter }}</th>
+                        <td class="tuition-col-session">
+                            <span class="tuition-badge tuition-badge-soft" title="{{ school_fee.academic_session|default:'Not assigned' }}">
+                                {{ school_fee.academic_session|default:"Not assigned" }}
+                            </span>
+                        </td>
+                        <td class="tuition-col-name">
+                            <span class="tuition-badge" title="{{ school_fee.name }}">
+                                {{ school_fee.name }}
+                            </span>
+                        </td>
+                        <td class="tuition-col-programme">
+                            <span class="tuition-text-strong tuition-truncate" title="{{ school_fee.course_of_study|default:'General / Non-tuition' }}">
+                                {{ school_fee.course_of_study|default:"General / Non-tuition" }}
+                            </span>
+                        </td>
+                        <td class="tuition-col-level">
+                            <span class="tuition-badge tuition-badge-soft" title="{{ school_fee.level }}">
+                                {{ school_fee.level }}
+                            </span>
+                        </td>
+                        <td class="tuition-col-indigene">
+                            <span class="tuition-badge tuition-badge-success" title="{{ school_fee.indigene_type }}">
+                                {{ school_fee.indigene_type }}
+                            </span>
+                        </td>
+                        <td class="tuition-col-payment">
+                            <span class="tuition-badge" title="{% if school_fee.semester == 'Full' %}{{ school_fee.semester }} Academic Session{% else %}{{ school_fee.semester }}{% endif %}">
+                                {% if school_fee.semester == 'Full' %}
+                                    {{ school_fee.semester }} Academic Session
+                                {% else %}
+                                    {{ school_fee.semester }}
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td class="tuition-col-amount">
+                            <span class="tuition-text-strong">N{{ school_fee.amount|intcomma }}</span>
+                        </td>
+                        <td class="tuition-col-added">
+                            <span class="tuition-truncate" title="{{ school_fee.added_by }}">
+                                {{ school_fee.added_by }}
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_paginated %}
+        <div class="p-3">
+            {% include 'fees/pagination.html' with param_name='page' %}
+        </div>
+    {% endif %}
+{% else %}
+    <div class="tuition-empty-state">
+        {% if is_search %}
+            <h4>No tuition fee records found.</h4>
+            <p>No tuition records matched "{{ search_query }}". Try a programme, session, level, payment option, indigene type, fee name, or amount.</p>
+            <a class="btn btn-info shadow-sm" href="{% url 'school_fees_list' %}">Clear Search</a>
+        {% else %}
+            <h4>No tuition fees have been added yet.</h4>
+            <p>Create the first tuition record so students can be matched to the right session, programme, level, payment option, and indigene fee.</p>
+            <a class="btn btn-success shadow-sm" href="{% url 'add_school_fees' %}">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Add New Tuition
+            </a>
+        {% endif %}
+    </div>
+{% endif %}

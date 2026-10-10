@@ -1,0 +1,858 @@
+/***** OPEN ENDED MEDIA QUERY *****/
+
+
+@media only screen and (min-width: 768px) {
+
+  header {
+    background-color: rgba(100, 143, 70, 0.92);
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    padding-top: 0.5%;
+    height: 7vw;
+}
+
+  .header img{
+    margin-right: 0.3%;
+    width: 6vw;
+    height: auto;
+    float:left;
+    margin-top: 0;
+  }
+
+  .header h1{
+    color:#fff;
+    font-weight: 750;
+    padding: 0;
+    font-size:1.6vw;
+    float: left;
+    margin-top:2%;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  width: 100%;
+  margin-top: 2.2%;
+}
+
+.carousel-caption h3 {
+  padding: .5em;
+  font-size: 1.2rem;
+}
+
+  .header li{
+    float: left;
+  }
+
+  .header li a{
+    padding: 1.25vw;
+    font-size: 0.719em;
+    margin-top: 10%;
+  }
+
+  .header .menu{
+    clear:none;
+    float:right;
+    max-height: none;
+  }
+
+  .header .menu-icon{
+    display:none;
+  }
+
+  .jumbotron{
+    box-shadow: inset 0 0 0 100vw rgba(0,0,0,0.1);
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Lead Pastor and Msg Container */
+
+.welcome-container{
+  max-width: 100%;
+  height:20%;
+  border: 0.7px solid white;
+  border-radius:10px;
+  padding: 0.9%;
+  margin-top:2%;
+  float:left;
+}
+
+.core-value-container{
+  width: 96%;
+  height:20%;
+  border: 0.7px solid rgb(223, 220, 220);
+  border-radius:10px;
+  padding: 0.7%;
+  margin-top:1.5%;
+  margin-bottom: 1%;
+  margin-left:2%;
+  float:left;
+}
+
+/*Home Page Cards Rules*/
+.card-text{
+  font-family:Helvetica, sans-serif;
+  font-size: 0.9rem;
+
+}
+
+/* Pastor Welcome Picture Container Rule*/
+.welcome-img{
+  border-radius: 100%;
+  border: 6px solid forestgreen;
+  width: 15vw;
+  margin: 1.2% 5% 1% 50%;
+}
+
+.welcome-msg-content{
+  width: 100%;
+  height:auto;
+  border: 0.7px solid rgb(223, 220, 220);
+  border-radius:7px;
+  background-color:white;
+  padding:1%;
+  margin-bottom: 2%;
+  float: left;
+
+}
+
+
+    .welcome-msg{
+      font-size:1.3rem;
+      text-align: center;
+    }
+
+    main img{
+      width: 100%;
+      height: auto;
+    }
+
+    .card img{
+      width: 100%;
+      height:auto;
+    }
+
+    .core-card{
+      padding: 0.3%;
+    }
+
+    .medium-6{
+        width: 50%;
+    }
+
+    .medium-4{
+        width: 33.3333333%;
+    }
+
+    nav button {display: none;}
+    nav ul {display: block;}
+    nav li {width: 25%; float: left;}
+
+    .navbar a{
+      float: left;
+    }
+
+    
+    .vision-mission-container{
+        width:30%;
+        float: left;
+        margin-left: 3%;
+    }
+
+    .core-value-heading{
+        font-size: 1.2em; 
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        text-align: center;
+        margin-top: 1%;
+    }
+
+    .core-value-img{
+      width: 100%;
+      height: auto;
+    }
+
+    .core-value-img{
+      float: left;
+      border-radius: 8px 0px 0px 0px;
+    }
+
+    .message{
+      font-family: Helvetica, sans-serif;
+      font-size: .89rem;
+      margin-left:0.9rem;
+      margin-right:0.9rem;
+      margin-bottom: 0.85rem;
+     
+    }
+
+    .core-value{
+      width: 70%;
+      float: left;
+      margin-left: 10%;
+      border: solid 1px rgb(189, 176, 176);
+      box-shadow: 3px 3px 12px rgb(0 0 0 / 0.2);
+      border-radius: 5px;
+      margin-bottom: 10%;
+      animation: shake 20s cubic-bezier(.36,.07,.19,.97) both;
+      animation-iteration-count: infinity;
+  }
+  
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+  .core-value img{
+    width:100%;
+    height:20vw;
+  }
+  
+
+    .core-value h3{
+        font-size: 2rem;
+    }
+
+    /* About Us Page Rules*/
+
+
+    .about-church{
+      width:90%;
+      padding: 1%;
+      border-radius: 8px;
+      margin-top: 2%;
+      margin-left: 5%;
+      margin-bottom: 5%;
+      color: #98927C;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      float: left;
+    }
+    .aboutus-title-container{
+      width: 60%;
+      height: auto;
+      border: 0.7px solid #e7e4e4;
+      border-radius: 5px;
+      padding: 1%;
+      margin-top: 1%;
+      margin-left:20%;
+      background-color: white;
+    }
+
+    /* History of the Church Write up Container*/
+.aboutus-content{
+  width: 99%;
+  border: 0.7px solid #e7e4e4;
+  border-radius:10px;
+  padding: 4%;
+  margin-top:1%;
+  margin-bottom:1%;
+  margin-left:0.5%;
+  background-color: white;
+}
+
+
+  
+.aboutus-container{
+  width: 99%;
+  border: 0.7px solid rgb(223, 220, 220);
+  border-radius:10px;
+  padding: 0.9%;
+  margin-top:0.5%;
+  margin-bottom:5%;
+  margin-left:0.5%;
+  background-color: #e7e4e4;
+  float: left;
+}
+
+.vision-mission-values-container{
+  width: 99%;
+  border: 0.7px solid rgb(223, 220, 220);
+  border-radius: 10px;
+  padding: 0.9%;
+  margin-top: 0.5%;
+  margin-bottom: 5%;
+  margin-left: 0.5%;
+  background-color: #e7e4e4;
+  float: left;
+}
+
+.vision-container {
+  width: 42%;
+  height: auto;
+  border: 10px solid goldenrod;
+  border-radius: 100%;
+  margin-top: 5%;
+  margin-left: 6.2%;
+  margin-bottom: 3%;
+  padding: 2%;
+  float: left;
+}
+
+#core-values-title {
+  font-family: sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  color: green;
+  margin-top: 0.5%;
+  margin-bottom: 3%;
+}
+
+.pastors-container {
+  width: 99%;
+  border: 0.7px solid #e7e4e4;
+  border-radius: 10px;
+  padding: 1%;
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+  margin-left: 0.5%;
+  background-color: white;
+  float: left;
+}
+
+.contact-us-container {
+  width: 100%;
+  margin: 0;
+  background-color: #f4efef;
+  padding: 5%;
+}
+
+.toggle-container {
+  width: 60%;
+  border: 0.7px solid rgb(242, 242, 242);
+  background-color: white;
+  border-radius: 5px 5px 5px 5px;
+  padding: 2%;
+  margin-top: 2%;
+}
+
+#email-toggle-contact {
+  font-size: 1.3vw;
+}
+
+.special-services-prayer {
+  width: 46%;
+  border: 0.7px solid #e6dfdf;
+  border-radius: 8px;
+  padding: 0;
+  margin: 2% 2%;
+  float: left;
+}
+
+#special-services-title {
+  font-size: 1.3rem;
+  margin-top: 10%;
+  
+}
+
+#sunday-service-day {
+  font-size: 0.8rem;
+}
+
+.special-service-name-container {
+  width: 70%;
+  border: 0.7px solid #e1e0e0;
+  background-color: #e1e0e0;
+  margin-top: 5%;
+  margin-left: 15%;
+}
+
+.core-value-purity-container {
+  width: 40%;
+  height: 80px;
+  border: 0.7px solid #e7e4e4;
+  border-radius: 2px 2px 7px 7px;
+  margin: 2%;
+  background-color: white;
+  float: left;
+}
+
+.core-value-people-container {
+  width: 45%;
+  height: auto;
+  border: 0.7px solid #e7e4e4;
+  border-radius: 7px 0px 0px 0px;
+  padding: 0.3%;
+  margin: 1%;
+  background-color: white;
+  float: left;
+}
+
+.core-value-progress-container {
+  width: 40%;
+  height: auto;
+  border: 0.7px solid #e7e4e4;
+  margin: 2%;
+  padding-bottom: 5%;
+  background-color: white;
+  float: left;
+  margin-top: 1%;
+  border-radius: 0px 8px 0px 0px;
+}
+
+.vision-mission-values-inner{
+  width: 99%;
+  border: 0.7px solid #e7e4e4;
+  border-radius:10px;
+  padding: 0.5%;
+  margin-top:0.5%;
+  margin-bottom:1%;
+  margin-left:0.5%;
+  background-color: white;
+  float: left;
+}
+
+/* Core Values */
+.core-values-container{
+  width: 98%;
+  height: auto;
+  border: 0.7px solid #e7e4e4;
+  border-radius:10px;
+  padding: 1.5% 1% 1%;
+  margin: 2.5% 1%;
+  background-color: white;
+  float:left;
+}
+
+    /* About Us Page Flip Cards */
+    .flip-card {
+      background-color: transparent;
+      width: 28%;
+      margin: 2%;
+      float: left;
+      height: 20vw;
+      perspective: 1000px;
+    }
+    
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+    
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    
+    .flip-card-front {
+      background-color: #2980b9;
+      color: white;
+    }
+    
+    .flip-card-back {
+      background-color: #bbb;
+      color: black;
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front h4{
+      font-size: 1.2rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      margin-top: 3.3%;
+  }
+
+  .flip-card-front p{
+      font-size: 1rem;
+      font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin-top: 2.5%;
+      margin-bottom: 2.3%;
+  }
+
+  .flip-card-back h4{
+    font-size: 1.2rem;
+    margin-top: 2.5%;
+}
+
+.flip-card-back p{
+  font-size: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.card-text-container{
+  width:95%;
+  margin:5%;
+  float: left;
+}
+
+
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        padding: 5px;
+        text-align: center;
+        background-color: #fff;
+        border-radius:6px;
+        cursor:pointer;
+        width: 45%;
+        float: left;
+        margin-top:0.5%;
+        margin-left: 1%;
+      }
+      .card .profile{
+         border-radius:10px;
+         transition: 0.2s;
+         height:auto;
+      }
+      .card:hover .profile{
+        transform:scale(1.4);
+        border-top-right-radius:50px;
+        border-top-left-radius:50px;
+      }
+      
+      .card .content{
+        width:100%;
+        height:100%;
+        position:relative;
+        overflow:hidden;
+      }
+
+      .card .content h2{
+        font-size: 1rem;
+        font-weight: bold;
+      }
+      .card .content .back{
+        position:absolute;
+        width:100%;
+        height:100%;
+        background-color: #f1f1f1e6;
+        transition:1s;
+        
+        z-index:1;
+        padding:10px;
+      }
+      
+      .from-left{
+        top:0;
+        left:-100%;
+      }
+      .card:hover .content .from-left {
+         left:0%;
+      }
+      
+      .from-bottom{
+        top:100%;
+        left:0;
+      }
+      .card:hover .content .from-bottom {
+         top:0%;
+      }
+      
+      .from-right{
+        top:0%;
+        right:-100%;
+      }
+      .card:hover .content .from-right {
+         right:0;
+      }
+      
+      .card .content .back h3{
+        font-size:1rem;
+        letter-spacing:2px;
+      }
+      .card .content .back .tem-img{
+        border-radius:100%;
+      }
+      
+      .card .content .back .des{
+        font-size:0.9rem;
+        font-family: Arial, Helvetica, sans-serif;
+        padding:15px 0px;
+      }
+      .card .content .back .social-icon{
+        list-style:none;
+        margin:0px;
+        padding:0px;
+      }
+      .card .content .back .social-icon li{
+        display:inline-block;
+      }
+      
+      .card .content .back .social-icon li a{
+        display:block;
+        background:#333;
+        color:#fff;
+        width:40px;
+        height:40px;
+        text-align:center;
+        line-height:40px;
+        border-radius:100%;
+      }
+
+    /*Worship Page Rule*/
+    .card-media {
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+      height: 125px;
+      margin-bottom: 25px;
+      transition: all 300ms ease-out;
+      width: 46%;
+      float:left;
+      margin-left:2%;
+    }
+
+    .card-media-body-heading {
+      display: block;
+      margin-top: 1.5%;
+      color: green;
+      font-size: 0.8rem;
+      font-weight: 600;
+  }
+
+    .subtle {
+      color: #888;
+      font-size: 0.8rem;
+      font-weight:550;
+    }
+
+      /* Flip Images on Events*/
+  .flip-box {
+    background-color: transparent;
+    width: 48%;
+    height: 30vw;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    margin-left: 1%;
+    margin-bottom:1%;
+  }
+  
+  /* This container is needed to position the front and back side */
+  .flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: 30vw;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-box:hover .flip-box-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .flip-box-front, .flip-box-back {
+    position: absolute;
+    width: 100%;
+    height: 30vw;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+
+  
+  .flip-box-front img{
+    width: 100%;
+    height: 30vw;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-box-front {
+    background-color: #bbb;
+    color: black;
+  }
+
+  
+  
+  /* Style the back side */
+  .flip-box-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+
+  /* Footer Rules*/
+  footer ul li{
+    list-style-type: none;
+    text-align: left;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+footer a{
+  text-decoration: none;
+  text-transform: none;
+}
+
+
+.footer-dark {
+  padding:5px 0;
+  color:#f0f9ff;
+  background-color: rgb(95, 143, 71);
+}
+
+.footer-dark h3 {
+  margin-top:5%;
+  margin-bottom:12px;
+  font-weight:650;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.footer-dark ul {
+  padding:0;
+  list-style:none;
+  line-height:1.6;
+  font-size:14px;
+  margin-bottom:0;
+}
+
+.footer-dark ul a {
+  color:black;
+  text-decoration:none;
+  opacity:0.6;
+  font-size: 0.98rem;
+
+}
+
+.footer-dark ul a:hover {
+  opacity:0.8;
+  text-decoration: none;
+}
+
+
+  .footer-dark .item:not(.social) {
+    text-align:center;
+    padding-bottom:20px;
+  }
+
+
+.footer-dark .item.text {
+  margin-bottom:36px;
+}
+
+
+.footer-dark .item.text {
+    margin-bottom:0;
+  }
+
+
+.footer-dark .item.text p {
+  margin-bottom:0;
+  color:black;
+  text-align: left;
+  font-family: sans-serif;
+  font-size: 0.97rem;
+}
+
+.footer-dark .item.social {
+  text-align:center;
+  font-family: sans-serif;
+  font-size:0.7em;
+  color:black;
+
+}
+
+.developed-by{
+  font-size: 0.8rem;
+  font-weight: 450;
+  text-align: center;
+  background-color: forestgreen;
+  width:100%;
+  padding:1%;
+  color:white;
+  font-family: sans-serif;
+}
+
+@media (max-width:991px) {
+  .footer-dark .item.social {
+    text-align:center;
+    margin-top:3%;
+    margin-bottom:3%;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+  }
+}
+
+.footer-dark .item.social > a {
+  font-size:20px;
+  width:36px;
+  height:36px;
+  line-height:36px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.4);
+  margin:0 8px;
+  color:#fff;
+  opacity:0.75;
+}
+
+.footer-dark .item.social > a:hover {
+  opacity:0.9;
+}
+
+.footer-dark .copyright {
+  text-align:center;
+  padding-top:7px;
+  font-size:0.8rem;
+  margin-bottom:0;
+  color:black;
+}
+
+/* Read More Css*/
+.read-more-state {
+  display: none;
+}
+
+.read-more-target {
+  opacity: 0;
+  max-height: 0;
+  font-size: 0;
+  transition: .25s ease;
+}
+
+.read-more-state:checked ~ .read-more-wrap .read-more-target {
+  opacity: 1;
+  font-size: inherit;
+  max-height: 999em;
+}
+
+.read-more-state ~ .read-more-trigger:before {
+  content: 'Show more';
+}
+
+.read-more-state:checked ~ .read-more-trigger:before {
+  content: 'Show less';
+}
+
+.read-more-trigger {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 .5em;
+  color: #666;
+  font-size: .9em;
+  line-height: 2;
+  border: 1px solid #ddd;
+  border-radius: .25em;
+}
+    
+
+
+
+} /*END OF MEDIA QUERY */

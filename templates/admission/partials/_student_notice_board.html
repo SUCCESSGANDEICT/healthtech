@@ -1,0 +1,47 @@
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            Information
+        </div>
+        <div class="card-body">
+            <marquee behavior="" direction="3">
+               <h3 class="my-4" style="font-size:1.1rem; color:darkgreen; font-weight:700;">Welcome to {{student.candidate.profile.Last_name}} {{student.candidate.profile.first_name}}  Profile !!!</h3>
+            </marquee> 
+            <hr>
+            {% if user.profile.role == 'Student' %}
+            <p style="font-size:0.8rem; text-align:justify;">
+                We are happy to have you as our Student. Please, ensure to follow 
+                the Instructions below for an exciting  Student Registration Process. Happy Learning!
+            </p>
+            <h3 style="color:rgb(250, 145, 7); font-size:1rem; font-weight:800; text-align:center;">
+                Registration Procedure.
+            </h3>
+            <hr>
+            <ol style="display: block; text-align:center; line-height:2.5;">
+                <li>1st office & what to do</li>
+                <li>2nd office & what to do</li>
+                <li>3rd office & what to do</li>
+                <li>4th office & what to do</li>
+                <li>5th office & what to do</li>
+                <li>last office & what to do</li>
+            </ol>
+           {% else %}
+           <p style="font-size:0.8rem; text-align:justify;">
+            You can Print Student Application and Admission 
+            Documents below.
+            </p>
+            <h3 style="color:rgb(232, 145, 32); font-size:1rem; font-weight:800; text-align:center;">
+                Application and Admission Documents
+            </h3>
+            <hr>
+            <ol style="display: block; text-align:center; line-height:2.5;">
+                {% if student.candidate.pre_applicant %}
+                <li> <a href="{% url 'admin_view_applicant_slip' student.candidate_id %}">Application Form</a> </li>
+                {% endif %}
+              
+            </ol>
+
+           {% endif %}
+        </div>
+    </div> 
+</div>

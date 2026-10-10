@@ -1,0 +1,150 @@
+@media screen and (min-width: 985px) {
+  :root {
+    /* --primary-green: #007b3e;
+  --accent-gold: #ffd700;
+  --neutral-dark: #1e2a38;
+  --background-light: #ffffff;
+  --support-gray: #e6e6e6;
+  --alert-red: #d72638; */
+
+    --slider-height-md: 650px;
+  }
+
+  .header li {
+    float: left;
+  }
+
+  .header li a {
+    padding: 20px 15px;
+  }
+
+  .header .menu {
+    clear: none;
+    float: right;
+    max-height: none;
+  }
+
+  .header .menu-icon {
+    display: none;
+  }
+
+  .header .logo .company_name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-left: 10px;
+    margin-top: 8px;
+  }
+
+  /* CARD FOR THE CONTAINER */
+  .container-fluid {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 0 !important;
+  }
+
+  .container {
+    margin-top: 0;
+    margin-left: 3%;
+  }
+
+  .card {
+    width: 40%;
+  }
+
+  .card-container{
+    margin-left: 12%;
+    max-width: 78%;
+  }
+
+.card-body {
+        flex-direction: column;
+      }
+
+.section{
+  flex: 1 1 120px;
+}
+
+.section h3 {
+      color: #023e8a;
+      margin-bottom: 0.3rem;
+    }
+
+.section p {
+      font-size: 1rem;
+    }
+
+
+
+.key-data-heading{
+  width: 100%;
+  margin-top: 6%;
+}
+
+
+.news-card {
+  width: 40%;
+  height: auto;
+  margin: 10px;
+  border-radius: 15px;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  border: solid 0.8px #07294d;
+}
+
+.news-card-heading{
+  font-size: 1.1rem;
+  margin-top: 1;
+}
+
+.news-card-bottom {
+  background-color: white;
+  padding: 5px;
+  flex-grow: 1;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.news-card-heading, .news-card hr {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.welcome-msg{
+  width: 60%;
+  margin: auto;
+}
+
+.home-news-card{
+  width: 30%;
+}
+
+
+.news-card-bottom ul li{
+  color: #07294d;
+}
+
+.csc-event-card a{
+  background-color: rgb(18, 34, 18);
+  color: white;
+  padding: 7px 14px;
+  display: block;
+  text-align: center;
+  margin: 20px 50px;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+  /* Footer CSS */
+
+  footer {
+    justify-content: center;
+  }
+
+  .footer-section {
+    width: 40%;
+  }
+}

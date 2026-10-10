@@ -1,0 +1,519 @@
+.admission-login-header{
+    color:green;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.admission-email-validation-success{
+    color:green;
+    font-size: 1rem;
+    text-align: center;
+} 
+
+.logout-header{
+    color:black;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.myCard {
+    background-color: white; /* Set the background color for your card */
+    border: 1px solid #ccc; /* Add a border for better visibility */
+    padding: 20px; /* Add some padding to the card content */
+    margin: 20px; /* Add margin to separate the card from other elements */
+  }
+
+.myCard-body{
+    background-color: white;
+}
+
+.slip-logo-passport-contain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+.slip-logo {
+    flex: 0 0 auto;
+    margin-right: 2px;
+}
+
+
+.slip-head-container {
+    flex: 1;
+    text-align: center;
+}
+
+.slip-head-container {
+    flex: 1;
+    text-align: center;
+}
+
+.slip-header{
+    margin:0;
+    line-height: 1;
+    text-align: center;
+    font-family: sans-serif;   
+    font-size: 1.5rem;
+    color:green;
+    font-weight: 600;
+}
+
+.slip-sub-header{
+    margin:0;
+    line-height: 1.2;
+    text-align: center;
+    font-family: sans-serif;   
+    font-size: 0.9rem;
+    color:black;
+    font-weight: 400;
+}
+
+.slip-sub-under{
+    margin:0;
+    line-height: 1.3;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    color:green;
+    font-weight: 600;
+}
+
+.slip-passport {
+    flex: 0 0 auto;
+    margin-left: 2px;
+}
+
+.slip-logo img,
+.slip-passport img {
+    max-width: 100%; /* Ensure images scale to fit their containers */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.login-image-container {
+    max-width: 100%;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+ /* Add some basic styling */
+ .login-image-container img {
+    max-width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;  /* or "contain" based on your preference */
+  }
+  
+
+  /* Media query for smaller screens (e.g., mobile devices) */
+@media (max-width: 768px) {
+    .slip-logo-passport-contain {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .slip-logo,
+    .slip-passport {
+        margin: 10px 0;
+    }
+
+    /* Adjustments Table for smaller screens */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+     /* Override default table styles for better mobile presentation */
+     .table {
+        display: block;
+        width: 100%;
+        overflow: auto;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .table th,
+    .table td {
+        font-size: 0.6rem;
+        text-align: left !important;
+        padding: 5px;
+        white-space: normal; /* Allow text to wrap */
+        word-break: break-word; /* Break words to fit within cell */
+    }
+
+}
+
+#pre-app-slip-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#pre-app-slip-table th,
+#pre-app-slip-table td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+    width: 50%;
+}
+
+#pre-app-slip-table th {
+    background-color: none;
+}
+
+/* Additional styling for specific rows or cells if needed */
+#pre-app-slip-table #printButtonRow th{
+    background-color: #ffffff;
+    display: none;
+}
+#pre-app-slip-table #printButtonRow td {
+    background-color: #ffffff;
+    border: 0.5rem gainsboro;
+}
+
+/* Print query for Pre-Application Slip */
+@media print {
+       
+    #slip {
+        /* Add print styles specific to the 'Application-slip' here */
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 10px;
+    }
+    /* Add other styles for 'Application-slip' here */
+    .slip-logo-passport-contain {
+        margin-bottom: 10px;
+    }
+
+    .slip-logo {
+        margin-bottom: 10px;
+    }
+
+    .slip-head-container {
+        margin-bottom: 20px;
+    }
+
+    .slip-header,
+    .slip-sub-header,
+    .slip-sub-under {
+        margin: 0;
+    }
+    #pre-app-slip-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    #pre-app-slip-table th,
+    #pre-app-slip-table td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+        width: 50%;
+    }
+    
+    #pre-app-slip-table th {
+        background-color: none;
+    }
+    
+    /* Additional styling for specific rows or cells if needed */
+    #pre-app-slip-table #printButtonRow th{
+        background-color: #ffffff;
+        display: none;
+    }
+    #pre-app-slip-table #printButtonRow td {
+        background-color: #ffffff;
+        border: 0.5rem gainsboro;
+    }
+    /* Add other common print styles here */
+    .btn-success {
+        display: none;
+    }
+
+    #printButtonRow {
+        display: none;
+    }
+}
+
+/* Print Query for Application Form slip */
+@media print {
+       
+    #application-slip {
+        /* Add print styles specific to the 'Application-slip' here */
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    #medicalForm { /* Ensures the table uses the full width */
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+    #medicalForm th, #medicalForm td {
+        white-space: nowrap; /* Prevents text wrapping */
+    }
+    #medicalForm tbody {
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
+        max-width: 100%;
+    }
+}
+
+    .slip-logo-passport-contain {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .slip-logo {
+        flex: 0 0 auto;
+        margin-right: 2px;
+    }
+    
+    
+    .slip-head-container {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .slip-header{
+        margin:0;
+        line-height: 1;
+        text-align: center;
+        font-family: sans-serif;   
+        font-size: 1.8rem;
+        color:green;
+        font-weight: 600;
+    }
+    
+    .slip-sub-header{
+        margin:0;
+        line-height: 1.2;
+        text-align: center;
+        font-family: sans-serif;   
+        font-size: 1rem;
+        color:black;
+        font-weight: 400;
+    }
+    
+    .slip-sub-under{
+        margin:0;
+        line-height: 1.3;
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 0.9rem;
+        color:green;
+        font-weight: 600;
+    }
+    
+    .slip-passport {
+        flex: 0 0 auto;
+        margin-left: 2px;
+    }
+    
+    .slip-logo img,
+    .slip-passport img {
+        max-width: 100px; /* Ensure images scale to fit their containers */
+        height: auto; /* Maintain aspect ratio */
+    }
+   
+    #app-slip-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    #app-slip-table th,
+    #app-slip-table td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+        width: 50%;
+        font-size: 1rem;
+        color:black;
+    }
+    
+    #app-slip-table th {
+        background-color: none;
+    }
+    
+    /* Additional styling for specific rows or cells if needed */
+    #app-slip-table #printButtonRow th{
+        background-color: #ffffff;
+        display: none;
+    }
+    #app-slip-table #printButtonRow td {
+        background-color: #ffffff;
+        border: 0.5rem gainsboro;
+    }
+    /* Add other common print styles here */
+    .btn-success {
+        display: none;
+    }
+
+    
+    .table-responsive{
+        display: block;
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
+/* Application Form Slip Table Styles */
+#app-slip-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#app-slip-table th,
+#app-slip-table td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+    width: auto;
+}
+#app-slip-table #printButtonRow th{
+    background-color: #ffffff;
+    display: none;
+}
+#app-slip-table #printButtonRow td {
+    background-color: #ffffff;
+    border: 0.5rem gainsboro;
+}
+/* Application Form Slip Personal Detail Table */
+#app-slip-personal-detail-table {
+    width: 100%;
+    margin-bottom:1rem;
+}
+
+#app-slip-personal-detail-table th,
+#app-slip-personal-detail-table td {
+    border: 1px solid rgb(245, 245, 245);
+    text-align: left;
+    padding: 4px;
+    width: 25%;
+    font-size: 1rem;
+}
+
+/* Payment Report Table*/
+#report-slip-table {
+    width: 100%;
+    margin-bottom:1rem;
+}
+
+#report-slip-table th,
+#report-slip-table td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+    width: 50%;
+}
+
+#report-slip-table #printButtonRow th{
+    background-color: #ffffff;
+    display: none;
+}
+#report-slip-table #printButtonRow td {
+    background-color: #ffffff;
+    border: 0.5rem gainsboro;
+}
+
+/* Acceptance Letter Table on Top right */
+#acceptance-slip-table {
+    border-collapse: collapse;
+    border: none;
+}
+
+#acceptance-slip-table th,
+#acceptance-slip-table td {
+    border: none;
+}
+
+/* Dashboard sidebar fixes */
+.sidebar {
+    flex-shrink: 0;
+}
+
+.sidebar .nav-item.active > .nav-link,
+.sidebar .collapse-item.active {
+    color: #fff;
+    font-weight: 700;
+}
+
+.sidebar .collapse-inner .collapse-item.active {
+    color: #4e73df;
+    background-color: #eaecf4;
+}
+
+.sidebar .collapse.show {
+    display: block !important;
+}
+
+.sidebar-backdrop {
+    display: none;
+}
+
+@media (max-width: 767.98px) {
+    body.sidebar-mobile-open {
+        overflow: hidden;
+    }
+
+    #wrapper {
+        min-height: 100vh;
+        position: relative;
+    }
+
+    #wrapper .sidebar {
+        bottom: 0;
+        left: 0;
+        max-width: 16rem;
+        overflow-y: auto;
+        position: fixed;
+        top: 0;
+        width: 14rem !important;
+        z-index: 1040;
+    }
+
+    #wrapper .sidebar.toggled {
+        width: 0 !important;
+    }
+
+    #wrapper #content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .sidebar .nav-item .collapse,
+    .sidebar .nav-item .collapsing {
+        left: 0;
+        margin: 0 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .sidebar .nav-item .collapse .collapse-inner,
+    .sidebar .nav-item .collapsing .collapse-inner {
+        min-width: 0;
+        width: 100%;
+    }
+
+    body.sidebar-mobile-open .sidebar-backdrop {
+        background: rgba(0, 0, 0, 0.45);
+        bottom: 0;
+        display: block;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 1030;
+    }
+}
+
+
+
+
+
+

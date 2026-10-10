@@ -1,0 +1,104 @@
+{% extends 'account_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+  {% include 'accounts/partials/_sideBar.html' %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      {% include 'accounts/partials/_topBar.html' %}
+      <main class="container py-4" style="max-width: 820px;">
+        {% include 'admission/partials/_alerts.html' %}
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white py-3">
+            <h1 class="h4 mb-1">Change Level / Admitted Session</h1>
+            <p class="text-muted mb-0">Review the current values and confirm the correction.</p>
+          </div>
+          <div class="card-body p-4">
+            <div class="row mb-4">
+              <div class="col-md-6 mb-3">
+                <small class="text-uppercase text-muted">Student</small>
+                <strong class="d-block">{{ student.candidate.profile.first_name|default:'' }} {{ student.candidate.profile.middle_name|default:'' }} {{ student.candidate.profile.last_name|default:'' }}</strong>
+                <span>{{ student.student_id|default:'No matriculation number' }}</span>
+              </div>
+              <div class="col-md-3 mb-3">
+                <small class="text-uppercase text-muted">Current level</small>
+                <strong class="d-block">{{ student.current_level|default:'Not set' }}</strong>
+              </div>
+              <div class="col-md-3 mb-3">
+                <small class="text-uppercase text-muted">Admitted session</small>
+                <strong class="d-block">{{ student.academic_session }}</strong>
+              </div>
+            </div>
+
+            <form method="post" id="academic-correction-form">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <div class="d-flex flex-wrap justify-content-between align-items-center mt-4">
+                <a class="btn btn-outline-secondary mb-2" href="{% url 'student_search' %}">Back to Student Search</a>
+                <button class="btn btn-primary mb-2" id="review-correction" type="button">Review changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="academic-correction-modal" tabindex="-1" role="dialog" aria-labelledby="academic-correction-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h5" id="academic-correction-modal-title">Confirm academic record change</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to update <strong>{{ student.candidate.profile.first_name|default:'' }} {{ student.candidate.profile.middle_name|default:'' }} {{ student.candidate.profile.last_name|default:'' }} ({{ student.student_id|default:'No matriculation number' }})</strong>.</p>
+        <dl class="row mb-0">
+          <dt class="col-sm-5">Level</dt>
+          <dd class="col-sm-7"><span id="old-level">{{ student.current_level|default:'Not set' }}</span> &rarr; <strong id="new-level"></strong></dd>
+          <dt class="col-sm-5">Admitted session</dt>
+          <dd class="col-sm-7"><span id="old-session">{{ student.academic_session }}</span> &rarr; <strong id="new-session"></strong></dd>
+        </dl>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="confirm-correction">Confirm and save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var form = document.getElementById('academic-correction-form');
+  var reviewButton = document.getElementById('review-correction');
+  var confirmButton = document.getElementById('confirm-correction');
+  var level = document.getElementById('id_level');
+  var session = document.getElementById('id_admitted_session');
+  var confirmation = document.getElementById('id_confirm');
+
+  reviewButton.addEventListener('click', function () {
+    confirmation.value = '';
+    if (!form.reportValidity()) return;
+    document.getElementById('new-level').textContent = level.options[level.selectedIndex].text;
+    document.getElementById('new-session').textContent = session.options[session.selectedIndex].text;
+    $('#academic-correction-modal').modal('show');
+  });
+
+  confirmButton.addEventListener('click', function () {
+    confirmButton.disabled = true;
+    confirmation.value = 'on';
+    form.submit();
+  });
+
+  $('#academic-correction-modal').on('hidden.bs.modal', function () {
+    confirmation.value = '';
+    confirmButton.disabled = false;
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,256 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    <div class="col-xl-12 col-lg-12 col-md-9">
+            
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    
+                                    <div class="col-lg-12">
+                                        
+                                        <div class="p-5">
+                                            <div class="text-center">
+                                                <h6 class="admission-login-header">{{page_title}}</h1>
+                                            </div>
+                                            <!--Message Alert-->
+                                            {% include 'admission/partials/_alerts.html' %}
+                                            <!--Message Alert End Here-->
+            
+                                        <!--Check if Admin has uploaded Programme of study-->
+                                        {% if programme and application_fee %}
+                                            <form method="POST" class="user" enctype="multipart/form-data">
+                                                
+                                                {% csrf_token %}
+                                                
+                                                    {{ register_student_application|crispy }}
+                                                
+
+                                                <div class="row">
+                                                    <button class="btn btn-success" type="button" onclick="generateStudentID()">Generate Student ID</button>
+                                                </div>
+                                              
+                                              
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_id_level_form.student_id|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_id_level_form.level|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_id_level_form.semester|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_creation_form.academic_session|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_creation_form.first_name|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_creation_form.middle_name|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_creation_form.last_name|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_profile_form.gender|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div class="row">
+                                                    
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_profile_form.date_birth|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_profile_form.religion|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_profile_form.marital_status|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_profile_form.Number_children|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                        <div class="col-md-6">
+                                                        
+                                                            <div class="form-group">
+                                                                
+                                                                {{ student_creation_form.phone_number|as_crispy_field }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                            
+                                                                {{ email_form.email|as_crispy_field }}
+                                                          
+                                                            </div>
+                                                        </div>
+                                                        
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group"> 
+                                                            
+                                                            {{ student_profile_form.image|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ student_creation_form.course_name|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Add Student">
+                                                <hr>
+                                                
+                                                
+                                            </form>
+                                            <script>
+                                                function generateStudentID() {
+                                                    // Generate a random UUID, take the first 6 characters and convert to uppercase
+                                                    const applicationNumber = (Math.random().toString(36).substring(2, 8)).toUpperCase();
+                                                    
+                                                    // Get the current date in the format YYYYMMDD
+                                                    const currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+                                                    
+                                                    // Combine the date and application number
+                                                    const studentID = `${currentDate}${applicationNumber}`;
+                                                    
+                                                    // Set the student ID to the form field
+                                                    document.querySelector('input[name="student_id"]').value = studentID;
+                                                }
+                                            </script>
+                                        {% else %}
+
+                                        <h2 style="text-align: center; color:red; font-size:1.2rem; margin-top:5%;">Contact FEDPOLY WANUNNE ICT Team to Upload Programmes</h2>
+
+                                        {% endif %}
+                                        
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                    </div>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

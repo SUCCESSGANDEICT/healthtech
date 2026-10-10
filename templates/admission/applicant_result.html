@@ -1,0 +1,265 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    <div class="col-xl-12 col-lg-12 col-md-9">
+            
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    
+                                    <div class="col-lg-12">
+
+                                        {% if page_title == 'Candidate Result' %}
+                                                <div class="p-1">
+                                                
+
+                                                    <div class="table-responsive">
+                                                        {% if results %} 
+                                                        <table class="table myCard-body">
+                                                            <thead class="bg-info text-white">
+                                                                <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col" style="color: white;">Subject Name</th>
+                                                                
+                                                                <th scope="col" style="color: white;" nowrap>Name of Result</th>
+                                
+                                                                <th scope="col" style="color: white;" nowrap>Grade</th>
+                                
+                                                                <th scope="col" style="color: white;" nowrap>Examination No.</th>
+
+                                                                <th scope="col" style="color: white;" nowrap>Examination Year</th>
+
+                                                                <th scope="col" style="color: white;" nowrap>Action</th>
+                                                                
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                            
+                                                                {% for result in results %}
+                                                                <tr>
+                                                                <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                                
+                                                                <td style="color:black;" nowrap>{{ result.subject_name|capfirst}}</td>
+                                
+                                                                <td nowrap style="color:black;">{{ result.result_name }}</td>
+                                
+                                                                <td nowrap style="color:black;">{{ result.subject_grade }}</td>
+                                
+                                                                <td nowrap style="color:black;">{{ result.exam_number }}</td>
+
+                                                                <td nowrap style="color:black;">{{ result.exam_year }}</td>
+                                                                
+                                                                
+                                                                <td nowrap>
+                                                                    
+                                                                    <div class="button-container">
+                                                                        
+                                                                        <a class="btn btn-danger withdraw-button" href=" {% url 'delete_school_result' result.pk %} ">Delete</a>
+                                                                    
+                                                                        <a class="btn btn-info deposit-button" href=" {% url 'update_school_result' result.pk %} ">Edit</a>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                                    
+                                                                </td>
+                                                                </tr>
+                                                                {% endfor %}    
+                                                                
+                                                                
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                            
+                                                        {% else %}  
+                                                            <h4 style="text-align: center; color:red;">No Result Added Yet</h4>    
+                                                        {% endif %}
+                                                        {% if results %}
+                                                        <div class="row ml-5 mb-3">
+                                                            {% if page_title == 'Candidate Result' %}
+                                                            {% if user.profile.role == 'Applicant' %}
+                                                            <a href=" {% url 'application_preview' %} " class="btn btn-success">Preview Application</a>
+                                                            {% elif user.profile.role == 'Candidate' %}
+                                                            <a href=" {% url 'candidate_update_jamb_record' %} " class="btn btn-success">Update JAMB Record</a>
+                                                            {% endif %}
+                                                            {% endif %}
+                                                            
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    
+                                                
+                                                </div>
+                                        {% endif %}
+                                        
+                                        <div class="p-5">
+                                            <div class="text-center">
+                                                <h6 class="admission-login-header">{{page_title}}</h1>
+                                            </div>
+                                            <!--Message Alert-->
+                                            {% include 'admission/partials/_alerts.html' %}
+                                            <!--Message Alert End Here-->
+            
+                                            <!--Check if user is on Email Validation Page-->
+                                        
+                                            <form method="POST" class="user" id="applicantResultForm">
+                                                
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.result_name|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.subject_name|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.subject_grade|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.exam_number|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.exam_year|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {% if page_title == 'Candidate Result' %}
+                                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Add Result">
+                                                {% else %}
+                                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Update Result">
+                                                {% endif %}
+                                                <hr>
+                                                
+                                                
+                                            </form>
+                                            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                            
+                                            <!--JavaScript Form Validation Code-->
+                                            <script>
+                                              // form_validation.js
+                                                $(document).ready(function () {
+                                                    $('#id_result_name').change(function () {
+                                                        // Add JavaScript validation based on the selected result_name
+                                                        validateExamNumber();
+                                                    });
+
+                                                    $('#id_exam_number').blur(function () {
+                                                        // Add JavaScript validation for the exam_number field
+                                                        validateExamNumber();
+                                                    });
+
+                                                    function validateExamNumber() {
+                                                        var resultName = $('#id_result_name').val();
+                                                        var examNumber = $('#id_exam_number').val();
+
+                                                        // Reset previous error messages
+                                                        $('#examNumberError').remove();
+
+                                                        if (resultName === 'WAEC') {
+                                                            // Check if exam_number is numeric and has at least 10 digits
+                                                            if (!/^\d{10,}$/.test(examNumber)) {
+                                                                $('#id_exam_number').after('<span id="examNumberError" class="text-danger">For WAEC, examination number must be numeric and have at least 10 digits.</span>');
+                                                            }
+                                                        } else if (resultName === 'NECO') {
+                                                            // Check if exam_number has 10 characters and ends with 2 alphabets
+                                                            if (!/^\d{8}[a-zA-Z]{2}$/.test(examNumber)) {
+                                                                $('#id_exam_number').after('<span id="examNumberError" class="text-danger">For NECO, examination number must have 8 numeric digits followed by 2 alphabets.</span>');
+                                                            } else {
+                                                                // Forcefully convert the last two characters to uppercase
+                                                                $('#id_exam_number').val($('#id_exam_number').val().slice(0, 8) + $('#id_exam_number').val().slice(8).toUpperCase());
+                                                            }
+                                                        } else if (resultName === 'NABTEB') {
+                                                            // Check if exam_number is 12 digits and numeric
+                                                            if (!/^\d{12}$/.test(examNumber)) {
+                                                                $('#id_exam_number').after('<span id="examNumberError" class="text-danger">For NABTEB, examination number must be 12 numeric digits.</span>');
+                                                            }
+                                                        }
+                                                    }
+                                                });
+
+
+                                            </script>
+                                            <!--End JavaScript Form Validation Code-->
+
+                                            
+                                            
+                                        </div>
+                                        
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+            
+                    </div>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

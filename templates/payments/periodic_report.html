@@ -1,0 +1,275 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+<link href="{% static 'css/report_slip.css' %}" rel="stylesheet">
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    
+            
+                      <div class="col-md-12" id="report">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white;">
+                              <div class="slip-logo-passport-contain">
+                                  <div class="slip-logo">
+                                      <img width="100" height="100" src="{% static 'img/logos/fedpolywannune_slip_logo.jpg' %}" alt="slip logo">
+                                  </div>
+                          
+                                  <div class="slip-head-container">
+                                      <h1 class="slip-header">FEDERAL POLYTECHNIC, WANNUNE.</h1>
+                                      <h2 class="slip-sub-header">PMB 102355 </h2>
+                                      <h4 class="slip-sub-header">WANNUNE - BENUE STATE</h4>
+                                      <h3 class="slip-sub-under">Periodic Report</h3>
+                                        
+                                    </div>
+                          
+                              </div>
+                            </div>
+                       
+                       
+                            
+                            <div class="card-body">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                  <h3 class="slip-sub-header" style="text-align: center; color:blue;!important">PAYMENT REPORT </h3>
+                                               <hr>
+                                   <div class="table-responsive">
+                                    {% if total_amount  %}
+                                     <table id="report-slip-table">
+                                         <tbody>
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Date and Time Report was Generated:</th>
+                                            <td style="color:black;">{{ current_datetime }}</td>
+                                          </tr>
+                                           
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">Academic Session:</th>
+                                             <td style="color:black;">{{ academic_session }} Session</td>
+                                           </tr>
+                                           <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Registered Applicant(s):</th>
+                                            <td style="color:black;">{{ total_pre_applicants }}</td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Total Submitted Form(s):</th>
+                                            <td style="color:black;"> <b style="font-weight: 600;">{{total_submitted_form}}</b> </td>                                   
+                                          </tr> 
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Total NOT Submitted Form(s):</th>
+                                            <td style="color:black;"> <b style="font-weight: 600;">{{total_unsubmitted_form}}</b> </td>                                   
+                                          </tr> 
+                                          <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Total Number of Payments:</th>
+                                            <td style="color:black;"> <b style="font-weight: 600;">{{transaction_count}}</b> </td>                                   
+                                          </tr> 
+                                            
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">Payment Source:</th>
+                                             <td style="color:black;"> {{ payment_source }} </td>                                   
+                                           </tr> 
+                                           
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">Period From:</th>
+                                             <td style="color:black;"> {{ start_date}} </td>                                   
+                                           </tr>   
+                                           
+                                           <tr>
+                                             <th scope="row" style="text-align: left; color:black;">Period To:</th>
+                                             <td style="color:black;"> {{ end_date }} </td>                                   
+                                           </tr>  
+                                           <tr>
+                                            <th scope="row" style="text-align: left; color:black;">Total Amount:</th>
+                                            <td style="color:black;"> <b style="font-weight: 600;"> <b>N{{total_amount|intcomma }}</b></b> </td>                                   
+                                          </tr> 
+                                          
+                                          
+                                          {% for fee_category_count in fee_category_counts %}
+                                          <tr>
+                                              <th scope="row" style="text-align: left; color: black;">{{ fee_category_count.fee_category }} Level Category:</th>
+                                              <td style="color: black;"> <b>{{ fee_category_count.count }}</b> <span style="color:black;">with</span> <span style="color:black;">Total Amount of <b>N{{ fee_category_count.amount_sum|intcomma }}</b></span> </td>
+                              
+                                          </tr>
+                                          {% endfor %}
+                                          
+                                          
+                                          
+                                                 
+                                         </tbody>
+                                     </table>
+                                     {% else %}
+                                     <h3 class="slip-sub-header" style="text-align: center; color:red;!important">NO PAYMENT REPORT FOUND </h3>
+                                     <a class="btn btn-primary" href=" ">Generate Report</a>
+                                     {% endif %}
+                                   </div> 
+                                 
+                                 </div>
+
+                                 <!--Report List-->
+                                 {% if fee_payment %}
+                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <hr>
+                                        <span style="color: black; font-size:1.3rem; font-weight:700;">{{payment_source}} Payment List </span>
+                                        <hr>
+                                        <table id="app-slip-table">
+                                        <thead class="bg-info text-white">
+                                            <tr>
+                                            <th scope="col" wrap>#</th>
+                                            <th scope="col" style="color: white;">Candidate Full Name</th>
+
+                                            <th scope="col" style="color: white;" wrap>State</th>
+
+                                            <th scope="col" style="color: white;" nowrap>Applicant ID</th>
+
+                                           
+
+                                            <th scope="col" style="color: white;">Payment Source</th>
+                                            
+                                            <th scope="col" style="color: white;" wrap>Category</th>
+                                            
+                                            <th scope="col" style="color: white;" wrap>Paid Date</th>
+                                            
+                                            <th scope="col" style="color: white;" nowrap>Amount</th>
+            
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                        
+                                            {% for payment in fee_payment %}
+                                            <tr>
+                                            <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+            
+                                            <td style="color:black;" nowrap>{{ payment.user.profile.first_name|title}} 
+                                                {{ payment.user.profile.middle_name|title}}
+                                                {{ payment.user.profile.last_name|title}}
+                                            </td>
+
+                                            <td wrap style="color:black;"> 
+                                              {% if payment.user.profile.state %}
+                                              {{ payment.user.profile.state }}
+                                              {% else %}
+                                              Pre-Applicant
+                                              {% endif %}
+                                            </td>
+            
+                                            <td nowrap style="color:black;">{{ payment.user.preapplicant.application_number }}</td>
+            
+                                            <td nowrap style="color:black;">{{ payment.payment_source }}</td>
+            
+                                            
+                                            <td wrap style="color:black;">{{ payment.fee_category }}</td>
+
+                                            <td wrap style="color:black;">{{  payment.payment_date }}</td>
+
+                                            <td nowrap style="color:black;">N{{  payment.amount|intcomma }}</td>
+
+                                           
+                         
+                                            </tr>
+                                            {% endfor %}   
+                                            <tr>
+                                              <th colspan="7" style="text-align: center;">
+                                                <b>Total {{ payment_source}} Payment </b>
+                                              </th>
+                                              <td>
+                                                <b>N{{total_amount|intcomma }}</b>
+                                              </td>
+                                            </tr>
+                                           
+                                            <tr id="printButtonRow">
+                                                <th colspan="5">
+            
+                                                </th>
+                                                <td>
+                                                  
+                                                  <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Slip</a>
+                                                </td>
+                                                <td>
+                                                  <a class="btn btn-primary" href=" ">Regenerate Report</a>
+                                                </td>
+                                              </tr> 
+                                            
+                                            
+                                        </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                  
+                                  </div>
+
+                                  {% endif %}
+                                 <!--Report List Ends -->
+                                   
+                              </div>
+
+                            </div>
+                        </div>
+
+                       
+                     
+                      </div>
+            
+                      <script>
+                        function printSlip() {
+                            var printContents = document.getElementById('report').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                    
+                            document.body.innerHTML = printContents;
+                    
+                            window.print();
+                    
+                            document.body.innerHTML = originalContents;
+                        }
+                    </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

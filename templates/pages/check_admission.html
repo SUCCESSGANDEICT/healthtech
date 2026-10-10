@@ -1,0 +1,71 @@
+{% extends 'website_base.html' %}
+
+
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+  <!--====== PAGE BANNER PART START ======-->
+    
+  <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url('{% static 'static_pages/images/page-banner-3.jpg' %}')">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-12">
+                <div class="page-banner-cont">
+                    <h2> {{page_title}} </h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href=" {% url 'Website_Home' %} ">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> {{page_title}} </li>
+                        </ol>
+                    </nav>
+                </div>  <!-- page banner cont -->
+            </div>
+           
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== PAGE BANNER PART ENDS ======-->
+
+<!--====== STAFF DEPARTMENT CATEGORIES PART START ======-->
+    
+<section id="event-page" class="pt-90 pb-120 gray-bg">
+    <div class="container">
+       <div class="row">
+           <div class="col-lg-6">
+            
+               <div class="singel-event-list mt-30">
+                
+                   <div class="event-thum" style="width: 100%;!important">
+                       <a href=" {% url 'check_remedial_status' %} "><img src="{% static 'static_pages/images/event/fedpoly_remedial_admission.png' %}" height="300px" alt="Academic"></a>
+                   </div>
+                   
+               </div>
+               
+               <h3 style="text-align: center; font-size:1.2rem;"><a href="{% url 'check_remedial_status' %}">Check Admission</a></h3>
+           </div>
+           <div class="col-lg-6">
+               <div class="singel-event-list mt-30">
+                   <div class="event-thum" style="width: 100%;!important">
+                       <a href="{% url 'check_post_utml_status' %}"><img src="{% static 'static_pages/images/event/fedpoly_post_utml_admission.png' %}" alt="Non-Academic"></a>
+                   </div>
+                   
+               </div>
+               
+               <h3 style="text-align: center; font-size:1.2rem;"><a href="{% url 'check_post_utml_status' %}">Check Admission</a></h3>
+           </div>
+          
+       </div> 
+       <!-- PAGINATION row -->
+
+        <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== SCHOOL DEPARTMENTS PART ENDS ======-->
+{% endblock %}

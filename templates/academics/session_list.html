@@ -1,0 +1,154 @@
+{% extends 'account_base.html' %} {% block title %} {{ page_title }} {%endblock%} {% load static %} {% load crispy_forms_tags %} {% block content %}
+
+<div id="wrapper">
+  <!-- Sidebar -->
+
+  {% include 'accounts/partials/_sideBar.html' %}
+
+  <!-- End Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      {% include 'accounts/partials/_topBar.html' %}
+      <!-- End Topbar -->
+      <div class="container">
+        <div class="row">
+          <h4 style="color: black">{{page_title}}</h4>
+        </div>
+      </div>
+
+      <!--Alert Template-->
+      {% include 'admission/partials/_alerts.html' %}
+      <!--Alert Template-->
+
+      <!-- Begin Page Content -->
+      <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+          <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+              <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="p-1">
+                      <div class="table-responsive">
+                       
+                        <table class="table myCard-body">
+                          <thead class="bg-info text-white">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col" style="color: white">Session</th>
+                              <th scope="col" style="color: white" nowrap>
+                                Start Date
+                              </th>
+                              <th scope="col" style="color: white" nowrap>
+                                End Date
+                              </th>
+                              <th scope="col" style="color: white" nowrap>
+                                Resumption
+                              </th>
+                              <th scope="col" style="color: white" nowrap>
+                                Closing Date
+                              </th>
+                              <th scope="col" style="color: white" nowrap>
+                                Admission Date
+                              </th>
+                              <th scope="col" style="color: white" nowrap>
+                                Status
+                              </th>
+                              <th scope="col" style="color: white" nowrap>
+                                Added Date
+                              </th>
+                              {% if user.is_superuser or user.profile.role == 'Admin' %}
+                                <th scope="col" style="color: white" nowrap>
+                                  Added By
+                                </th>
+                             
+                                <th scope="col" style="color: white" nowrap>
+                                Action
+                                </th>
+                              {% endif %}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for academic_session in academic_sessions %}
+                            <tr>
+                              <th scope="row" style="color: black">
+                                {{ forloop.counter }}
+                              </th>
+
+                              <td style="color: black" nowrap>
+                                {{ academic_session.name|capfirst }}
+                              </td>
+                              <td style="color: black" nowrap>
+                                {{ academic_session.start_date }}
+                              </td>
+                              <td style="color: black" nowrap>
+                                {{ academic_session.end_date }}
+                              </td>
+                              <td style="color: black" nowrap>
+                                {{ academic_session.resumption_date }}
+                              </td>
+                              <td style="color: black" nowrap>
+                                {{ academic_session.closing_date }}
+                              </td>
+                              <td style="color: black" nowrap>
+                                {{ academic_session.admission_date }}
+                              </td>
+                              <td style="color: black" nowrap>
+                                {% if academic_session.is_active %}
+                                <span style="color: red">Active</span>
+                                {% else %}
+                                <span>Inactive</span>
+                                {% endif %}
+                              </td>
+                              <td style="color: black" nowrap>
+                                {{ academic_session.added_date }}
+                              </td>
+
+                              {% if user.is_superuser or user.profile.role == 'Admin' %}
+                              <td style="color: black" nowrap>
+                                {{ academic_session.added_by }}
+                              </td>
+                              <td>
+                                <div class="button-container">
+                                  <a
+                                    class="btn btn-danger withdraw-button"
+                                    href="{% url 'delete_session' academic_session.pk %}"
+                                    >Delete</a
+                                  >
+
+                                  <a
+                                    class="btn btn-info deposit-button"
+                                    href="{% url 'update_session' academic_session.pk %}"
+                                    >Edit</a
+                                  >
+                                </div>
+                              </td>
+                              {% endif %}
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Main Content -->
+    </div>
+    <!-- End Content Wrapper -->
+  </div>
+
+  {% endblock %}
+</div>

@@ -1,0 +1,17 @@
+.graduation-page { max-width: 1500px; }
+.graduation-kicker { color: #1877c9; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.graduation-filter-card, #graduation-results-card { border-radius: .75rem; overflow: hidden; }
+.graduation-filter-card label, #graduation-results-card label { color: #344767; font-weight: 700; }
+.graduation-filter-card select { width: 100%; height: calc(1.5em + .75rem + 2px); padding: .375rem .75rem; border: 1px solid #d1d3e2; border-radius: .35rem; background: #fff; }
+.selection-count { display: inline-block; color: #4e5d78; font-weight: 700; }
+.graduation-loading { min-height: 180px; }
+.graduation-table { font-size: .88rem; }
+.graduation-table thead th { border-top: 0; background: #f8f9fc; color: #3a4a67; font-size: .75rem; letter-spacing: .025em; text-transform: uppercase; vertical-align: middle; white-space: nowrap; }
+.graduation-table td { color: #3f4d67; vertical-align: middle; }
+.graduation-table .selection-cell { width: 42px; text-align: center; }
+.graduation-table input[type="checkbox"] { width: 17px; height: 17px; }
+.graduated-row { background: #f4fbf7; }
+.graduation-empty { min-height: 210px; }
+@media (max-width: 991.98px) {
+  .graduation-table { min-width: 1120px; }
+}

@@ -1,0 +1,26 @@
+{% extends 'website_base.html' %}
+
+{% load static %}
+
+
+{% block content %} 
+
+<!-- breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href=" {% url 'Website_Home' %} ">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{page_title}}</li>
+    </ol>
+</nav>
+<!-- breadcrumb -->
+
+
+<!--Programmes-->
+{% include 'pages/partials/_compt_info_tech.html' %}
+<!--Programmes End-->
+
+
+
+{% endblock %}

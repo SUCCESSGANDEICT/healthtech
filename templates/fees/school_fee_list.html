@@ -1,0 +1,595 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block content %}
+
+<style>
+    .tuition-page-shell {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .tuition-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid #e8edf3;
+        background: #fff;
+    }
+
+    .tuition-toolbar h4 {
+        margin: 0;
+        color: #263238;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .tuition-toolbar p {
+        margin: .2rem 0 0;
+        color: #6c757d;
+        font-size: .82rem;
+    }
+
+    .tuition-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 0 0 .35rem .35rem;
+    }
+
+    .tuition-table {
+        width: 100%;
+        min-width: 980px;
+        margin-bottom: 0;
+        table-layout: fixed;
+        color: #263238;
+        font-size: .84rem;
+    }
+
+    .tuition-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 3;
+        padding: .7rem .65rem;
+        border: 0;
+        background: #17a2b8;
+        color: #fff;
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .02em;
+        text-transform: uppercase;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .tuition-table tbody td,
+    .tuition-table tbody th {
+        padding: .62rem .65rem;
+        border-top: 1px solid #edf1f5;
+        vertical-align: middle;
+        background: #fff;
+    }
+
+    .tuition-table tbody tr:hover td,
+    .tuition-table tbody tr:hover th {
+        background: #f8fbfc;
+    }
+
+    .tuition-col-number {
+        width: 48px;
+    }
+
+    .tuition-col-session {
+        width: 132px;
+    }
+
+    .tuition-col-name {
+        width: 126px;
+    }
+
+    .tuition-col-programme {
+        width: 230px;
+    }
+
+    .tuition-col-level {
+        width: 90px;
+    }
+
+    .tuition-col-indigene {
+        width: 126px;
+    }
+
+    .tuition-col-payment {
+        width: 148px;
+    }
+
+    .tuition-col-amount {
+        width: 116px;
+    }
+
+    .tuition-col-added {
+        width: 130px;
+    }
+
+    .tuition-col-action {
+        width: 190px;
+        min-width: 190px;
+        position: sticky;
+        left: 0;
+        z-index: 4;
+        box-shadow: 10px 0 16px -16px rgba(0, 0, 0, .45);
+    }
+
+    .tuition-table thead .tuition-col-action {
+        background: #138496;
+        z-index: 6;
+    }
+
+    .tuition-text-strong {
+        color: #17202a;
+        font-weight: 700;
+    }
+
+    .tuition-muted {
+        display: block;
+        margin-top: .12rem;
+        color: #6c757d;
+        font-size: .72rem;
+    }
+
+    .tuition-truncate {
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .tuition-badge {
+        display: inline-block;
+        max-width: 100%;
+        padding: .22rem .48rem;
+        border-radius: .25rem;
+        background: #eef7f9;
+        color: #156878;
+        font-size: .72rem;
+        font-weight: 700;
+        line-height: 1.2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    .tuition-badge-soft {
+        background: #f2f4f7;
+        color: #4b5563;
+    }
+
+    .tuition-badge-success {
+        background: #e9f8f1;
+        color: #167849;
+    }
+
+    .tuition-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: .35rem;
+        white-space: nowrap;
+    }
+
+    .tuition-actions .btn {
+        padding: .28rem .48rem;
+        border-radius: .25rem;
+        font-size: .74rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .tuition-empty-state {
+        margin: 1.25rem;
+        padding: 2.5rem 1rem;
+        border: 1px dashed #b8dce4;
+        border-radius: .35rem;
+        background: #f8fcfd;
+        text-align: center;
+    }
+
+    .tuition-search-bar {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        flex-wrap: wrap;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid #edf1f5;
+        background: #fbfdfe;
+    }
+
+    .tuition-search-bar .search-input-wrap {
+        position: relative;
+        flex: 1 1 360px;
+        min-width: 220px;
+    }
+
+    .tuition-search-bar input[type="search"] {
+        width: 100%;
+        min-height: 42px;
+        padding: .55rem .8rem;
+        border: 1px solid #d7e2ea;
+        border-radius: .25rem;
+        color: #263238;
+        font-size: .88rem;
+    }
+
+    .tuition-search-bar input[type="search"]:focus {
+        border-color: #17a2b8;
+        box-shadow: 0 0 0 .12rem rgba(23, 162, 184, .18);
+        outline: 0;
+    }
+
+    .tuition-search-status {
+        min-height: 1rem;
+        color: #6c757d;
+        font-size: .76rem;
+    }
+
+    .tuition-empty-state h4 {
+        margin-bottom: .35rem;
+        color: #243b53;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .tuition-empty-state p {
+        max-width: 520px;
+        margin: 0 auto 1rem;
+        color: #65758b;
+        font-size: .88rem;
+    }
+
+    #tuitionDetailsModal {
+        z-index: 1060;
+    }
+
+    .modal-backdrop {
+        z-index: 1050;
+    }
+
+    .tuition-detail-list dt {
+        color: #4b5563;
+        font-size: .82rem;
+    }
+
+    .tuition-detail-list dd {
+        color: #17202a;
+        font-weight: 600;
+        word-break: break-word;
+    }
+
+    @media (max-width: 1199.98px) {
+        .tuition-table {
+            min-width: 900px;
+        }
+
+        .tuition-col-added {
+            display: none;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .container {
+            max-width: 100%;
+        }
+
+        .tuition-toolbar {
+            align-items: stretch;
+            padding: .9rem;
+        }
+
+        .tuition-toolbar .btn {
+            width: 100%;
+        }
+
+        .tuition-search-bar {
+            align-items: stretch;
+            padding: .9rem;
+        }
+
+        .tuition-search-bar .btn,
+        .tuition-search-bar .search-input-wrap {
+            width: 100%;
+            flex-basis: 100%;
+        }
+
+        .tuition-table {
+            min-width: 760px;
+            font-size: .78rem;
+        }
+
+        .tuition-table thead th,
+        .tuition-table tbody td,
+        .tuition-table tbody th {
+            padding: .5rem .45rem;
+        }
+
+        .tuition-col-number,
+        .tuition-col-name,
+        .tuition-col-added {
+            display: none;
+        }
+
+        .tuition-col-programme {
+            width: 210px;
+        }
+
+        .tuition-col-action {
+            width: 160px;
+            min-width: 160px;
+        }
+
+        .tuition-actions {
+            gap: .25rem;
+        }
+
+        .tuition-actions .btn {
+            padding: .25rem .36rem;
+            font-size: .7rem;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .tuition-col-level {
+            display: none;
+        }
+
+        .tuition-table {
+            min-width: 690px;
+        }
+
+        .tuition-col-action {
+            width: 146px;
+            min-width: 146px;
+        }
+    }
+</style>
+
+<div id="wrapper">
+
+    {% include 'accounts/partials/_sideBar.html' %}
+
+    <div id="content-wrapper" class="d-flex flex-column tuition-page-shell">
+        <div id="content">
+
+            {% include 'accounts/partials/_topBar.html' %}
+            {% include 'admission/partials/_alerts.html' %}
+
+            <div class="container">
+                {% include 'accounts/partials/_dashboard_heading.html' %}
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="tuition-toolbar">
+                                <div>
+                                    <h4>Tuition / School Fees</h4>
+                                    <p>Manage programme tuition records by session, level, payment option, and indigene type.</p>
+                                </div>
+                                <a class="btn btn-success shadow-sm" href="{% url 'add_school_fees' %}">
+                                    <i class="fas fa-plus fa-sm text-white-50"></i> Add New Tuition
+                                </a>
+                            </div>
+
+                            <form class="tuition-search-bar" id="tuitionSearchForm" method="get" action="{% url 'school_fees_list' %}">
+                                <div class="search-input-wrap">
+                                    <input
+                                        type="search"
+                                        name="q"
+                                        id="tuitionSearchInput"
+                                        value="{{ search_query }}"
+                                        placeholder="Search by programme, session, level, semester, indigene type, or amount..."
+                                        autocomplete="off"
+                                    >
+                                    <div class="tuition-search-status" id="tuitionSearchStatus" aria-live="polite"></div>
+                                </div>
+                                <button type="submit" class="btn btn-info">Search</button>
+                                <a class="btn btn-secondary" id="tuitionSearchReset" href="{% url 'school_fees_list' %}">Clear</a>
+                            </form>
+
+                            <div id="tuitionResults">
+                                {% include 'fees/partials/_school_fee_results.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="tuitionDetailsModal" tabindex="-1" role="dialog" aria-labelledby="tuitionDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tuitionDetailsModalLabel">Tuition Fee Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl class="row mb-0 tuition-detail-list">
+                    <dt class="col-sm-4">Session</dt>
+                    <dd class="col-sm-8" data-detail-field="session"></dd>
+                    <dt class="col-sm-4">Fee Type</dt>
+                    <dd class="col-sm-8" data-detail-field="name"></dd>
+                    <dt class="col-sm-4">Programme</dt>
+                    <dd class="col-sm-8" data-detail-field="programme"></dd>
+                    <dt class="col-sm-4">Level</dt>
+                    <dd class="col-sm-8" data-detail-field="level"></dd>
+                    <dt class="col-sm-4">Indigene</dt>
+                    <dd class="col-sm-8" data-detail-field="indigene"></dd>
+                    <dt class="col-sm-4">Payment</dt>
+                    <dd class="col-sm-8" data-detail-field="payment"></dd>
+                    <dt class="col-sm-4">Amount</dt>
+                    <dd class="col-sm-8" data-detail-field="amount"></dd>
+                    <dt class="col-sm-4">Added By</dt>
+                    <dd class="col-sm-8" data-detail-field="addedBy"></dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-info" id="tuitionDetailsEditLink" href="#">Edit</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var form = document.getElementById('tuitionSearchForm');
+        var input = document.getElementById('tuitionSearchInput');
+        var results = document.getElementById('tuitionResults');
+        var status = document.getElementById('tuitionSearchStatus');
+        var reset = document.getElementById('tuitionSearchReset');
+        var debounceTimer = null;
+        var activeController = null;
+
+        function setStatus(message) {
+            if (status) {
+                status.textContent = message || '';
+            }
+        }
+
+        function updateUrl(query) {
+            var url = new URL(window.location.href);
+            if (query) {
+                url.searchParams.set('q', query);
+                url.searchParams.delete('page');
+            } else {
+                url.searchParams.delete('q');
+                url.searchParams.delete('page');
+            }
+            window.history.replaceState({}, '', url.toString());
+        }
+
+        function runSearch(query) {
+            var url = new URL(form.action, window.location.origin);
+            if (query) {
+                url.searchParams.set('q', query);
+            }
+
+            if (activeController) {
+                activeController.abort();
+            }
+            activeController = new AbortController();
+            setStatus('Searching...');
+
+            fetch(url.toString(), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                signal: activeController.signal
+            })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Search failed');
+                    }
+                    return response.text();
+                })
+                .then(function (html) {
+                    results.innerHTML = html;
+                    updateUrl(query);
+                    setStatus(query ? 'Results updated.' : 'Showing all tuition fee records.');
+                })
+                .catch(function (error) {
+                    if (error.name !== 'AbortError') {
+                        setStatus('Search could not update automatically. Press Search to try again.');
+                    }
+                });
+        }
+
+        if (form && input && results && window.fetch && window.URLSearchParams) {
+            input.addEventListener('input', function () {
+                var query = input.value.trim();
+                window.clearTimeout(debounceTimer);
+                debounceTimer = window.setTimeout(function () {
+                    runSearch(query);
+                }, 350);
+            });
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                window.clearTimeout(debounceTimer);
+                runSearch(input.value.trim());
+            });
+
+            if (reset) {
+                reset.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    input.value = '';
+                    window.clearTimeout(debounceTimer);
+                    runSearch('');
+                });
+            }
+        }
+
+        document.addEventListener('click', function (event) {
+            var button = event.target.closest('.view-tuition-details');
+            if (!button) {
+                return;
+            }
+            event.preventDefault();
+
+            var modal = document.getElementById('tuitionDetailsModal');
+            if (!modal || !window.jQuery || !window.jQuery.fn || !window.jQuery.fn.modal) {
+                return;
+            }
+
+            var fields = {
+                session: button.getAttribute('data-session') || 'Not assigned',
+                name: button.getAttribute('data-name') || '',
+                programme: button.getAttribute('data-programme') || 'General / Non-tuition',
+                level: button.getAttribute('data-level') || '',
+                indigene: button.getAttribute('data-indigene') || '',
+                payment: button.getAttribute('data-payment') || '',
+                amount: button.getAttribute('data-amount') || '',
+                addedBy: button.getAttribute('data-added-by') || ''
+            };
+
+            Object.keys(fields).forEach(function (key) {
+                var target = modal.querySelector('[data-detail-field="' + key + '"]');
+                if (target) {
+                    target.textContent = fields[key];
+                }
+            });
+
+            var editLink = document.getElementById('tuitionDetailsEditLink');
+            if (editLink) {
+                editLink.setAttribute('href', button.getAttribute('data-edit-url') || '#');
+            }
+
+            window.jQuery('.modal-backdrop').remove();
+            document.body.classList.remove('modal-open');
+            document.body.style.paddingRight = '';
+            window.jQuery(modal).off('hidden.bs.modal.tuitionDetails').on('hidden.bs.modal.tuitionDetails', function () {
+                window.jQuery('.modal-backdrop').remove();
+                document.body.classList.remove('modal-open');
+                document.body.style.paddingRight = '';
+            });
+            window.jQuery(modal).modal({
+                backdrop: true,
+                keyboard: true,
+                show: true
+            });
+        });
+    })();
+</script>
+
+{% endblock %}

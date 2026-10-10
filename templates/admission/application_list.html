@@ -1,0 +1,232 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    
+            
+                    <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center;">
+                              <div class="slip-logo-passport-contain">
+                                  <div class="slip-logo">
+                                      <img width="100" height="100" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo">
+                                  </div>
+                          
+                                  <div class="slip-head-container">
+                                      <h1 class="slip-header">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1>
+                                      <h2 class="slip-sub-header">P.M.B 1166 GBOKO, BENUE STATE</h2>
+                                      <h4 class="slip-sub-header">www.ecosaht.com, info@ecosaht.com, 0911 513 3596, 0708 848 4669, 0813 956 3376</h4>
+                                      <h3 class="slip-sub-under"> {{ page_title }} for Admission </h3>
+                                      <h2 class="slip-sub-header" style="color:red; font-size:0.8rem;">{{ academic_session }}  Academic Session.</h2>
+                                  </div>
+                                  
+                              </div>
+                            </div>
+                       
+                            <div class="card-body">
+                             <div class="row">
+                                <div class="col-md-12">
+                                    {% if application_list %}
+                                    <div class="table-responsive">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            
+                                            <hr>
+                                            <table id="app-slip-personal-detail-table">
+                                                <tbody>
+                                                    
+                                                
+                                                    
+                                                    <tr>
+                                                    <th scope="row" style="text-align: left; color:black;">School:</th>
+                                                    <td style="color:black;">{{school_name}} </td> 
+                                                                      
+                                                    </tr> 
+                                                    
+                                                    <tr>
+                                                    <th scope="row" style="text-align: left; color:black;">Department:</th>
+                                                    <td style="color:black;">{{department_name}} </td>   
+                                                                               
+                                                    </tr>  
+                                                        <tr>
+                                                        <th scope="row" style="text-align: left; color:black;">Program:</th>
+                                                        <td style="color:black;">{{course_of_study}} </td> 
+                                                                          
+                                                        </tr> 
+                                                        
+                                                            <tr>
+                                                            <th scope="row" style="text-align: left; color:black;">Number of Applicants:</th>
+                                                            <td style="color:black;">{{count_applicants}} </td>   
+                                                                                    
+                                                            </tr>
+                                                            <tr>
+                                                            <th scope="row" style="text-align: left; color:black;">Academic Session:</th>
+                                                            <td style="color:black;">{{academic_session}} </td>   
+                                                                                       
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row" style="text-align: left; color:black;">Report Period:</th>
+                                                                <td style="color:black;"> From {{start_date}} - {{end_date}} </td>   
+                                                                                           
+                                                                </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                    <span style="color: black; font-size:1.3rem; font-weight:700;">Application List.</span>
+                                                    <hr>
+                                                    <table id="app-slip-table">
+                                                    <thead class="bg-info text-white">
+                                                        <tr>
+                                                        <th scope="col" wrap>#</th>
+                                                        <th scope="col" style="color: white;">Full Name</th>
+
+                                                        <th scope="col" style="color: white;">Gender</th>
+
+                                                        <th scope="col" style="color: white;" nowrap>Applicant ID</th>
+                                                        
+                                                        <th scope="col" style="color: white;" nowrap>State of Origin</th>
+                        
+                                                        <th scope="col" style="color: white;" nowrap>LGA</th>
+                        
+                                                        <th scope="col" style="color: white;" nowrap>Phone</th>
+
+
+                                                        <th scope="col" style="color: white;" nowrap>Remarks</th>
+
+                                                        
+                                                        
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                    
+                                                        {% for applicant in application_list %}
+                                                        <tr>
+                                                        <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                        
+                                                        <td style="color:black;" nowrap>{{ applicant.applicant.profile.first_name|title}} 
+                                                            {{ applicant.applicant.profile.middle_name|title}}
+                                                            {{ applicant.applicant.profile.last_name|title}}
+                                                        </td>
+                        
+                                                        <td nowrap style="color:black;">{{ applicant.applicant.profile.gender }}</td>
+                        
+                                                        <td nowrap style="color:black;">{{ applicant.applicant.preapplicant.application_number }}</td>
+                        
+                                                        
+                                                        <td nowrap style="color:black;">{{ applicant.applicant.profile.state }}</td>
+
+                                                        <td nowrap style="color:black;">{{  applicant.applicant.profile.lga }}</td>
+
+                                                        <td nowrap style="color:black;">{{  applicant.applicant.profile.phone_number }}</td>
+
+                                                
+
+                                                        <td nowrap style="color:black;"></td>
+                                                        
+                                                        
+                                                        
+                                                        </tr>
+                                                        {% endfor %}    
+                                                        <tr id="printButtonRow">
+                                                            <th colspan="5">
+                        
+                                                            </th>
+                                                            <td>
+                                                              <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Slip</a>
+                                                            </td>
+                                                          </tr> 
+                                                        
+                                                        
+                                                    </tbody>
+                                                    </table>
+                                                    
+                                                </div>
+                                        </div>
+
+                                       
+                                    </div>
+                                    {% else %}
+                                    <span style="color: red; font-size:1rem; font-weight:600; text-align:center;">No Applicant(s) Found.</span>
+                                    {% endif %}
+
+                                </div>
+                                   
+                             </div>
+                              
+    
+                            </div>
+                        </div>
+
+                    </div>
+            
+                      <script>
+                        function printSlip() {
+                            var printContents = document.getElementById('application-slip').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                    
+                            document.body.innerHTML = printContents;
+                    
+                            window.print();
+                    
+                            document.body.innerHTML = originalContents;
+                        }
+                    </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

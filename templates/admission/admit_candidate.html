@@ -1,0 +1,248 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    
+            
+                    <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white; !important">
+                              <div class="slip-logo-passport-contain">
+                                  <div class="slip-logo">
+                                      <img width="100" height="100" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo">
+                                  </div>
+                          
+                                  <div class="slip-head-container">
+                                      <h1 class="slip-header" style="font-family:sans-serif; font-size:1.5rem; font-weight:700; color:rgb(61, 168, 245);">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1>
+                                      <h2 class="slip-sub-header">P.M.B 1166 GBOKO, BENUE STATE</h2>
+
+                                      <h4 class="slip-sub-header">NIGERIA</h4>
+                                      <h3 class="slip-sub-under"> {{ page_title }}  </h3> 
+                                  </div>
+                                  
+                              </div>
+                            </div>
+                       
+                            <div class="card-body">
+                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            
+                                            <hr>
+                                            <table id="app-slip-personal-detail-table">
+                                                <tbody>
+                                                   
+                                                        <tr>
+                                                        <th scope="row" style="text-align: left; color:black;">Program:</th>
+                                                        <td style="color:black;">{{course_of_study}} </td> 
+                                                                          
+                                                        </tr> 
+                                                            <tr>
+                                                            <th scope="row" style="text-align: left; color:black;">Department:</th>
+                                                            <td style="color:black;"> {{department}}</td>                          
+                                                        </tr>
+                                                    </tr> 
+                                                    <tr>
+                                                    <th scope="row" style="text-align: left; color:black;">Academic Session:</th>
+                                                    <td style="color:black;"> {{academic_session}}</td>                          
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" style="text-align: left; color:black;">Category:</th>
+                                                    <td style="color:black;"> {{application_category|default:'All Categories'}}</td>
+                                                </tr>
+                                                            
+                                                            
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+
+                                         <!--Alert Template-->
+                                        {% include 'admission/partials/_alerts.html' %}
+                                        <!--Alert Template-->
+
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <span style="color: black; font-size:1.3rem; font-weight:700;">Eligible Candidates.</span>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input id="admission-search" class="form-control" type="text" value="{{ search_query|default:'' }}" placeholder="Search application number, name, programme, category, session">
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div id="admission-filter-message" class="alert alert-info d-none"></div>
+                                                    <form id="candidate-form" method="POST" action="{% url 'admit_candidates' %}">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="academic_session" value="{{ academic_session.id }}">
+
+                                                        <table id="app-slip-table">
+                                                        <thead class="bg-info text-white">
+                                                            <tr>
+                                                            <th scope="col" wrap>#</th>
+                                                            <th scope="col" style="color: white;">Full Name</th>
+
+                                                            <th scope="col" style="color: white;" nowrap>Applicant ID</th>
+                                                            <th scope="col" style="color: white;">Programme</th>
+                                                            <th scope="col" style="color: white;" nowrap>Session</th>
+                                                            <th scope="col" style="color: white;" nowrap>Category</th>
+                                                            <th scope="col" style="color: white;" nowrap>Screening Status</th>
+                            
+                                                            <th scope="col" style="color: white;" nowrap>Action</th>
+                                
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% include 'admission/partials/_admission_candidate_rows.html' %}
+                                                        </tbody>
+                                                        </table>
+                                                        <div class="d-flex justify-content-end mt-3 mb-2">
+                                                            <button class="btn btn-success" type="button" onclick="submitForm()">Admit Candidate(s)</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                        </div>
+
+                                       
+                                    </div>
+
+                                </div>
+                                   
+                             </div>
+                              
+    
+                            </div>
+                        </div>
+
+                    </div>
+
+                      <script>
+                        function printSlip() {
+                            var printContents = document.getElementById('application-slip').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                    
+                            document.body.innerHTML = printContents;
+                    
+                            window.print();
+                    
+                            document.body.innerHTML = originalContents;
+                        }
+
+                        function submitForm() {
+                            if (!document.querySelector('input[name="selected_applicant[]"]:checked')) {
+                                alert('Select at least one eligible candidate to admit.');
+                                return;
+                            }
+                            document.getElementById('candidate-form').submit();
+                        }
+
+                        (function () {
+                            var searchInput = document.getElementById('admission-search');
+                            var messageBox = document.getElementById('admission-filter-message');
+                            var tableBody = document.querySelector('#app-slip-table tbody');
+                            var filterTimer = null;
+                            var baseUrl = "{% url 'ajax_admission_candidates' %}";
+                            var courseId = "{{ course_of_study.id }}";
+                            var sessionId = "{{ academic_session.id }}";
+                            var category = "{{ application_category|default:''|escapejs }}";
+
+                            function showMessage(message, isError) {
+                                if (!message) {
+                                    messageBox.classList.add('d-none');
+                                    messageBox.textContent = '';
+                                    return;
+                                }
+                                messageBox.classList.remove('d-none', 'alert-info', 'alert-danger');
+                                messageBox.classList.add(isError ? 'alert-danger' : 'alert-info');
+                                messageBox.textContent = message;
+                            }
+
+                            function refreshCandidates() {
+                                var params = new URLSearchParams({
+                                    academic_session: sessionId,
+                                    course_of_study: courseId,
+                                    application_category: category,
+                                    search_query: searchInput.value
+                                });
+                                fetch(baseUrl + '?' + params.toString(), {
+                                    headers: {'X-Requested-With': 'XMLHttpRequest'}
+                                })
+                                .then(function (response) { return response.json(); })
+                                .then(function (data) {
+                                    if (!data.ok) {
+                                        showMessage(data.message || 'Unable to filter candidates.', true);
+                                        return;
+                                    }
+                                    tableBody.innerHTML = data.html;
+                                    showMessage(data.message, false);
+                                })
+                                .catch(function () {
+                                    showMessage('Unable to refresh the admission list. Please try again.', true);
+                                });
+                            }
+
+                            if (searchInput) {
+                                searchInput.addEventListener('input', function () {
+                                    clearTimeout(filterTimer);
+                                    filterTimer = setTimeout(refreshCandidates, 350);
+                                });
+                            }
+
+                        })();
+                    </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

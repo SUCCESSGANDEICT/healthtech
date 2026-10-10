@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock%}</title>
+    <meta name="description" content="Explore Excellent College of Sciences and Health Technology in Gboko, Benue State—offering top-tier programs in health and science education. Enroll today for a brighter future in healthcare and technology."/>
+    <!-- Open Graph (OG) Meta Tags for social media -->
+    <meta property="og:title" content="Excellent College of Sciences and Health Technology. Gboko - Benue State." />
+    <meta property="og:description" content="Explore Excellent College of Sciences and Health Technology in Gboko, Benue State—offering top-tier programs in health and science education. Enroll today for a brighter future in healthcare and technology."/>
+    <meta property="og:image" content="{% static 'static_pages/images/index_logo.png' %}"/>
+    <!-- Full image URL -->
+    <meta property="og:url" content="https://ecosaht.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Excellent College of Sciences and Health Technology Gboko - Benue State" />
+    <link rel="icon" type="image/png" href="{% static 'static_pages/images/favicon.png' %}">
+
+    <!-- Optional: Twitter Card (WhatsApp also reads some Twitter tags) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Excellent College of Sciences and Health Technology Gboko - Benue State" />
+    <meta name="twitter:description" content="Explore Excellent College of Sciences and Health Technology in Gboko, Benue State—offering top-tier programs in health and science education. Enroll today for a brighter future in healthcare and technology."/>
+    <meta name="twitter:image" content="{% static 'static_pages/images/favicon.png' %}"/>
+    <!--LINKED style.css file-->
+    <link
+      rel="stylesheet"
+      href="{% static 'static_pages/normalize.css' %} "
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'static_pages/small.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'static_pages/medium.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'static_pages/large.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'static_pages/image_slider.css' %}"
+    />
+    {% block extra_css %}{% endblock %}
+    <!--Link file-->
+  </head>
+  <body>
+    <header class="header">
+      <a href="" class="logo">
+        <img src="{% static 'static_pages/images/index_logo.png' %} " alt="Excellent College of Health"/>
+        <span class="company_name">Excellent College of Sciences and <br> Health Technology  Gboko Benue State</span>
+      </a>
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"><span class="nav-icon"></span></label>
+      <ul class="menu">
+       
+        <li><a href="{% url 'Website_Home' %}">Home</a></li>
+       
+        
+        <li><a href="{% url 'about_us' %}">About Us</a></li>
+        
+        
+        <li><a href="{% url 'validate_applicant' %}">Admission</a></li>
+        
+        <li><a href="{% url 'accounts_login' %}">Portal Login</a></li>
+        
+        <li><a href="https://em1.host-ww.net:2096/">Staff Mail</a></li>
+        
+      </ul>
+    </header>
+
+    <main>{% block content %} {% endblock %}</main>
+
+    <footer>
+      <!--Footer Section One-->
+      <div class="footer-section">
+        <h2>ECOSAHT</h2>
+        <hr />
+        <p>
+          At ECOSAHT, we are dedicated to cultivating the next generation 
+		  of healthcare professionals. Our rigorous academic programs, 
+		  state-of-the-art facilities, and experienced Colleges provide an 
+		  unparalleled educational experience. Whether you're aspiring to be a 
+		  Community Health Worker, Community Health Extension Worker, 
+		  Environmental Health Worker or Health Information Worker, 
+		  we are committed to your success and professional growth.
+        </p>
+      </div>
+
+      <!--Footer Section Two-->
+      <div class="footer-section">
+        <h2>Quick Links</h2>
+        <hr />
+        <ul>
+          
+          <li><a href="{% url 'Website_Home' %}">Home</a></li>
+          
+          <li><a href="{% url 'about_us' %}">About Us</a></li>
+         
+          <li><a href="{% url 'validate_applicant' %} ">Admission</a></li>
+          
+          <li><a href=" ">Staff Mail</a></li>
+          <li><a href="{% url 'accounts_login' %} ">Portal Login</a></li>
+        </ul>
+      </div>
+
+      <!--Footer Section Three-->
+      <div class="footer-section">
+        <h2>Resources</h2>
+        <hr />
+        <ul>
+          <li><a href="">Journal Publications</a></li>
+          <li><a href="">Academic Calendar</a></li>
+          <li><a href="">Admission Requirement</a></li>
+          <li><a href="">Leave/</a></li>
+        </ul>
+      </div>
+
+      <!--Footer Section Four-->
+      <div class="footer-section">
+        <h2>Contact Us</h2>
+        <hr />
+        <p>
+            #5 Excellent Close Behind Tor Tiv Guest House of Aliade-Yandev bypass GRA Gboko
+        </p>
+        <p>
+            0911 513 3596, 0708 848 4669, 0813 956 3376  
+        </p>
+        <p>
+            info@ecosaht.com/
+        </p>
+      </div>
+    </footer>
+    <!--Developer Area-->
+    <div class="developer">
+      <p>
+        <span style="color: white"
+          >Copy Right Excellent College of Sciences and Health Technology. Gboko. 2025 </span>
+        <br/>
+        SUCCESSGANDE ICT RESOURCES LTD. GBOKO.
+        09164660944, 08026421028.
+      </p>
+    </div>
+    <!-- Bootstrap JS (ensure version matches your CSS) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

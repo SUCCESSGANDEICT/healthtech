@@ -1,0 +1,38 @@
+{% load pagination_tags %}
+{% if page_obj.paginator.num_pages > 1 %}
+<div class="pagination-box">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="{% if param_name == 'page' %}{% pagination_url 1 %}{% else %}?{{ param_name }}=1{% endif %}">
+                    <i class="fa fa-angle-double-left"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{% if param_name == 'page' %}{% pagination_url page_obj.previous_page_number %}{% else %}?{{ param_name }}={{ page_obj.previous_page_number }}{% endif %}">
+                    {{ page_obj.previous_page_number }}
+                </a>
+            </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <a class="page-link" href="{% if param_name == 'page' %}{% pagination_url page_obj.number %}{% else %}?{{ param_name }}={{ page_obj.number }}{% endif %}">
+                {{ page_obj.number }}
+            </a>
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{% if param_name == 'page' %}{% pagination_url page_obj.next_page_number %}{% else %}?{{ param_name }}={{ page_obj.next_page_number }}{% endif %}">
+                    {{ page_obj.next_page_number }}
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{% if param_name == 'page' %}{% pagination_url page_obj.paginator.num_pages %}{% else %}?{{ param_name }}={{ page_obj.paginator.num_pages }}{% endif %}">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}

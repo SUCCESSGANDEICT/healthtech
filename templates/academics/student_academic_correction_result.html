@@ -1,0 +1,62 @@
+{% extends 'account_base.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+  {% include 'accounts/partials/_sideBar.html' %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      {% include 'accounts/partials/_topBar.html' %}
+      <main class="container py-4" style="max-width: 920px;">
+        {% include 'admission/partials/_alerts.html' %}
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white py-3">
+            <h1 class="h4 mb-1">Student Academic Update Result</h1>
+            <p class="text-muted mb-0">The student record shown below is read-only.</p>
+          </div>
+          <div class="card-body p-4">
+            <div class="row mb-4">
+              <div class="col-md-6 mb-3">
+                <small class="text-uppercase text-muted">Student</small>
+                <strong class="d-block">{{ student.candidate.profile.first_name|default:'' }} {{ student.candidate.profile.middle_name|default:'' }} {{ student.candidate.profile.last_name|default:'' }}</strong>
+                <span>{{ student.student_id|default:'No matriculation number' }}</span>
+              </div>
+              <div class="col-md-3 mb-3">
+                <small class="text-uppercase text-muted">Current level</small>
+                <strong class="d-block">{{ student.current_level|default:'Not set' }}</strong>
+              </div>
+              <div class="col-md-3 mb-3">
+                <small class="text-uppercase text-muted">Admitted session</small>
+                <strong class="d-block">{{ student.academic_session }}</strong>
+              </div>
+            </div>
+
+            <h2 class="h5">Level / admission history</h2>
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered mb-4">
+                <thead class="thead-light">
+                  <tr><th>Changed</th><th>Level</th><th>Admitted session</th><th>Changed by</th></tr>
+                </thead>
+                <tbody>
+                  {% for item in history %}
+                    <tr>
+                      <td>{{ item.changed_at }}</td>
+                      <td>{{ item.previous_level|default:'Not set' }} &rarr; {{ item.new_level|default:'Not set' }}</td>
+                      <td>{{ item.previous_admitted_session }} &rarr; {{ item.new_admitted_session }}</td>
+                      <td>{{ item.changed_by }}</td>
+                    </tr>
+                  {% empty %}
+                    <tr><td colspan="4" class="text-muted text-center">No correction history is available.</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <a class="btn btn-primary" href="{% url 'student_search' %}">Change Another Student</a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+{% endblock %}

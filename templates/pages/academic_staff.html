@@ -1,0 +1,144 @@
+{% extends 'website_base.html' %}
+
+
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+  <!--====== PAGE BANNER PART START ======-->
+    
+  <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url('{% static 'static_pages/images/page-banner-3.jpg' %}')">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-12">
+                <div class="page-banner-cont">
+                    <h2> {{page_title}} </h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href=" {% url 'Website_Home' %} ">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> {{page_title}} </li>
+                        </ol>
+                    </nav>
+                </div>  <!-- page banner cont -->
+            </div>
+           
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== PAGE BANNER PART ENDS ======-->
+
+
+  <!--====== TEACHERS PART START ======-->
+    
+  <section id="event-page" class="pt-90 pb-120 gray-bg">
+    <div class="container">
+        {% if staff_list %}
+       <div class="row">
+        {% for staff in staff_list %}
+
+        <div class="col-lg-6">
+            <div class="singel-event-list mt-30">
+                <div class="event-thum">
+                    {% if staff.staff2__image %}
+                    <img src="{{ MEDIA_URL }}{{ staff.staff2__image }}" alt="lecturer">
+                    {% else %}
+                    <img src="{{ MEDIA_URL }}avatar.jpg" alt="lecturer">
+                    {% endif %}
+                </div>
+                <div class="event-cont">
+                    
+                     <a href="{% url 'bam_academic_staff' %} "></a>
+                     
+                     <a href="#"><h6 style="font-size: 1.2rem; text-align:center; color:blue;">{{staff.staff2__first_name}} {{staff.staff2__last_name}}</h6></a>
+                     <p style="font-size: 0.7rem; text-align:center; line-height:1.2; color:forestgreen; font-weight:650;"> <b style="color:orangered; font-size:0.7rem;">Department:</b> {{department_name}}</p>
+                     <h4 style="font-size:0.8rem; text-align:center; color:red;">Academic Staff</h4>
+                     <p style="font-size: 0.8rem; color:black; text-align:center;">{{staff.qualification_date}}</p>
+                     {% if staff.internal_appointment %}
+                     <p style="font-size: 0.8rem; color:rgb(124, 32, 132);; text-align:center;">{{staff.staff_designation}}</p>
+                     {% endif %}
+                     {% if staff.publication_count > 0 %}
+                     <a style="display: block; text-align:center;" href="{% url 'staff_publications'  staff.staff_id %} "><span style="text-align: center;"><i class="fa fa-book"></i> {{staff.publication_count}} Publication(s)</span></a> 
+                     {% else %}
+                        <p style="text-align:center;">No Publication</p>
+                     {% endif %}
+                    
+                     <p style="font-size: 0.9rem; text-align:center; color:brown; font-weight:650;">{{staff.staff__Appointment_Mode}} - {{staff.current_rank}}.</p>
+                     <!--Download CV Section-->
+                     <p style="font-size: 0.9rem; text-align:center; color:black; font-weight:650;">
+                        {% if staff.upload_cv %}
+                                                      <a  href="{% url 'download_supporting_document' staff.staff_id %}">
+                                                        <button class="btn btn-primary">Download CV</button>
+                                                      </a>
+                                                    {% else %}
+                                                      <p style="text-align: center; font-size:0.8rem; color:red;">No CV available.</p>
+                                                    {% endif %}
+                     </p>
+                     <!--Download CV Section END-->
+                </div>
+            </div>
+        </div>
+
+           {% endfor %}
+       </div> 
+       {% else %}
+       <span>No Staff Found</span>
+
+       {% endif %}
+       <!-- PAGINATION row START -->
+       <div class="row">
+        <div class="col-lg-12">
+            <nav class="courses-pagination mt-50">
+                <ul class="pagination justify-content-center">
+            
+                    {% if staff_list.has_previous %}
+                        <li class="page-item">
+                            <a href="?page=1" aria-label="First">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a href="?page={{ staff_list.previous_page_number }}" aria-label="Previous">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+            
+                    {% for num in staff_list.paginator.page_range %}
+                        <li class="page-item{% if num == staff_list.number %} active{% endif %}">
+                            <a href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endfor %}
+            
+                    {% if staff_list.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ staff_list.next_page_number }}" aria-label="Next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a href="?page={{ staff_list.paginator.num_pages }}" aria-label="Last">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+            
+                </ul>
+            </nav>
+            
+        </div>
+    </div> 
+        
+       <!-- PAGINATION row END -->
+    </div> <!-- container -->
+</section>
+
+<!--====== STAFF PART ENDS ======-->
+
+
+
+{% endblock %}

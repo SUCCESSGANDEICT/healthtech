@@ -1,0 +1,245 @@
+.index-legacy-programmes,
+.index-legacy-programmes-heading {
+  display: none !important;
+}
+
+.index-hero-slider {
+  overflow: hidden;
+}
+
+.index-hero-slider .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.index-hero-slider .col {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.index-programmes-section {
+  width: min(1180px, calc(100% - 28px));
+  margin: 44px auto 52px;
+  padding: 0;
+}
+
+.index-section-header {
+  max-width: 760px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.index-section-kicker {
+  display: inline-block;
+  color: #0b7a75;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.index-section-header h1 {
+  color: #07294d;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.index-section-header p {
+  color: #4b5563;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin: 12px auto 0;
+}
+
+.index-programmes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.index-programme-card {
+  background: #ffffff;
+  border: 1px solid #dbe6ee;
+  border-radius: 8px;
+  box-shadow: 0 12px 26px rgba(7, 41, 77, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.index-programme-media {
+  background: #eef7f6;
+  height: 154px;
+  overflow: hidden;
+}
+
+.index-programme-media img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.index-programme-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px;
+}
+
+.index-programme-tag {
+  align-self: flex-start;
+  background: #e8f5f3;
+  border: 1px solid #c9e7e2;
+  border-radius: 999px;
+  color: #075f5b;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 12px;
+  padding: 7px 10px;
+}
+
+.index-programme-content h2 {
+  color: #07294d;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 10px;
+}
+
+.index-programme-content p {
+  color: #475569;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: 0 0 14px;
+}
+
+.index-programme-content h3 {
+  color: #0f766e;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: auto 0 8px;
+  text-transform: uppercase;
+}
+
+.index-programme-content ul {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+}
+
+.index-programme-content li {
+  border-top: 1px solid #edf2f7;
+  color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  padding: 8px 0 8px 20px;
+  position: relative;
+}
+
+.index-programme-content li::before {
+  background: #cfa849;
+  border-radius: 50%;
+  content: "";
+  height: 7px;
+  left: 2px;
+  position: absolute;
+  top: 15px;
+  width: 7px;
+}
+
+.index-programme-link {
+  align-items: center;
+  background: #07294d;
+  border: 1px solid #07294d;
+  border-radius: 8px;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1.2;
+  margin-top: auto;
+  min-height: 42px;
+  padding: 10px 14px;
+  text-decoration: none;
+  width: 100%;
+}
+
+.index-programme-link:hover,
+.index-programme-link:focus {
+  background: #0b7a75;
+  border-color: #0b7a75;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 1199px) {
+  .index-programmes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .index-programmes-section {
+    width: min(100% - 22px, 560px);
+    margin: 32px auto 42px;
+  }
+
+  .index-section-header {
+    margin-bottom: 18px;
+  }
+
+  .index-section-header h1 {
+    font-size: 1.35rem;
+  }
+
+  .index-section-header p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .index-programmes-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .index-programme-media {
+    height: 142px;
+  }
+
+  .index-programme-content {
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .index-programmes-section {
+    width: min(100% - 18px, 340px);
+  }
+
+  .index-programme-content {
+    padding: 14px;
+  }
+
+  .index-programme-content h2 {
+    font-size: 0.98rem;
+  }
+
+  .index-programme-link {
+    font-size: 0.84rem;
+  }
+}

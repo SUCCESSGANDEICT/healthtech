@@ -1,0 +1,236 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+                <!--Alert Template-->
+                {% include 'admission/partials/_alerts.html' %}
+                <!--Alert Template-->
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    
+            
+                    <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; background-color:white;!important">
+                              <div class="slip-logo-passport-contain">
+                                  <div class="slip-logo">
+                                      <img width="100" height="100" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo">
+                                  </div>
+                          
+                                  <div class="slip-head-container">
+                                      <h1 class="slip-header">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1>
+                                      <h2 class="slip-sub-header">P.M.B 1166 GBOKO, BENUE STATE</h2>
+                                      <h4 class="slip-sub-header" style="font-size: 1.1rem; font-weight:600;">Academic Office</h4>
+                                      <h3 class="slip-sub-under" style="font-size: 1.1rem; font-weight:600; color:black;"> {{ page_title }}</h3>
+                                      
+                                      <h2 class="slip-sub-header" style="color:red; font-size:1.1rem;">{{ latest_academic_session }}  Academic Session.</h2>
+                                       
+                                    </div>
+                                  
+                              </div>
+                            </div>
+                       
+                            <div class="card-body">
+                             <div class="row">
+                                <div class="col-md-12">
+                                    {% if admission_list %}
+                                    <div class="table-responsive">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            
+                                            <hr>
+                                            <table id="app-slip-personal-detail-table"> 
+                                                <tbody>
+                                                    
+                                                      <tr>
+                                                        <th scope="row" style="text-align: left; color:black;">Academic Session:</th>
+                                                        <td style="color:black;">{{latest_academic_session}} </td>                              
+                                                      </tr>
+                                                      <tr>
+                                                        <th scope="row" style="text-align: left; color:black;">Number of Candidates Admitted:</th>
+                                                        <td style="color:black;">{{count_admission}} </td>                              
+                                                      </tr>
+                                                      {% if not page_title == 'NDII Portal Admission List' %}
+                                                      <tr>
+                                                        <th scope="row" style="text-align: left; color:black;">Report Range:</th>
+                                                        <td style="color:black;">From {{start_date}} - {{end_date}} </td>                              
+                                                      </tr>
+                                                     {% endif %}
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                    {% if page_title == 'POST-UTME Admission Report' %}
+                                                    <h2 style="color: black; text-align:center; font-size:1rem; font-weight:700;">{{ page_title }} from {{start_date}} - {{end_date}} for {{latest_academic_session}} Academic Session. </h2>
+                                                    {% else %}
+                                                    <h2 style="color: black; text-align:center; font-size:1rem; font-weight:700;">{{ page_title }} List for {{latest_academic_session}} Academic Session. </h2>
+                                                    {% endif %}
+                                                    <hr>
+                                                    <table id="app-slip-table">
+                                                    <thead class="bg-info text-white">
+                                                        <tr>
+                                                        <th scope="col" wrap>#</th>
+                                                        <th scope="col" style="color: white;">Full Name</th>
+
+                                                        <th scope="col" style="color: white;">Gender</th>
+
+                                                        
+                                                        <th scope="col" style="color: white;" nowrap>JAMB Number</th>
+                        
+                                                        <th scope="col" style="color: white;" nowrap>Program</th>
+
+                                                        <th scope="col" style="color: white;" nowrap>Department</th>
+
+                                                        <th scope="col" style="color: white;" nowrap>JAMB Scores</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                    
+                                                        {% for admission in admission_list %}
+                                                        <tr>
+                                                        <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                        
+                                                        <td style="color:black;">{{ admission.applicant.profile.first_name|title}} 
+                                                            {{ admission.applicant.profile.middle_name|title}}
+                                                            {{ admission.applicant.profile.last_name|title}}
+                                                        </td>
+                        
+                                                        <td nowrap style="color:black;">{{ admission.applicant.profile.gender }}</td>
+                        
+                                                        <td nowrap style="color:black;">{{ admission.applicant }}</td>
+
+                                                        
+                                                        <td style="color:black;">{{  admission.admitted_course }}</td>
+
+                                                        <td style="color:black;">{{  admission.admitted_course.department.name}}</td>
+
+                                                        <td style="color:black;">{{ admission.total_score }}</td>
+
+                                                        
+                                                        </tr>
+                                                        {% endfor %}    
+                                                        
+                                                        <tr id="printButtonRow">
+                                                            <th colspan="5">
+                        
+                                                            </th>
+                                                            <td>
+                                                                <a class="btn btn-success" href="{% url 'custom_uploaded_list' %}?downloaded=true&{{ request.GET.urlencode }}">Download PDF</a>
+                                                            </td>
+                                                          </tr> 
+                                                        
+                                                    </tbody>
+                                                    </table>
+                                                    
+                                                </div>
+                                        </div>
+
+                                       
+                                    </div>
+                                    {% else %}
+                                    <span style="color: red; font-size:1rem; font-weight:600; text-align:center;">No POST UTME Candidate Found.</span>
+                                    {% endif %}
+
+                                </div>
+                                   
+                             </div>
+                              
+    
+                            </div>
+                        </div>
+
+                    </div>
+            
+                      
+                     <!--Pagination-->
+                     <div class="pagination-box"> 
+                        <ul class="pagination">
+                            {% if admission_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{{ request.GET.urlencode }}&page=1">
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ admission_list.previous_page_number }}">
+                                        {{ admission_list.previous_page_number }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            
+                            <li class="page-item active">
+                                <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ admission_list.number }}">
+                                    {{ admission_list.number }}
+                                </a>
+                            </li>
+                            
+                            {% if admission_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ admission_list.next_page_number }}">
+                                        {{ admission_list.next_page_number }}
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ admission_list.paginator.num_pages }}">
+                                        <i class="fa fa-angle-double-right"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>  
+                    </div>
+                    <!--PAGINATION END-->
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

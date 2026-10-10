@@ -1,0 +1,227 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    <!--Alert Template-->
+                    {% include 'admission/partials/_alerts.html' %}
+                    <!--Alert Template-->
+            
+                    <div class="col-md-12" id="application-slip" style="background-color: white;">
+                      <div class="myCard">
+                          <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <h2 style="color: black; font-size:1rem; font-weight:700; text-align:left;!important">CHOICE OF PROGRAMME</h2>
+                                  <hr>
+                                  <h3 style="color: black; font-size:1rem; font-weight:700; text-align:left;!important"> {{applicant.course_name}} </h3>
+                                  <hr>
+                                  <h2 style="color: black; font-size:1rem; font-weight:700; text-align:left;!important">DECLARATION BY THE APPLICANT</h2>
+                                  <p style="text-align: justify; color:black; font-family:Arial, Helvetica, sans-serif; font-size:1rem; line-height:2;">
+                                    I <b>{{applicant.applicant.profile.last_name}} {{applicant.applicant.profile.middle_name}} {{applicant.applicant.profile.first_name}}</b>
+                                    Here by Declare that the information provided on the first page of my application form 
+                                    is correct to the Best of my Knowledge and Belief. And if admitted to the Polytechnic,
+                                    I shall regard myself bound by the Rules and Regulations of the Polytechnic.
+                                  </p>
+
+                                  <p style="color:black; font-size:1rem; font-family:Arial, Helvetica, sans-serif; ">
+                                    Signature:...................................... Date:........................... Address:................................................................................................
+                                  </p>
+
+                                  <p style="color:black; font-size:1rem; font-family:Arial, Helvetica, sans-serif; ">
+                                    ...........................................................................................................................................................................................................
+                                  </p>
+
+                                </div>
+                            </div>
+                          </div>
+                          
+                       
+                            
+                       
+                            <div class="card-body">
+                             <div class="row">
+                                <div class="col-md-12">
+                                  
+                                    <div class="table">
+                                     
+                                      <div class="row">
+                                          <div class="col-md-12">
+                                            
+                                            <h2 style="color: black; font-size:1rem; font-weight:700; text-align:center;!important">FOR OFFICIAL USE ONLY</h2>
+                                            <hr>
+                                            <table id="app-slip-table">
+                                              <thead>
+                                                <tr>
+                                                  <th scope="col"></th>
+                                                  <th scope="col"></th>
+                                                  <th scope="col" style="width: 200px;"></th>
+                                                  <th scope="col" style="color:black;" wrap><b>SIGNATURE OF OFFICER MAKING ENTRY</b> </th>
+                                                  <th scope="col" style="color:black;"><b>DATE OF ENTRY</b> </th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr>
+                                                  <td> <b>A</b> </td>
+                                                  <th scope="row" style="color:black;" nowrap>Date Receipt No of Application Fee</th>
+                                                  <td style="color:black;"></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                </tr>
+                                                <tr>
+                                                  <td> <b>B</b> </td>
+                                                  <th scope="row" style="color:black;">Date Form is despatched</th>
+                                                  <td style="color:black;"></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                </tr>
+                                                <tr>
+                                                  <td> <b>C</b> </td>
+                                                  <th scope="row" style="color:black;">Date completed Form received</th>
+                                                  <td style="color:black;"></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                </tr>
+                                                <tr>
+                                                  <td> <b>D</b> </td>
+                                                  <th scope="row" style="color:black;">Date acknowledgement sent</th>
+                                                  <td style="color:black;"></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                </tr>
+                                                <tr>
+                                                  <td> <b>E</b> </td>
+                                                  <th scope="row" style="color:black;">Result of Application</th>
+                                                  <td style="color:black;"></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                </tr>
+                                                <tr>
+                                                  <td> <b>F</b> </td>
+                                                  <th scope="row" style="color:black;">Date results communicated</th>
+                                                  <td style="color:black;"></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                </tr>
+                                                <tr id="printButtonRow">
+                                                  <th colspan="5">
+              
+                                                  </th>
+                                                  <td>
+                                                    <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Form</a>
+                                                  </td>
+                                                </tr> 
+                                              </tbody>
+                                            </table>  
+                                          </div>
+                                      </div>
+
+                                        
+                                    </div>
+
+                                </div>
+                                   
+                             </div>
+                              
+    
+                            </div>
+                        </div>
+
+                    </div>
+            
+                    <script>
+                      function printSlip() {
+                          
+                          var printContents = document.getElementById('application-slip').innerHTML;
+                          var printWindow = window.open('', '', 'height=600,width=800');
+                          printWindow.document.write('<html><head><title>Print Slip</title>');
+                          printWindow.document.write('<style>');
+                          printWindow.document.write('@media print {');
+                          printWindow.document.write('#application-slip { border: 1px solid #ddd; padding: 10px; margin: 10px; }');
+                          printWindow.document.write('.btn-success { display: none; }');
+                          printWindow.document.write('#printButtonRow { display: none; }');
+                          // Ordinary School Certificate table
+                          printWindow.document.write('#app-slip-table { width: 100%; border-collapse: collapse; }');
+                          printWindow.document.write('#app-slip-table th, #app-slip-table td { border: 1px solid black; padding: 5px; color:black; }');
+                          printWindow.document.write('#app-slip-table td { text-align: left; }');
+                          // Additional styles for #customTable 
+                          printWindow.document.write('#customTable { width: 100%; border-collapse: collapse; margin-top: 20px; }');
+                          printWindow.document.write('#customTable th, #customTable td { border: none; padding: 5px; }');
+                          printWindow.document.write('#customTable th { background-color: #f2f2f2; text-align: center; }');
+                          printWindow.document.write('#customTable td { text-align: center; }');
+                          printWindow.document.write('#customTable .logo img, #customTable .passport img { display: block; max-width: 100px; max-height: 100px; }');
+                          printWindow.document.write('#customTable h1, #customTable h3 { margin: 0; }');
+                          // Additional styles for .container and #acceptance-slip-table
+                          printWindow.document.write('.container { margin-top: 2%; }');
+                          printWindow.document.write('.row { margin-left: 0; margin-right: 0; }');
+                          printWindow.document.write('.col-8, .col-4 { display: inline-block; vertical-align: top; }');
+                          printWindow.document.write('.col-8 { width: 66.67%; }'); // Adjust width as needed
+                          printWindow.document.write('.col-4 { width: 33.33%; float: right; }'); // Adjust width as needed and float right
+
+                          printWindow.document.write('#acceptance-slip-table { width: 100%; }');
+                          printWindow.document.write('#acceptance-slip-table th, #acceptance-slip-table td { border: none; text-align: left; padding: 8px; }');
+                          printWindow.document.write('#acceptance-slip-table th { text-align: left; color: black; }');
+                          printWindow.document.write('#acceptance-slip-table td { color: black; }');
+                          // CSS for <p> tags
+                          printWindow.document.write('#declaration { font-family: sans-serif; font-size: 1rem; line-height: 0.5; }');
+                          // CSS for <p> tags
+                          printWindow.document.write('h4 { font-family: sans-serif; font-size: 1rem; margin-top: 0; }');
+                          printWindow.document.write('}');
+                          printWindow.document.write('</style>');
+                          printWindow.document.write('</head><body>');
+                          printWindow.document.write(printContents);
+                          printWindow.document.write('</body></html>');
+                          printWindow.document.close();
+                          printWindow.print();
+                      }
+                      </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

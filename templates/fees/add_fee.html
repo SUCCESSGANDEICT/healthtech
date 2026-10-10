@@ -1,0 +1,366 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+    .fee-form-card {
+        overflow: visible;
+    }
+
+    .fee-form-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid #e8edf3;
+        background: #fff;
+    }
+
+    .fee-form-header h5 {
+        margin: 0;
+        color: #243b53;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .fee-form-header p {
+        margin: .25rem 0 0;
+        color: #6c757d;
+        font-size: .84rem;
+    }
+
+    .fee-form-scroll {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .fee-entry-table {
+        min-width: 1120px;
+        margin-bottom: 0;
+        color: #263238;
+        font-size: .82rem;
+    }
+
+    .fee-entry-table th {
+        padding: .65rem .5rem;
+        border: 0;
+        background: #17a2b8;
+        color: #fff;
+        font-size: .72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    .fee-entry-table td {
+        padding: .55rem .5rem;
+        border-top: 1px solid #edf1f5;
+        background: #fff;
+        vertical-align: top;
+    }
+
+    .fee-entry-table .form-control {
+        min-height: 38px;
+        padding: .35rem .45rem;
+        font-size: .78rem;
+    }
+
+    .fee-row-actions {
+        width: 92px;
+        min-width: 92px;
+        position: sticky;
+        right: 0;
+        z-index: 2;
+        box-shadow: -10px 0 16px -16px rgba(0, 0, 0, .45);
+    }
+
+    .fee-entry-table th.fee-row-actions {
+        background: #138496;
+        z-index: 3;
+    }
+
+    .fee-field-error {
+        margin-top: .25rem;
+        color: #dc3545;
+        font-size: .72rem;
+        line-height: 1.25;
+    }
+
+    .fee-row-error {
+        margin-bottom: .4rem;
+        color: #dc3545;
+        font-size: .76rem;
+        font-weight: 700;
+    }
+
+    .fee-form-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .75rem;
+        flex-wrap: wrap;
+        padding: 1rem 1.25rem 1.25rem;
+        border-top: 1px solid #edf1f5;
+        background: #fff;
+    }
+
+    .fee-delete-field {
+        display: none;
+    }
+
+    .fee-required-note {
+        color: #6c757d;
+        font-size: .78rem;
+    }
+
+    @media (max-width: 767.98px) {
+        .container {
+            max-width: 100%;
+        }
+
+        .fee-form-header,
+        .fee-form-actions {
+            align-items: stretch;
+            padding: .9rem;
+        }
+
+        .fee-form-actions .btn {
+            width: 100%;
+        }
+
+        .fee-entry-table {
+            min-width: 980px;
+            font-size: .78rem;
+        }
+    }
+</style>
+
+<div id="wrapper">
+
+    {% include 'accounts/partials/_sideBar.html' %}
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            {% include 'accounts/partials/_topBar.html' %}
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class="card o-hidden border-0 shadow-lg my-5 fee-form-card">
+                            <div class="fee-form-header">
+                                <div>
+                                    <h5>{{ page_title }}</h5>
+                                    {% if formset %}
+                                        <p>Add multiple programme-specific tuition records in one submission.</p>
+                                    {% else %}
+                                        <p>Update this tuition fee record.</p>
+                                    {% endif %}
+                                </div>
+                                {% if formset %}
+                                    <a href="{% url 'school_fees_list' %}" class="btn btn-info btn-sm">View Tuition List</a>
+                                {% endif %}
+                            </div>
+
+                            <div class="p-3 p-md-4">
+                                {% include 'admission/partials/_alerts.html' %}
+
+                                {% if formset %}
+                                    <form method="POST" class="user" id="schoolFeeForm" novalidate>
+                                        {% csrf_token %}
+                                        {{ formset.management_form }}
+
+                                        {% if formset.non_form_errors %}
+                                            <div class="alert alert-danger">
+                                                {{ formset.non_form_errors }}
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="fee-required-note mb-2">
+                                            Fields marked by the column headings are required for each completed row. Blank rows are ignored.
+                                        </div>
+
+                                        <div class="fee-form-scroll">
+                                            <table class="table fee-entry-table" aria-label="Multiple tuition fee entry form">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 150px;">Academic Session</th>
+                                                        <th style="width: 230px;">Programme</th>
+                                                        <th style="width: 140px;">Fee Type</th>
+                                                        <th style="width: 105px;">Level</th>
+                                                        <th style="width: 150px;">Payment Option</th>
+                                                        <th style="width: 135px;">Indigene Type</th>
+                                                        <th style="width: 120px;">Amount</th>
+                                                        <th class="fee-row-actions">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="feeRows">
+                                                    {% for fee_form in formset %}
+                                                        <tr class="fee-form-row">
+                                                            {% for hidden in fee_form.hidden_fields %}
+                                                                {{ hidden }}
+                                                            {% endfor %}
+                                                            <td>
+                                                                {% if fee_form.non_field_errors %}
+                                                                    <div class="fee-row-error">{{ fee_form.non_field_errors }}</div>
+                                                                {% endif %}
+                                                                {{ fee_form.academic_session }}
+                                                                {% if fee_form.academic_session.errors %}<div class="fee-field-error">{{ fee_form.academic_session.errors }}</div>{% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ fee_form.course_of_study }}
+                                                                {% if fee_form.course_of_study.errors %}<div class="fee-field-error">{{ fee_form.course_of_study.errors }}</div>{% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ fee_form.name }}
+                                                                {% if fee_form.name.errors %}<div class="fee-field-error">{{ fee_form.name.errors }}</div>{% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ fee_form.level }}
+                                                                {% if fee_form.level.errors %}<div class="fee-field-error">{{ fee_form.level.errors }}</div>{% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ fee_form.semester }}
+                                                                {% if fee_form.semester.errors %}<div class="fee-field-error">{{ fee_form.semester.errors }}</div>{% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ fee_form.indigene_type }}
+                                                                {% if fee_form.indigene_type.errors %}<div class="fee-field-error">{{ fee_form.indigene_type.errors }}</div>{% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {{ fee_form.amount }}
+                                                                {% if fee_form.amount.errors %}<div class="fee-field-error">{{ fee_form.amount.errors }}</div>{% endif %}
+                                                            </td>
+                                                            <td class="fee-row-actions">
+                                                                <div class="fee-delete-field">{{ fee_form.DELETE }}</div>
+                                                                <button type="button" class="btn btn-danger btn-sm remove-fee-row">Remove</button>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="fee-form-actions">
+                                            <button type="button" class="btn btn-info" id="addFeeRow">
+                                                <i class="fas fa-plus fa-sm text-white-50"></i> Add More Row
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                Save Tuition Fees
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <template id="emptyFeeRowTemplate">
+                                        <tr class="fee-form-row">
+                                            {% for hidden in formset.empty_form.hidden_fields %}
+                                                {{ hidden }}
+                                            {% endfor %}
+                                            <td>
+                                                {{ formset.empty_form.academic_session }}
+                                                <div class="fee-field-error"></div>
+                                            </td>
+                                            <td>
+                                                {{ formset.empty_form.course_of_study }}
+                                                <div class="fee-field-error"></div>
+                                            </td>
+                                            <td>
+                                                {{ formset.empty_form.name }}
+                                                <div class="fee-field-error"></div>
+                                            </td>
+                                            <td>
+                                                {{ formset.empty_form.level }}
+                                                <div class="fee-field-error"></div>
+                                            </td>
+                                            <td>
+                                                {{ formset.empty_form.semester }}
+                                                <div class="fee-field-error"></div>
+                                            </td>
+                                            <td>
+                                                {{ formset.empty_form.indigene_type }}
+                                                <div class="fee-field-error"></div>
+                                            </td>
+                                            <td>
+                                                {{ formset.empty_form.amount }}
+                                                <div class="fee-field-error"></div>
+                                            </td>
+                                            <td class="fee-row-actions">
+                                                <div class="fee-delete-field">{{ formset.empty_form.DELETE }}</div>
+                                                <button type="button" class="btn btn-danger btn-sm remove-fee-row">Remove</button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                {% else %}
+                                    <form method="POST" class="user" id="schoolFeeForm">
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Update Fee">
+                                        <hr>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% if formset %}
+<script>
+    (function () {
+        var addButton = document.getElementById('addFeeRow');
+        var rows = document.getElementById('feeRows');
+        var totalForms = document.getElementById('id_fees-TOTAL_FORMS');
+        var template = document.getElementById('emptyFeeRowTemplate');
+
+        function updateRowIndexes(row, index) {
+            row.querySelectorAll('input, select, textarea, label').forEach(function (element) {
+                ['name', 'id', 'for'].forEach(function (attribute) {
+                    var value = element.getAttribute(attribute);
+                    if (value) {
+                        element.setAttribute(attribute, value.replace(/__prefix__/g, index));
+                    }
+                });
+            });
+        }
+
+        function markRowDeleted(row) {
+            var deleteInput = row.querySelector('input[name$="-DELETE"]');
+            if (deleteInput) {
+                deleteInput.checked = true;
+            }
+            row.style.display = 'none';
+        }
+
+        if (addButton && rows && totalForms && template) {
+            addButton.addEventListener('click', function () {
+                var index = parseInt(totalForms.value, 10);
+                var clone = template.content.firstElementChild.cloneNode(true);
+                updateRowIndexes(clone, index);
+                rows.appendChild(clone);
+                totalForms.value = index + 1;
+            });
+
+            rows.addEventListener('click', function (event) {
+                if (event.target.classList.contains('remove-fee-row')) {
+                    markRowDeleted(event.target.closest('.fee-form-row'));
+                }
+            });
+        }
+    })();
+</script>
+{% endif %}
+
+{% endblock %}

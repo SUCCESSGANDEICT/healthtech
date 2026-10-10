@@ -1,0 +1,216 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+            
+            
+            <!--Search Transaction Container Start-->
+        <div class="container">
+            
+            
+            <div class="row my-4">
+  
+              <div class="col-md-12">
+                <div class="border bg-white p-3">
+                   
+                    <h4 class="text-center">
+                      Search User Account by Username
+                    </h4>
+                    <hr>
+                    <form method="GET">
+                      {% csrf_token %}
+    
+                      {{ form | crispy }}
+  
+                     
+                      <!--Check Page Title and Allocate Submit Value-->
+                     
+                      <input class="btn btn-info btn-block" type="submit"  value="Search User Account">
+                      
+    
+                    </form>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+             <!-- Begin Page Content -->
+            <div class="container"> 
+
+                 
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+                    <!--Alert Template-->
+                 {% if messages %}
+                    {% include 'admission/partials/_alerts.html' %}
+                 {% endif %}
+                 <!--Alert Template-->
+
+            
+                    <div class="col-xl-12 col-lg-12 col-md-9">
+            
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+
+                                    <div class="col-lg-12">
+                                       <div class="p-1">
+                                          
+                                            <div class="table-responsive">
+                                                {% if users %} 
+                                                  <table class="table myCard-body">
+                                                      <thead class="bg-info text-white">
+                                                        <tr>
+                                                          <th scope="col">#</th>
+                                                          <th scope="col" style="color: white;">Full Name</th>
+                                                        
+                                                          <th scope="col" style="color: white;" nowrap>Username</th>
+                                                          <th scope="col" style="color: white;" nowrap>Role</th>
+                                                          <th scope="col" style="color: white;" nowrap>Created Date</th>
+                                                          {% if user.is_superuser or user.profile.role == 'Super Admin' %}
+                                                          <th scope="col" style="color: white;" nowrap>Action</th>
+                                                          {% endif %}
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                        
+                                    
+                                                        {% for user in users %}
+                                                        <tr>
+                                                          <th scope="row" style="color:black;">{{ forloop.counter }}</th>
+                                                          <td nowrap style="color:black;">
+                                                            {% if user.profile.first_name %}
+                                                            {{ user.profile.first_name }}
+                                                            {{ user.profile.middle_name }} {{ user.profile.last_name }}
+                                                            {% else %}
+                                                            Yet to Update Profile
+                                                            {% endif %}
+                                                          </td>
+                                                          <td nowrap style="color:black;">{{ user.username }}</td>
+                                                          <td style="color:black;" nowrap>
+                                                            {% if user.is_superuser %}
+                                                            Developer
+                                                            {% else %}
+                                                            {{ user.profile.role|capfirst}}
+                                                            {% endif %}
+                                                        </td>
+                        
+                                                          
+                        
+                                                          <td nowrap style="color:black;">{{ user.profile.last_updated }}</td>
+                                                          
+                                                          {% if not user.is_superuser or user.profile.role == 'Super Admin' %}
+                                                          <td>
+                                                              
+                                                            <div class="button-container">
+                                                                
+                                                                <a class="btn btn-danger withdraw-button" href="{% url 'delete_portal_user' user.id %} ">Remove</a>
+                                                                
+                                                              
+                                                            </div>
+                                                              
+                                                          </td>
+                                                          {% endif %}
+                                                        </tr>
+                                                        {% endfor %}    
+                                                        
+                                                        
+                                                         
+                                                      </tbody>
+                                                  </table>
+                                                    
+                                                {% else %}  
+                                                     <h4 style="text-align: center; color:red;">No User Added Yet</h4>    
+                                                {% endif %}
+                                                  
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                             
+                        </div>
+                        <!--Pagination--><!--PAGINATION THAT PRESERVES SEARCH QUERRY-->
+                      
+                        <div class="row ml-5 mb-3">
+                            <div class="col-md-12">
+                                <div class="pagination-box"> 
+                                    <ul class="pagination">
+                                        {% if page_obj.has_previous %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'portal_user_list' %}?q={{ search_query }}&page=1">
+                                                    <i class="fa fa-angle-double-left"></i> </a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'portal_user_list' %}?q={{ search_query }}&page={{ page_obj.previous_page_number }}">
+                                                    {{ page_obj.previous_page_number }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        
+                                        <li class="page-item active">
+                                            <a class="page-link" href="{% url 'portal_user_list' %}?q={{ search_query }}&page={{ page_obj.number }}">
+                                                {{ page_obj.number }}
+                                            </a>
+                                        </li>
+                                        
+                                        {% if page_obj.has_next %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'portal_user_list' %}?q={{ search_query }}&page={{ page_obj.next_page_number }}">
+                                                    {{ page_obj.next_page_number }}
+                                                </a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'portal_user_list' %}?q={{ search_query }}&page={{ page_obj.paginator.num_pages }}">
+                                                    <i class="fa fa-angle-double-right"></i> </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>  
+                                </div>
+                            </div>
+                        </div>
+                        <!--PAGINATION THAT PRESERVES SEARCH QUERRY END-->
+
+                        
+                    </div>
+            
+                </div>
+
+            </div>
+        <!-- End Main Content -->
+
+       
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

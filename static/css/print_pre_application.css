@@ -1,0 +1,90 @@
+@media print {
+    #slip {
+        /* Add print styles specific to the 'Application-slip' here */
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 10px;
+    }
+    /* Add other styles for 'Application-slip' here */
+    .slip-logo-passport-contain {
+        margin-bottom: 10px;
+    }
+
+    .slip-logo {
+        margin-bottom: 10px;
+    }
+
+    .slip-head-container {
+        margin-bottom: 20px;
+    }
+
+    .slip-header{
+        margin:0;
+        line-height: 1;
+        text-align: center;
+        font-family: sans-serif;   
+        font-size: 2.2rem;
+        color:green;
+        font-weight: 600;
+    }
+
+    .slip-sub-header{
+        margin:0;
+        line-height: 1.4;
+        text-align: center;
+        font-family: sans-serif;   
+        font-size: 1.5rem;
+        color:black;
+        font-weight: 700;
+    }
+
+    .slip-sub-under{
+        margin:0;
+        line-height: 1.3;
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 1.2rem;
+        color:green;
+        font-weight: 700;
+    }
+
+    .slip-header,
+    .slip-sub-header,
+    .slip-sub-under {
+        margin: 0;
+    }
+    #pre-app-slip-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    #pre-app-slip-table th,
+    #pre-app-slip-table td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+        width: 50%;
+    }
+    
+    #pre-app-slip-table th {
+        background-color: none;
+    }
+    
+    /* Additional styling for specific rows or cells if needed */
+    #pre-app-slip-table #printButtonRow th{
+        background-color: #ffffff;
+        display: none;
+    }
+    #pre-app-slip-table #printButtonRow td { 
+        background-color: #ffffff;
+        border: 0.5rem gainsboro;
+    }
+    /* Add other common print styles here */
+    .btn-success {
+        display: none;
+    }
+
+    #printButtonRow {
+        display: none;
+    }
+}

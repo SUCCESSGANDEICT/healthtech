@@ -1,0 +1,42 @@
+{% if user.profile.role == 'Admin' or user.profile.role == 'ADMISSION-OFFICER' or user.profile.role == 'MIS ADMIN-2' or user.profile.role == 'Rector' or user.profile.role == 'MIS ADMIN-1' or user.profile.role == 'Super Admin' %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4 ml-4">
+    <h3 class="h3 mb-0 text-gray-800" style="color: rgb(162, 22, 198) !important; font-size:1.2rem;">{{page_title}}</h3>
+    {% if user.profile.role == 'Admin' or user.profile.role == 'Rector' %}
+    <a href=" {% url 'payment_report' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    {% elif user.profile.role == 'MIS ADMIN-1'  or user.profile.role == 'Super Admin' %}
+    {% if page_title == 'List of Colleges' %}
+        <a href=" {% url 'add_school' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-4"><i
+            class="fas fa-download fa-sm text-white-50"></i> Add College</a>
+        {% elif page_title == 'List of Departments' %}
+        <a href=" {% url 'add_department' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-3"><i
+            class="fas fa-download fa-sm text-white-50"></i> Add Department</a>
+        {% elif page_title == 'List Programs' %}
+        <a href=" {% url 'add_program' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-3"><i
+            class="fas fa-download fa-sm text-white-50"></i> Add Programme</a>
+        
+        {% elif page_title == 'List of Session' %}
+        <a href=" {% url 'add_session' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Add Session</a>
+        
+        {% elif page_title == 'List of Semesters' %}
+            <a href=" {% url 'add_semester' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-4"><i
+                class="fas fa-download fa-sm text-white-50"></i> Add Semester</a>
+
+        {% elif page_title == 'Add Course Unit' %}
+            <a href=" {% url 'add_course_unit' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-4"><i
+                class="fas fa-download fa-sm text-white-50"></i> Add Course Unit</a>
+        {% elif page_title == 'Application & Other Fees' %}
+            <a href=" {% url 'add_app_fee' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-4"><i
+                class="fas fa-download fa-sm text-white-50"></i> Add Fee</a>
+        {% elif page_title == 'School Fees' %}
+                <a href=" {% url 'add_school_fees' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-4"><i
+                    class="fas fa-download fa-sm text-white-50"></i> Add School Fee</a>
+        {% elif page_title == 'List of Staff' %}
+            <a href=" {% url 'special_staff_register' %} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-4"><i
+                class="fas fa-download fa-sm text-white-50"></i> Add Staff</a>
+    {% endif %}
+    
+    {% endif %}
+</div> 
+{% endif %}

@@ -1,0 +1,410 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+<link href="{% static 'css/print_pre_application.css' %}" rel="stylesheet">
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container">  
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+                  <!--Alert Template-->
+                  {% include 'admission/partials/_alerts.html' %}
+                  <!--Alert Template-->
+            
+                    
+            
+                      <div class="col-md-12" id="application-slip">
+                          
+                        <div class="myCard">
+                            <div class="card-header myCard-body  text-center " style="text-align: center; padding:0 !important;"> 
+                                <table id="customTable">
+                                    <tr>
+                                        <th class="logo" rowspan="6"><img width="120" height="120" src="{% static 'img/logos/original_ecosaht_logo.png' %}" alt="slip logo"></th>
+                                        <td><h1 style="font-family:sans-serif; color:rgb(3, 3, 121); font-size:1.5rem; font-weight:700;">EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY.</h1></td>
+                                        <th class="passport" rowspan="6"><img class="passport" width="120" height="150" src="{% image_url user.profile.image %}" alt="applicant picture"></th>
+                                    </tr>
+                                    <tr>
+                                        <td><h3 style="font-family:sans-serif; font-size: 1.2rem; font-weight:600;">P.M.B 1166 GBOKO, BENUE STATE</h3></td>
+                                    </tr>
+                                    
+                                    
+                                    <tr>
+                                        <td> <h3 style="font-family:sans-serif; font-size: 1rem; font-weight:600;">(Office of the Registrar)</h3> </td>
+                                    </tr>
+                                    
+                                </table>
+           
+                            </div>
+                       
+
+                            <h4 style="text-align: center; margin-top:5%; color:black; font-weight:700; font-size:1.5rem; font-family:sans-serif;">MEDICAL EXAMINATION ON PROPECTIVE
+                                STUDENT</h4>
+                            
+                            <div class="card-body">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                  <p style="text-align: justify; line-height:1.5; color:black;">
+                                    Surname: <b>{{student.candidate.profile.last_name}}</b> Other Names: <b>{{student.candidate.profile.middle_name}} {{student.candidate.profile.first_name}} </b>
+                                    Course: <b>{{admitted_record.admitted_course.name}}</b> ADM. No: <b>{{student.student_id}} </b>, Sponsor: <b>{{student.candidate.candidate_sponsorship.full_name}}</b>, L.G.A: <b>{{student.candidate.profile.lga}} </b>, Age: <b>{{age}} Years</b> Sex: <b>{{student.candidate.profile.gender}}</b>,
+                                    
+                                  </p>
+                                  <ol style="display:block; line-height:2; margin-left:0;">
+                                    <li> Have you suffered from or do you suffer any of the following? </li>
+                                    <ol>
+                                        <li>Tuberculosis [Yes/No]</li>
+                                        <li>Hypertension [Yes/No]</li>
+                                        <li>Epilepsy [Yes/No]</li>
+                                        <li> Mental illness [Yes/No]</li>
+                                        <li>Heat in the Head [Yes/No]</li>
+                                        <li>Leprosy [Yes/No]</li>
+                                        <li>Diabetes [Yes/No]</li>
+                                        <li>Peptic Ulcer [Yes/No]</li>
+                                        <li>Piles (Haemorrhoids) [Yes/No]</li>
+                                        <li>Gonorrhoea or Syphilis [Yes/No]</li>
+                                        <li>Heart Disease [Yes/No]</li>
+                                        <li> Poliomyelitis [Yes/No]</li>
+                                    </ol>
+                                    <li> If the answer to any of the above is yes, please give further details:
+                                        Illness date, duration and Hospital attended and name of Doctor consulted </li>
+                                        <div class="row mb-4">
+                                            <div class="col-md-12"> 
+                                                <table id="app-slip-table">
+                                                <thead class="bg-info text-white" style="background-color: white:  !important;;">
+                                                  <tr>
+                                                    <th scope="col" wrap>#</th>
+                                                    <th scope="col" style="color: black;">Illness Date</th>
+                                                  
+                                                    <th scope="col" style="color: black;" nowrap>Duration</th>
+                  
+                                                    <th scope="col" style="color: black;" nowrap>Hospital Attended</th>
+                  
+                                                    <th scope="col" style="color: black;" nowrap>Doctor Consulted</th>
+  
+                                                    
+                                                  
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  
+                              
+                                                  
+                                                  <tr>
+                                                    <th scope="row" style="color:black;">1. </th>
+                  
+                                                    <td style="color:black;" nowrap> </td>
+                  
+                                                    <td nowrap style="color:black;"> </td>
+                  
+                                                    <td nowrap style="color:black;"> </td>
+                  
+                                                    
+                                                    <td nowrap style="color:black;"> </td>
+                                                   
+                                                  </tr>
+                                                  <tr>
+                                                    <th scope="row" style="color:black;">2. </th>
+                  
+                                                    <td style="color:black;" nowrap> </td>
+                  
+                                                    <td nowrap style="color:black;"> </td>
+                  
+                                                    <td nowrap style="color:black;"> </td>
+                  
+                                                    
+                                                    <td nowrap style="color:black;"> </td>
+                                                   
+                                                  </tr>
+                                                  <tr>
+                                                    <th scope="row" style="color:black;">3. </th>
+                  
+                                                    <td style="color:black;" nowrap> </td>
+                  
+                                                    <td nowrap style="color:black;"> </td>
+                  
+                                                    <td nowrap style="color:black;"> </td>
+                  
+                                                    
+                                                    <td nowrap style="color:black;"> </td>
+                                                   
+                                                  </tr> 
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                        </div>
+                                    <li><b>INOCULATION</b> </li> 
+                                    <p>
+                                        Have you been inoculated against the following, please specify below:
+                                    </p>
+                                  </ol>
+                                  <div class="row mb-4">
+                                    <div class="col-md-12"> 
+                                            <table id="app-slip-table">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th scope="col"></th>
+                                                                    <th scope="col"></th>
+                                                                    <th scope="col" style="color:black;"><b>Place</b> </th>
+                                                                    <th scope="col" style="color:black;"><b>Date</b> </th>
+                                                                  </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                  <tr>
+                                                                    <th scope="row" style="color:black;">Small Pox</th>
+                                                                    <td style="color:black;">[Yes/No]</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                    <th scope="row" style="color:black;">Cholera</th>
+                                                                    <td style="color:black;">[Yes/No]</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                    <th scope="row" style="color:black;">Tetanus</th>
+                                                                    <td style="color:black;">[Yes/No]</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                    <th scope="row" style="color:black;">Yellow Fever</th>
+                                                                    <td style="color:black;">[Yes/No]</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                    <th scope="row" style="color:black;">Meningitis</th>
+                                                                    <td style="color:black;">[Yes/No]</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                  </tr>
+                                                                </tbody>
+                                            </table>                
+                                    </div>
+                                  </div>
+                                    <p>
+                                        If your answer is No, you will be required to produce Certificate of inoculation prior to
+                                        registration
+                                    </p>
+
+                                    <p>
+                                        4. For the Doctor: Please kindly complete this form and send it direct to the Registrar, 
+                                          <b>EXCELLENT COLLEGE OF SCIENCES AND HEALTH TECHNOLOGY, GBOKO.</b>
+                                        </p>
+                                  <h4 style="text-align: center; color:black; font-size:1rem; font-weight:700; font-family:sans-serif; margin-top:5%;">RELEVANT EXAMINATIONS</h4>
+
+                                  <p style="line-height:2; color:black;">
+                                    Instruction Requesting Certificate:
+                                        ..........................................................................................................................................................................................
+                                        
+
+                                  </p>
+
+                                  <p>Sex:..................................................... Stated Age: ............................................................... Weight:
+                                    .........................................................................................</p>
+                                  
+                                  
+
+                                  <h2 style="color:black; font-size:1rem; font-family:sans-serif; text-align:center;"> <b>PHYSICAL EXAMINATION</b> </h2>
+                                   
+                                  <p>
+                                    Height without shoes: ................................................. S/P: ................................... Pulse:
+                                    .................. Visual Faculty Right: ..................................................
+                                    
+                                  </p>
+                                  <p>
+                                    Left:
+                                    .......................................................................... Hearing right:
+                                    ................................................................. Hearing left: ..........................................................
+                                    
+                                  </p>
+
+                                  <p>Condition of Ear Drums: ...............................................
+                                    Head and Neck:
+                                    ............................................................ Abdomen: ...................................................
+                                  </p>
+
+                                  <p>
+                                     Lung:
+                                    .............................................................................Extremities: ...........................................................
+                                    Heart: ..............................................................................
+                                  </p>
+                                   
+                                   <h3 style="color:black; font-size:1rem; font-family:sans-serif; text-align:center; margin-top:3%;"> <b>LABORATORY INVESTIGATIONS</b> </h3>
+                                  <p>
+                                    <b>Urine:</b>
+                                  </p>
+                                  <p>
+                                    Micro:....................................................................................Albumen:..............................................................................Sugar:...............................................................
+                                  </p>
+                                  <p>
+                                    <b>Stool:</b>
+                                  </p>
+                                  <p>
+                                    Micro:..........................................................................................................................................
+                                    Blood: Haematocrit:....................................................................... 
+                                    
+                                   
+                                  </p>
+                                  <p>
+                                    Skin for
+                                    Filarial:.........................................................................................................................................................................................................................................
+                                  </p>
+                                  <p>
+                                    Heart
+                                    Test:........................................................ Blood Filarial:.............................................................
+                                    Sickle Cell Test:...............................................................
+                                  </p>
+                                  <p>
+                                    Treatment has been prescribed for the following
+                                    condition(s):................................................................................................................................................
+                                    
+                                    
+                                  </p>
+
+                                  <p>
+                                    Declaration by the Doctor/Comment I have carefully examined the said person and have
+                                    found him/her medically fit/unfit.
+                                  </p>
+
+
+                                   <p>
+                                    Name of
+                                        Doctor:..........................................................................................................................................................................................................................................
+                                   </p>
+                                   <p style="text-align:center; margin-top:0;"> <b>(BLOCK LETTER)</b> </p>
+                                   
+                                 </div>
+                                   
+                              </div>
+                              
+    
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8">
+
+                                    </div>
+                                    <div class="col-4">
+                                        <table id="acceptance-slip-table">
+                                            <tbody>
+                                               
+                                             <tr>
+                                               <p style="text-align: center; font-size:1rem; margin-bottom:0;">Signature/Stamp:................................</p>  
+                                                                           
+                                             </tr>
+
+                                             <tr id="printButtonRow">
+                                                <th colspan="5">
+            
+                                                </th>
+                                                <td>
+                                                  <a class="btn btn-success" href="javascript:void(0);" onclick="printSlip()">Print Form</a>
+                                                </td>
+                                              </tr> 
+                                            
+                                             
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                     
+                      </div>
+            
+                      <script>
+                        function printSlip() {
+                            var printContents = document.getElementById('application-slip').innerHTML;
+                            var printWindow = window.open('', '', 'height=600,width=800');
+                            printWindow.document.write('<html><head><title>Print Slip</title>');
+                            printWindow.document.write('<style>');
+                            printWindow.document.write('@media print {');
+                            printWindow.document.write('#application-slip { border: 1px solid #ddd; padding: 10px; margin: 10px; }');
+                            printWindow.document.write('.btn-success { display: none; }');
+                            printWindow.document.write('#printButtonRow { display: none; }');
+                            // Additional styles for #customTable
+                            printWindow.document.write('#customTable { width: 100%; border-collapse: collapse; margin-top: 20px; }');
+                            printWindow.document.write('#customTable th, #customTable td { border: none; padding: 5px; }');
+                            printWindow.document.write('#customTable th { background-color: #f2f2f2; text-align: center; }');
+                            printWindow.document.write('#customTable td { text-align: center; }');
+                            printWindow.document.write('#customTable .logo img, #customTable .passport img { display: block; max-width: 100px; max-height: 100px; }');
+                            printWindow.document.write('#customTable h1, #customTable h3 { margin: 0; }');
+                            printWindow.document.write('#customTable h1, { margin: 0; color:rgb(3, 3, 121); font-weight:650;}');
+                            // Additional styles for .container and #acceptance-slip-table
+                            printWindow.document.write('.container { margin-top: 2%; }');
+                            printWindow.document.write('.row { margin-left: 0; margin-right: 0; }');
+                            printWindow.document.write('.col-8, .col-4 { display: inline-block; vertical-align: top; }');
+                            printWindow.document.write('.col-8 { width: 66.67%; }'); // Adjust width as needed
+                            printWindow.document.write('.col-4 { width: 33.33%; float: right; }'); // Adjust width as needed and float right
+                            // Fix: Added styles for #app-slip-table to ensure borders during print
+                            printWindow.document.write('#app-slip-table { width: 100%; border-collapse: collapse; }');
+                            printWindow.document.write('#app-slip-table th, #app-slip-table td { border: 1px solid black; text-align: left; padding: 8px; }');
+                            printWindow.document.write('#app-slip-table th { text-align: left; color: black; }');
+                            printWindow.document.write('#app-slip-table td { color: black; }');
+                            // CSS for acceptance-slip-table
+                            printWindow.document.write('#acceptance-slip-table { width: 100%; }');
+                            printWindow.document.write('#acceptance-slip-table th, #acceptance-slip-table td { border: none; text-align: left; padding: 8px; }');
+                            printWindow.document.write('#acceptance-slip-table th { text-align: left; color: black; }');
+                            printWindow.document.write('#acceptance-slip-table td { color: black; }');
+                            // CSS for <p> tags
+                            printWindow.document.write('#declaration { font-family: sans-serif; font-size: 1rem; line-height: 0.5; }');
+                            // CSS for <p> tags
+                            printWindow.document.write('h4 { font-family: sans-serif; font-size: 1rem; margin-top: 0; }');
+                            printWindow.document.write('}');
+                            printWindow.document.write('</style>');
+                            printWindow.document.write('</head><body>');
+                            printWindow.document.write(printContents);
+                            printWindow.document.write('</body></html>');
+                            printWindow.document.close();
+                            printWindow.print();
+                        }
+                        </script>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

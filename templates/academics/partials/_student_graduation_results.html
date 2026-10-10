@@ -1,0 +1,80 @@
+<div class="graduation-context px-3 pt-3 text-muted small">
+  <strong>{{ page_obj.paginator.count }}</strong> matching student{{ page_obj.paginator.count|pluralize }} ·
+  {{ course }} · {{ level }} · {{ session }}
+</div>
+{% if page_obj.object_list %}
+<div class="table-responsive mt-2">
+  <table class="table table-hover graduation-table mb-0">
+    <thead>
+      <tr>
+        <th class="selection-cell">
+          <input id="select-current-page" type="checkbox" aria-label="Select all eligible students on this page">
+        </th>
+        <th>Matric / Application No.</th>
+        <th>Full Name</th>
+        <th>Course of Study</th>
+        <th>Current Level</th>
+        <th>Admitted Session</th>
+        <th>Current / Expected Graduation</th>
+        <th>Status</th>
+        <th class="text-right">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in page_obj.object_list %}
+      <tr{% if row.is_graduate %} class="graduated-row"{% endif %}>
+        <td class="selection-cell">
+          <input class="student-select" type="checkbox" value="{{ row.student.pk }}"
+                 aria-label="Select {{ row.full_name }}" {% if row.is_graduate %}disabled{% endif %}>
+        </td>
+        <td>
+          <strong>{{ row.student.student_id|default:'—' }}</strong>
+          <small class="d-block text-muted">{{ row.application_number }}</small>
+        </td>
+        <td>{{ row.full_name }}<small class="d-block text-muted">{{ row.student.candidate.email|default:row.student.candidate.username }}</small></td>
+        <td>{{ row.student.course }}</td>
+        <td>{{ row.student.current_level }}</td>
+        <td>{{ row.admitted_session }}</td>
+        <td>
+          <small class="d-block text-muted">Current: {{ row.student.academic_session }}</small>
+          <strong>Graduation: {{ row.expected_session }}</strong>
+        </td>
+        <td>
+          {% if row.is_graduate %}
+            <span class="badge badge-success">Graduated</span>
+          {% else %}
+            <span class="badge badge-secondary">Not Graduated</span>
+          {% endif %}
+        </td>
+        <td class="text-right">
+          <button type="button" class="btn btn-sm btn-outline-success graduate-one"
+                  data-student-id="{{ row.student.pk }}" data-student-name="{{ row.full_name }}"
+                  {% if row.is_graduate %}disabled{% endif %}>
+            Graduate
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% if page_obj.paginator.num_pages > 1 %}
+<nav class="p-3" aria-label="Graduation results pages">
+  <ul class="pagination pagination-sm justify-content-end mb-0">
+    <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
+      <button class="page-link graduation-page-link" type="button" data-page="{% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}1{% endif %}">Previous</button>
+    </li>
+    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+    <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
+      <button class="page-link graduation-page-link" type="button" data-page="{% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}{{ page_obj.paginator.num_pages }}{% endif %}">Next</button>
+    </li>
+  </ul>
+</nav>
+{% endif %}
+{% else %}
+<div class="graduation-empty text-center p-5">
+  <i class="fas fa-user-graduate fa-2x mb-3 text-gray-400"></i>
+  <h3 class="h5 text-gray-700">No matching students</h3>
+  <p class="text-muted mb-0">Adjust the query or search text and try again.</p>
+</div>
+{% endif %}

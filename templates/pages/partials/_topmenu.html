@@ -1,0 +1,90 @@
+<!-- banner -->
+<div class="banner-agile">
+    <ul class="slider">
+        <li class="active">
+            <div class="banner-w3ls-1">
+            </div>
+        </li>
+        <li>
+            <div class="banner-w3ls-2">
+            </div>
+        </li>
+        <li>
+            <div class="banner-w3ls-3">
+            </div>
+        </li>
+        <li>
+            <div class="banner-w3ls-4">
+            </div>
+        </li>
+        <li class="prev">
+            <div class="banner-w3ls-5">
+            </div>
+        </li>
+    </ul>
+    <ul class="pager">
+        <li data-index="0" class="active"></li>
+        <li data-index="1"></li>
+        <li data-index="2"></li>
+        <li data-index="3"></li>
+        <li data-index="4"></li>
+    </ul>
+    <div class="banner-text-posi-w3ls">
+        <div class="banner-text-whtree">
+            <h3 class="text-capitalize text-white p-4" style="font-size:2rem; font-weight:600;">Excellent College of Sciences
+                <b style="text-align: center; color:rgb(237, 195, 8);">and Health Technology</b>
+            </h3>
+            <p class="px-4 py-3 text-dark">Become a Health specialist after graduating!</p>
+            <a href="" class="button-agiles text-capitalize text-white mt-sm-5 mt-4">read more</a>
+        </div>
+    </div>
+
+    <!-- navigation -->
+    <div class="navigation-w3ls">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-nav">
+            <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+             aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                <ul class="navbar-nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'Website_Home' %} ">Home
+                            <span class="sr-only"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href=" {% url 'pages_about_us' %} ">About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Colleges
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href=" {% url 'community_phealth' %} ">Community and Public Health</a>
+                            <a class="dropdown-item" href=" {% url 'computer_info_tech' %} ">Community & Information Tech.</a>
+                            <a class="dropdown-item" href="">Environmental Health Technology</a>
+                            <a class="dropdown-item" href="">Health Information Management</a>
+                            
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="">Apply Now</a>
+                        </div>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href=" {% url 'validate_applicant' %} ">Apply for Admission</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'accounts_login' %} ">Portal Login</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- //navigation -->
+</div>
+<!-- //banner -->

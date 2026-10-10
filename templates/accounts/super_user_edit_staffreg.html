@@ -1,0 +1,502 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    
+    {% include 'accounts/partials/_sideBar.html' %}
+    
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+             <div class="container"> 
+
+                <!-- Outer Row -->
+                <div class="row justify-content-center">
+            
+                    <div class="col-xl-12 col-lg-12 col-md-9">
+            
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    
+                                    <div class="col-lg-12">
+                                        
+                                        <div class="p-5">
+                                            <div class="text-center">
+                                                <h6 class="admission-login-header">{{page_title}}</h1>
+                                            </div>
+                                            <!--Message Alert-->
+                                            {% include 'admission/partials/_alerts.html' %}
+                                            <!--Message Alert End Here-->
+            
+                                            <!--NUMBER OF CHILDREN AND NIN NUMBER VALIATION-->
+                                            <script>
+                                                
+                                                /* NIN NUMBER INPUT VALIDATION */
+                                                document.addEventListener("DOMContentLoaded", function () {
+                                                  var numberChildrenField = document.getElementById("id_Number_children");
+                                                  var ninNumberField = document.getElementById("id_nin_number"); // Adjust ID if different
+                                                  var errorMessageElement = document.getElementById("numberChildrenErrorMessage");
+                                                  var ninNumberErrorMessage = document.getElementById("ninNumberErrorMessage");
+                                                  var submitButton = document.querySelector("input[type='submit']"); // Target submit button
+                                                
+                                                  function validateForm() {
+                                                    // Check both fields and update error messages
+                                                    var isValid = true;
+                                                    if (/^\d$|^$/.test(numberChildrenField.value)) { // Allow empty or single digit for Number_children
+                                                      errorMessageElement.innerText = "";
+                                                    } else {
+                                                      errorMessageElement.innerText = "Please enter only a single digit (0-9).";
+                                                      errorMessageElement.style.color = "red";
+                                                      isValid = false;
+                                                    }
+                                                
+                                                    if (/^\d{11}$/.test(ninNumberField.value)) {
+                                                      ninNumberErrorMessage.innerText = "";
+                                                    } else {
+                                                      ninNumberErrorMessage.innerText = "Please enter exactly 11 digits for NIN.";
+                                                      ninNumberErrorMessage.style.color = "red";
+                                                      isValid = false;
+                                                    }
+                                                
+                                                    // Disable/Enable submit button based on validation
+                                                    submitButton.disabled = !isValid;
+                                                
+                                                    return isValid; // Return true if both fields are valid
+                                                  }
+                                                
+                                                  // Event listeners for input
+                                                  numberChildrenField.addEventListener("input", validateForm);
+                                                  ninNumberField.addEventListener("input", validateForm);
+                                                
+                                                  // Validate on page load (optional)
+                                                  validateForm(); // Call initially to set button state based on initial values
+                                                });
+                                                
+                                                
+                                          </script>
+                                        
+                                            <form method="POST" class="form" id="profile-form">
+                                                
+                                                {% csrf_token %}
+               
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.Number_children|as_crispy_field }}
+                                                            <span id="numberChildrenErrorMessage" style="color: red;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.email|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                               
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            {{ form.department|as_crispy_field }} 
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                      <div class="form-group">
+                                                          {{ form.directorate|as_crispy_field }} 
+                                                         
+                                                      </div>
+                                                  </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            {{ form.dept_type|as_crispy_field }}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{ form.phone_number|as_crispy_field }}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.Pay_grade|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                
+                                                </div>
+                                               
+                                                
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{ form.file_number|as_crispy_field }}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.nin_number|as_crispy_field }}
+                                                            <span id="ninNumberErrorMessage" style="color: red;"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{ form.Appointment_type|as_crispy_field }}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{ form.Appointment_Mode|as_crispy_field }}  
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            
+                                                            {{ form.Promotion_status|as_crispy_field }} 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{ form.First_appointment|as_crispy_field }}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                               <input type="submit" class="btn btn-primary btn-user btn-block" value="Register">
+                                                <hr>
+                                                
+                                                
+                                            </form>
+                                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                            <!--DEPARTMENT TYPE AND PAY GRADE DEPENDENT LISTING-->
+                                            <script>
+                                              $(document).ready(function() {
+                                                  // Function to hide/show fields based on selection
+                                                  function toggleFields() {
+                                                      var departmentField = $('#id_department');
+                                                      var directorateField = $('#id_directorate');
+                                                      var deptTypeField = $('#id_dept_type');
+                                                      var payGradeField = $('#id_Pay_grade');
+                                          
+                                                      // Hide/show Pay_grade field based on the selected directorate
+                                                      directorateField.change(function() {
+                                                          var directorateValue = $(this).val();
+                                                          if (directorateValue) {
+                                                              // If a directorate is selected, show only CONTEDISS pay grades
+                                                              payGradeField.find('option').remove(); // Remove existing options
+                                                              payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 1',
+                                                                  text: 'CONTEDISS 1'
+                                                              }));
+                                                              // Add more options as needed for CONTEDISS pay grades
+                                                              payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 2',
+                                                                  text: 'CONTEDISS 2'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 3',
+                                                                  text: 'CONTEDISS 3'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 4',
+                                                                  text: 'CONTEDISS 4'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 5',
+                                                                  text: 'CONTEDISS 5'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 6',
+                                                                  text: 'CONTEDISS 6'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 7',
+                                                                  text: 'CONTEDISS 7'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 8',
+                                                                  text: 'CONTEDISS 8'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 9',
+                                                                  text: 'CONTEDISS 9'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 10',
+                                                                  text: 'CONTEDISS 10'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 11',
+                                                                  text: 'CONTEDISS 11'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 12',
+                                                                  text: 'CONTEDISS 12'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 13',
+                                                                  text: 'CONTEDISS 13'
+                                                                }));
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 14',
+                                                                  text: 'CONTEDISS 14'
+                                                                }));
+                                                                // Add more options as needed
+                                                                payGradeField.append($('<option>', {
+                                                                  value: 'CONTEDISS 15',
+                                                                  text: 'CONTEDISS 15'
+                                                                }));
+                                                              // ...
+                                                              // Hide Academic option in Dept_type field
+                                                              hideAcademicDeptType();
+                                                          } else {
+                                                              // If no directorate is selected, show all pay grades based on dept_type
+                                                              updatePayGrades(deptTypeField.val());
+                                                              // Show both Academic and Non-Academic options in Dept_type field
+                                                              showAllDeptTypes();
+                                                          }
+                                                      });
+                                          
+                                                      // Hide/show Pay_grade field based on dept_type selection
+                                                      deptTypeField.change(function() {
+                                                          var deptTypeValue = $(this).val();
+                                                          updatePayGrades(deptTypeValue);
+                                                      });
+                                                  }
+                                          
+                                                  // Function to update pay grades based on dept_type
+                                                  function updatePayGrades(deptTypeValue) {
+                                                      var payGradeField = $('#id_Pay_grade');
+                                                      payGradeField.find('option').remove(); // Remove existing options
+                                                      if (deptTypeValue === 'Academic') {
+                                                          // Populate options for Academic staff
+                                                          payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 1',
+                                                              text: 'CONPCASS 1'
+                                                          }));
+                                                          // Add more options as needed for CONPCASS pay grades
+                                                          payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 2',
+                                                              text: 'CONPCASS 2'
+                                                              
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 3',
+                                                              text: 'CONPCASS 3'
+                                                              
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 4',
+                                                              text: 'CONPCASS 4'
+                                                              
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 5',
+                                                              text: 'CONPCASS 5'
+                                                              
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 6',
+                                                              text: 'CONPCASS 6'
+                                                              
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 7',
+                                                              text: 'CONPCASS 7'
+                                                              
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 8',
+                                                              text: 'CONPCASS 8'
+                                                              
+                                                            }));
+                                                            
+                                                            // Add more options as needed
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONPCASS 9',
+                                                              text: 'CONPCASS 9'
+                                                            }));
+                                                          // ...
+                                                      } else if (deptTypeValue === 'Non-Academic') {
+                                                          // Populate options for Non-Academic staff
+                                                          payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 1',
+                                                              text: 'CONTEDISS 1'
+                                                          }));
+                                                          // Add more options as needed for CONTEDISS pay grades
+                                                          payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 2',
+                                                              text: 'CONTEDISS 2'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 3',
+                                                              text: 'CONTEDISS 3'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 4',
+                                                              text: 'CONTEDISS 4'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 5',
+                                                              text: 'CONTEDISS 5'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 6',
+                                                              text: 'CONTEDISS 6'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 7',
+                                                              text: 'CONTEDISS 7'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 8',
+                                                              text: 'CONTEDISS 8'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 9',
+                                                              text: 'CONTEDISS 9'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 10',
+                                                              text: 'CONTEDISS 10'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 11',
+                                                              text: 'CONTEDISS 11'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 12',
+                                                              text: 'CONTEDISS 12'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 13',
+                                                              text: 'CONTEDISS 13'
+                                                            }));
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 14',
+                                                              text: 'CONTEDISS 14'
+                                                            }));
+                                                            // Add more options as needed
+                                                            payGradeField.append($('<option>', {
+                                                              value: 'CONTEDISS 15',
+                                                              text: 'CONTEDISS 15'
+                                                            }));
+                                                          // ...
+                                                      }
+                                                  }
+                                          
+                                                  // Function to hide Academic option in Dept_type field
+                                                  function hideAcademicDeptType() {
+                                                      var deptTypeField = $('#id_dept_type');
+                                                      deptTypeField.val('Non-Academic').change(); // Set value to Non-Academic
+                                                      deptTypeField.find('option[value="Academic"]').hide(); // Hide Academic option
+                                                  }
+                                          
+                                                  // Function to show both Academic and Non-Academic options in Dept_type field
+                                                  function showAllDeptTypes() {
+                                                      var deptTypeField = $('#id_dept_type');
+                                                      deptTypeField.find('option').show(); // Show all options
+                                                  }
+                                          
+                                                  // Initial call to toggleFields function
+                                                  toggleFields();
+                                              });
+                                          </script>
+                                          <!--SCRIPT TO HIDE/DISPLAY DIRECTORATE AND DEPARTMENT PAY GRADE ON SELECTION-->
+                                          <script>
+                                              $(document).ready(function() {
+                                                  // Function to hide/show fields based on selection
+                                                  function toggleFields() {
+                                                      var departmentField = $('#id_department');
+                                                      var directorateField = $('#id_directorate');
+                                          
+                                                      // Hide directorate field when a department is selected
+                                                      departmentField.change(function() {
+                                                          if ($(this).val()) {
+                                                              directorateField.closest('.form-group').hide();
+                                                          } else {
+                                                              directorateField.closest('.form-group').show();
+                                                          }
+                                                      });
+                                          
+                                                      // Hide department field when a directorate is selected
+                                                      directorateField.change(function() {
+                                                          if ($(this).val()) {
+                                                              departmentField.closest('.form-group').hide();
+                                                          } else {
+                                                              departmentField.closest('.form-group').show();
+                                                          }
+                                                      });
+                                                  }
+                                          
+                                                  // Initial call to toggleFields function
+                                                  toggleFields();
+                                              });
+                                          </script>
+                                            
+                                        
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                    </div>
+            
+                </div>
+            
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}

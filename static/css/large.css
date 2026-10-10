@@ -1,0 +1,403 @@
+/***** OPEN ENDED MEDIA QUERY *****/
+@media only screen and (min-width: 1024px) {
+
+
+    .large-3{
+        width: 25%;
+    }
+
+    header {
+      background-color: rgba(100, 143, 70, 0.92);
+      position: fixed;
+      width: 100%;
+      z-index: 3;
+      padding-top: 0.2%;
+      height: 5vw;
+  }
+
+  .header img {
+    margin-right: 0.1%;
+    width: 4.3vw;
+    height: auto;
+    float: left;
+    margin-top: 0.2%;
+}
+
+.header h1 {
+  color: #fff;
+  font-weight: 800;
+  margin-top: 1.2%;
+  font-size: 1.8vw;
+  float: left;
+}
+
+  .header li a{
+    padding-top: 15%;
+  }
+
+  .header li a {
+    padding: 1.40vw;
+    font-size: 0.8em;
+    margin-top: 0.5%;
+    margin-top: 1%;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  width: 100%;
+  margin-top: 4.5%;
+}
+    
+    header h2{
+        padding:.2rem 0 0 0;
+        font-size: 1.7rem;
+    }
+
+    .carousel-caption h3 {
+      padding: .5em;
+      font-size: 2rem;
+  }
+    
+    .read-m{
+      font-family: sans-serif;
+      font-size: 1rem;
+      text-align: center;
+      color:rgb(95, 143, 71);
+    }
+    
+    .welcome-msg{
+      font-size: 1.5rem;
+    }
+
+    .jumbotron-detail-family-church{
+        background: url('../images/extraordinary-ministers.jpeg') no-repeat fixed;
+      }
+      
+    .jumbotron-other{
+        background: url('../images/extraordinary-ministers.jpeg') no-repeat fixed;
+     }
+     
+    .jumbotron{
+          box-shadow: inset 0 0 0 100vw rgba(0,0,0,0.1);
+          height: 70vh;
+          background-size: cover;
+          background-position: center;
+    }
+
+    main img{
+        width: 100%;
+        height: auto;
+    }
+    
+    main h1{
+        color: rgb(95, 143, 71);
+        font-style: italic;
+        margin: .5rem 0 .1rem 0;
+        font-size: 1.2rem;
+    }
+
+    .message{
+      font-family: Helvetica, sans-serif;
+      font-size: 1rem;
+      margin-bottom: 0.85rem;
+     
+    }
+
+    .aboutus-title-text {
+      font-family: Lato, sans-serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 0.3%;
+      color: rgb(4, 68, 4);
+      text-align: center;
+  }
+
+.about-church p {
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: black;
+  }
+
+  .vision-mission-title {
+    font-size: 1.2rem;
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 1.5%;
+    color: black;
+}
+
+.vision-container {
+  width: 30%;
+  height: auto;
+  border: 10px solid goldenrod;
+  border-radius: 100%;
+  margin-top: 2.5%;
+  margin-left: 13%;
+  padding: 2%;
+  float: left;
+}
+
+.vision-title {
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 0.5%;
+  color: green;
+  font-weight: bold;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  padding: 5px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 40%;
+  float: left;
+  margin-top: 0.5%;
+  margin-left: 5%;
+}
+
+#contact-us-title {
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  color: goldenrod;
+  margin-top: 1%;
+  text-align: center;
+}
+
+/* Contact Us Buttons on About Us Page */
+#btn-toggle {
+  width: 45%;
+  margin-top: 1%;
+  margin-left: 3%;
+  font-size: 0.9rem;
+  font-family: sans-serif;
+  font-weight: 450;
+  padding-left: 1%;
+}
+
+/* Toggle Container on About Us page */
+.toggle-container {
+  width: 100%;
+  border: 0.7px solid rgb(242, 242, 242);
+  background-color: white;
+  border-radius: 5px 5px 5px 5px;
+  padding: 2%;
+  margin-top: 2%;
+}
+
+.special-services-prayer {
+  width: 40%;
+  border: 0.7px solid #e6dfdf;
+  border-radius: 8px;
+  padding: 0;
+  margin: 2% 5%;
+  float: left;
+}
+
+#special-services-title {
+  font-size: 1.4rem;
+  margin-top: 9%;
+}
+
+#sunday-service-day {
+  font-size: 1rem;
+}
+
+/*Home Page Cards Rules*/
+.card-text{
+  font-family:Helvetica, sans-serif;
+  font-size: 1rem;
+
+}
+
+
+       /* About Us Page Flip Cards */
+       .flip-card {
+        background-color: transparent;
+        width: 30%;
+        margin: 1.5%;
+        float: left;
+        height: 12vw;
+        perspective: 1000px;
+      }
+
+
+    /* Our Pastors Description */
+    .card .content .back .des {
+      font-size: 0.8rem;
+      font-family: sans-serif;
+      padding: 15px 0px;
+  }
+
+
+
+/* Home Page Core Values Rules*/
+
+.core-value{
+  width: 100%;
+  float: left;
+  margin-left: 2%;
+  border: solid 0 rgb(189, 176, 176);
+  box-shadow:  10px 4 11px rgb(0 0 0 / 0.2);
+  border-radius: 10px;
+  margin-bottom: 10%;
+  animation: shake-animation 4.72s ease infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes shake-animation {
+  0% { transform:translate(0,0) }
+ 1.78571% { transform:translate(5px,0) }
+ 3.57143% { transform:translate(0,0) }
+ 5.35714% { transform:translate(5px,0) }
+ 7.14286% { transform:translate(0,0) }
+ 8.92857% { transform:translate(5px,0) }
+ 10.71429% { transform:translate(0,0) }
+ 100% { transform:translate(0,0) }
+}
+
+.core-value img{
+  width:100%;
+  height:13vw;
+}
+
+.core-value-heading{
+  font-size: 1.2em;
+    }
+
+.core-value h3{
+  font-size: 1.3rem;
+    }
+
+.card-heading{
+  color: rgb(95, 143, 71);
+  font-size: 1.1rem;
+  font-family: 'Lato', sans-serif;
+  font-weight:600;
+  }
+
+  /* Worship Page*/
+  
+#worship-days-title {
+    font-size: 1.5rem;
+    font-family: 'Markazi Text', serif;
+    font-weight: 800;
+    text-align: center;
+    color: goldenrod;
+    margin-top: 3%;
+}
+
+/* Worship Days Cards*/
+.card-media-body-heading {
+  display: block;
+  margin-top: 3%;
+  color: green;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+  
+
+  /* Flip Images on Events*/
+  .flip-box {
+    background-color: transparent;
+    width: 30%;
+    height: 15vw;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    margin-bottom: 2%;
+  }
+  
+  /* This container is needed to position the front and back side */
+  .flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-box:hover .flip-box-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .flip-box-front, .flip-box-back {
+    position: absolute;
+    width: 100%;
+    height: 15vw;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+
+  .flip-box-front img{
+    width:100%;
+    height: 15vw;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-box-front {
+    background-color: #bbb;
+    color: black;
+  }
+
+  
+  
+  /* Style the back side */
+  .flip-box-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+
+
+
+
+
+    /* Footer Rules */
+    footer{
+        background-color: RGB(210, 180, 100);
+        font-size: 1.3rem;
+    }
+
+    footer h2{
+        font-style: italic;
+        text-transform: initial;
+        margin: 0.04rem 0 0;
+        font-size:1.4rem;
+        font-family: sans-serif;
+    }
+
+    footer a{
+      font-size: 1.1rem;
+      font-family:sans-serif;
+      text-decoration: none;
+      text-transform: none;
+      color:black;
+      font-weight: 450;
+    }
+
+    footer ul li{
+        list-style-type: none;
+    }
+
+    footer img{
+        float: center;
+        width:50px;
+        padding-right: 2px;
+    }
+
+
+    
+    
+
+
+} /*END OF MEDIA QUERY */

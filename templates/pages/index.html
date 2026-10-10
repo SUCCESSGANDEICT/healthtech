@@ -1,0 +1,403 @@
+{% extends 'website_base.html' %}
+
+{% load static %}
+
+{% block title %} {{page_title}} {% endblock%}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'static_pages/css/index.css' %}">
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+<!-- Include the advertisement overlay -->
+<!-- <div class="advert-overlay" id="advertOverlay">
+    <img src="{% static 'static_pages/images/advert_image.jpg' %}" alt="Second Batch Admission" class="advert-image">
+    <button class="close-btn" id="closeBtn">Close</button>
+</div>  -->
+
+<!-- Link to the CSS and JS files -->
+<!-- <link rel="stylesheet" href="{% static 'static_pages/css/advert.css' %}">
+<script src="{% static 'js/advert.js' %}"></script> -->
+<!--====== SLIDER PART START ======-->
+    
+<!--IMAGE SLIDER-->
+<div class="container-fluid index-hero-slider">
+  <div class="row">
+    <div class="col">
+      <!-- carousel code -->
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <ol class="carousel-indicators">
+          <li
+            data-target="#carouselExampleIndicators"
+            data-slide-to="0"
+            class="active"
+          ></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner">
+          <!-- first slide -->
+          <div class="carousel-item active">
+            <img src="{% static 'static_pages/images/ecosaht_slide1.jpg' %}" alt="Excellent College of Sciences slide1"/>
+          </div>
+
+          <!-- second slide -->
+          <div class="carousel-item">
+            <img src="{% static 'static_pages/images/ecosaht_slide2.jpg' %}" alt="Excellent College of Sciences slide2"/>
+          </div>
+
+          <!-- third slide -->
+          <div class="carousel-item">
+            <img src="{% static 'static_pages/images/ecosaht_slide3.jpg' %}" alt="Excellent College of Sciences slide3"/>
+          </div>
+          <!-- forth slide -->
+          <div class="carousel-item">
+            <img src="{% static 'static_pages/images/ecosaht_slide4.jpg' %}" alt="Excellent College of Sciences slide4" />
+          </div>
+          <!-- forth slide -->
+          <div class="carousel-item">
+            <img src="{% static 'static_pages/images/ecosaht_slide5.jpg' %}" alt="Excellent College of Sciences slide5" />
+          </div>
+          <!-- forth slide -->
+          <div class="carousel-item">
+            <img src="{% static 'static_pages/images/ecosaht_slide6.jpg' %}" alt="Excellent College of Sciences slid6" />
+          </div>
+        </div>
+
+        <!-- controls -->
+        <a
+          class="carousel-control-prev"
+          href="#carouselExampleIndicators"
+          role="button"
+          data-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a
+          class="carousel-control-next"
+          href="#carouselExampleIndicators"
+          role="button"
+          data-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--IMAGE SLIDER ENDS-->
+
+<div class="home-page-heading-1">
+  <h1>Welcome to Excellent College of Science and Health Technology website</h1>
+</div>
+
+<!--Our Rector-->
+<section class="container">
+  <div class="welcome-msg">
+    <p>
+      At ECOSAHT, we are dedicated to cultivating the next generation 
+      of healthcare professionals. Our rigorous academic programs, 
+      state-of-the-art facilities, and experienced Colleges provide 
+      an unparalleled educational experience. Whether you're aspiring 
+      to be a Community Health Worker, Community Health Extension Worker, 
+      Environmental Health Worker or Health Information Worker, 
+      we are committed to your success and professional growth.
+    </p>
+
+  </div>
+  <!--NEW SECTION-->
+  <div class="home-news-card">
+  <div class="news-label">NEWS</div>
+  <h2 class="news-title">2026/2027 <br> ACADEMIC SESSION ADMISSION!</h2>
+
+  <div class="news-divider">
+    <hr>
+    <div class="news-icon">✺</div>
+    <hr>
+  </div>
+
+  <p class="news-text">
+    Application for Admission for the 2026/2027 Academic Session is 
+    currently ongoing.
+    <br> Application is online; using a valid Email Address.
+  </p>
+
+  <button class="news-button"><a href="{% url 'validate_applicant' %} " style="display:block; color:white;">Apply</a></button>
+</div>
+
+</section>
+
+<div class="home-page-heading-1 index-legacy-programmes-heading" aria-hidden="true">
+  <h1>Our Colleges and Programmes</h1>
+</div>
+
+<section class="index-programmes-section" aria-labelledby="programmes-title">
+  <div class="index-section-header">
+    <span class="index-section-kicker">Academic Pathways</span>
+    <h1 id="programmes-title">Our Colleges and Programmes</h1>
+    <p>
+      Explore career-focused colleges designed around practical learning, professional standards,
+      and the healthcare and technology skills needed in modern communities.
+    </p>
+  </div>
+
+  <div class="index-programmes-grid">
+    <article class="index-programme-card">
+      <div class="index-programme-media">
+        <img src="{% static 'static_pages/images/computer_networking.png' %}" alt="Students learning digital and computing skills">
+      </div>
+      <div class="index-programme-content">
+        <span class="index-programme-tag">Science and Computing</span>
+        <h2>College of Science and Computing</h2>
+        <p>
+          Focused on digital innovation, computational thinking, and emerging technologies, the
+          College of Science and Computing prepares students with practical skills for today's
+          technology-driven world.
+        </p>
+        <h3>Programmes</h3>
+        <ul>
+          <li>ND Computer Science</li>
+          <li>HND Artificial Intelligence</li>
+        </ul>
+        <a class="index-programme-link" href="{% url 'validate_applicant' %}">Apply Now</a>
+      </div>
+    </article>
+
+    <article class="index-programme-card">
+      <div class="index-programme-media">
+        <img src="{% static 'static_pages/images/am4.jpg' %}" alt="Healthcare and pharmaceutical training">
+      </div>
+      <div class="index-programme-content">
+        <span class="index-programme-tag">Medical Technology</span>
+        <h2>College of Medical and Pharmaceutical Technology</h2>
+        <p>
+          This college provides career-focused training in laboratory science and pharmaceutical
+          support services, preparing students to contribute effectively to healthcare delivery.
+        </p>
+        <h3>Programmes</h3>
+        <ul>
+          <li>ND Medical Laboratory Technology</li>
+          <li>ND Pharmacy Technician</li>
+        </ul>
+        <a class="index-programme-link" href="{% url 'validate_applicant' %}">Apply Now</a>
+      </div>
+    </article>
+
+    <article class="index-programme-card">
+      <div class="index-programme-media">
+        <img src="{% static 'static_pages/images/extension_workers.png' %}" alt="Community health outreach training">
+      </div>
+      <div class="index-programme-content">
+        <span class="index-programme-tag">Community Health</span>
+        <h2>College of Community and Public Health Technology</h2>
+        <p>
+          Dedicated to improving community wellbeing, disease prevention, and public health
+          practice, this college equips students with the knowledge and field-based skills
+          required for health service impact.
+        </p>
+        <h3>Programmes</h3>
+        <ul>
+          <li>ND Community Health Technology</li>
+          <li>ND Epidemiology and Disease Control</li>
+          <li>ND Public Health Technology</li>
+          <li>HND Community Health</li>
+        </ul>
+        <a class="index-programme-link" href="{% url 'validate_applicant' %}">Apply Now</a>
+      </div>
+    </article>
+
+    <article class="index-programme-card">
+      <div class="index-programme-media">
+        <img src="{% static 'static_pages/images/n3.jpg' %}" alt="Health information and records management">
+      </div>
+      <div class="index-programme-content">
+        <span class="index-programme-tag">Health Data</span>
+        <h2>College of Health Information Technology</h2>
+        <p>
+          This college trains students in health data management, records administration, digital
+          health information systems, and ethical handling of medical information.
+        </p>
+        <h3>Programmes</h3>
+        <ul>
+          <li>ND Health Information Management</li>
+          <li>HND Health Information Management</li>
+        </ul>
+        <a class="index-programme-link" href="{% url 'validate_applicant' %}">Apply Now</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!--NEW CONTAINER-->
+<section class="news-container index-legacy-programmes" aria-hidden="true">
+  <!--Card 1-->
+  <div class="news-card">
+      <h2 class="news-card-heading">College of Community and Public Health</h2>
+      <div class="news-divider">
+      <hr>
+      <div class="news-icon">✺</div>
+      <hr>
+      </div>
+    <div class="news-card-bottom">
+      <p>
+        
+        The Excellent College of Sciences and Health Technology Gboko 
+        provides an outstanding Public Health Technology and Community Health Diploma. 
+        Students participate in rigorous, research-focused projects and
+        practical training, equipping them for real-world challenges.
+      </p>
+      <ul>
+        <li>📌 Diploma in Public Health Technology</li>
+        <li>📌 Dimploma in Community Health</li>
+      </ul>
+      
+    </div>
+    
+
+  </div>
+
+  <!--Card 2-->
+  <div class="news-card">
+  
+    <h2 class="news-card-heading">College of Computer and Information Technology</h2>
+    <div class="news-divider">
+      <hr>
+      <div class="news-icon">✺</div>
+      <hr>
+      </div>
+    <div class="news-card-bottom">
+      <p>
+        Excellent College of Sciences and Health Technology Gboko offers a 
+        premier Computer Science course approved by the National Board for 
+        Technical Education (NBTE). Our curriculum combines theoretical 
+        and practical training, covering software development, data 
+        analysis, algorithms, and computational theory. 
+      </p>
+      <ul>
+        <li> 📌 Computer Science</li>
+      </ul>
+    </div>
+  </div>
+
+  <!--Card 3-->
+  <div class="news-card">
+    
+    <h2 class="news-card-heading">College of Computer and Information Technology</h2>
+    <div class="news-divider">
+      <hr>
+      <div class="news-icon">✺</div>
+      <hr>
+      </div>
+    <div class="news-card-bottom">
+      <p>
+        The College of Computer and Information Technology provides students 
+        with in-demand skills in programming, database systems, networking, and IT 
+        management. With a focus on practical learning and innovation, 
+        we prepare future professionals to excel in the fast-evolving digital landscape.
+      </p>
+      
+
+      
+    </div>
+  </div>
+
+  <!--Card 4-->
+  <div class="news-card">
+    
+    <h2 class="news-card-heading">College of Environmental Health Technology</h2>
+    <div class="news-divider">
+      <hr>
+      <div class="news-icon">✺</div>
+      <hr>
+      </div>
+    <div class="news-card-bottom">
+      <p>
+        The College of Environmental Health Technology trains students 
+        to protect public health through environmental safety practices. 
+        Our programs focus on sanitation, waste management, disease prevention,
+         and public health education—equipping graduates to promote healthier 
+         communities and sustainable environments.
+      </p>
+    </div>
+  </div>
+
+</section>
+<!--CONTAINER ENDS-->
+
+<!--OUR PARTNERS-->
+<div class="home-page-heading-1">
+  <h1>Our Certificate Programmes</h1>
+</div>
+
+<!--RESPONSIVE CARDS-->
+<section class="container">
+  <!--Card One-->
+  <div class="card">
+    <div class="card-image">
+      <img src="{% static 'static_pages/images/cybersecurity.png' %}" alt="cybersecurity Image">
+    </div>
+    <h2>Cyber Security</h2>
+    <hr>
+    <p>
+      This programme equips students with foundational skills in identifying, 
+      preventing, and responding to digital threats. Learners gain hands-on 
+      knowledge in system protection, ethical hacking, and basic cyber 
+      defense—preparing them for entry-level roles in the growing field of 
+      cybersecurity.
+    </p>
+    <a href="">Read More</a>
+  </div>
+  <!--Card Two-->
+  <div class="card">
+    <div class="card-image">
+      <img src="{% static 'static_pages/images/computer_networking.png' %}" alt="computer network image">
+    </div>
+    <h2>Computer Networking</h2>
+    <hr>
+    <p>
+      This programme introduces students to the fundamentals of computer networks, 
+      including configuration, troubleshooting, and maintenance. 
+      Trainees gain practical experience with network devices and 
+      protocols—preparing them for entry-level roles in IT support and network 
+      administration.
+    </p>
+    <a href="">Read More</a>
+  </div>
+  <!--Card Three-->
+  <div class="card">
+    <div class="card-image">
+      <img src="{% static 'static_pages/images/child_birth.png' %}" alt="birth attendance image">
+    </div>
+    <h2>Birth Attendance</h2>
+    <hr>
+    <p>
+      This programme provides students with essential knowledge and 
+      practical skills in maternal care and safe delivery practices. 
+      Trainees are prepared to assist during childbirth, offer prenatal 
+      and postnatal support, and promote maternal health within communities.
+    </p>
+    <a href="">Read More</a>
+  </div>
+  <!--Card Four-->
+  <div class="card">
+    <div class="card-image">
+      <img src="{% static 'static_pages/images/extension_workers.png' %}" alt="community extension image">
+    </div>
+    <h2>Community Health Extension</h2>
+    <hr>
+    <p>
+      This programme trains students to deliver basic healthcare services at 
+      the grassroots level. Learners gain skills in disease prevention, 
+      health education, and community-based care—preparing them to 
+      support primary healthcare delivery in rural and underserved areas.
+    </p>
+    <a href="">Read More</a>
+  </div>
+</section>
+
+{% endblock %}

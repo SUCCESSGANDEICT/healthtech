@@ -1,0 +1,167 @@
+{% extends 'account_base.html' %}
+
+{% block title %} {{ page_title }} {% endblock%}
+
+{% load static %}
+{% load image_tags %}
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+{% block content %} 
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {% include 'accounts/partials/_sideBar.html' %}
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'accounts/partials/_topBar.html' %}
+            <!-- End Topbar -->
+
+             <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                {% include 'accounts/partials/_dashboard_heading.html' %}
+                <!-- End Page Heading -->
+
+
+                 <!--Alert Template-->
+                 {% include 'admission/partials/_alerts.html' %}
+                 <!--Alert Template-->
+
+                 <!--Profile and Notice Board Container-->
+                  <div class="row">
+                    
+                        <div class="col-md-8 mb-5"> 
+                            <div class="card">
+                                  <div class="card-header bg-info text-white">
+                                    {{candidate.applicant.profile.last_name|capfirst}} Admission Information
+                                  </div>
+                                  <div class="card-body">
+                                  <div class="row">
+                                      <div class="col-md-8">
+                                            <span class="h4"> <b style="color:brown;">{{student.candidate.profile.last_name}} {{student.candidate.profile.first_name|title}}</b> Admission Detail</span>
+                                           
+                                          <table class="table myCard-body table-borderless">
+                                              <tbody>
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Full Name</th>
+                                                      <td style="color: black;">{{student.candidate.profile.last_name|title}}  {{student.candidate.profile.first_name|title}}
+                                                        {% if student.candidate.profile.middle_name %}
+                                                        {{student.candidate.profile.middle_name|title}}
+                                                        {% endif %}
+                                                      </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>Candidate ID:</th>
+                                                        <td style="color: black;">{{student.student_id}}</td>                                   
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>School:</th>
+                                                        <td style="color: black;">{{student.course.department.faculty.name}}</td>                                   
+                                                      </tr>
+                                        
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Program of Study:</th>
+                                                      <td style="color: black;">{{student.course}}</td>                                   
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Department:</th>
+                                                      <td style="color: black;">{{student.course.department}}</td>                                   
+                                                    </tr>  
+                                                    
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Level Admitted:</th>
+                                                      <td style="color: black;">{{student.current_level}}</td>                                   
+                                                    </tr>  
+                                                    <tr>
+                                                        <th scope="row" style="color: black;" nowrap>Session Admitted:</th>
+                                                        <td style="color: black;">{{student.academic_session}}</td>                                   
+                                                    </tr>   
+                                                    <tr>
+                                                      <th scope="row" style="color: black;" nowrap>Acceptance Fee:</th>
+                                                      <td style="color: black;">N{{fee_amount|intcomma }}</td>                                   
+                                                  </tr>             
+                                                </tbody>
+                                          </table>
+                                      </div>
+                                      <div class="col-md-4"> 
+                                      
+                                          <img class="img-thumbnail" src=" {% image_url student.candidate.profile.image %} " alt="profile image">
+                                        
+                                        </div>
+                                    
+                                  </div>
+                                  {% if student %}
+
+                                 
+
+
+
+                                 
+
+                                  
+                                  {% endif %}
+                                  </div>
+                                  
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="card">
+                              <div class="card-header bg-info text-white">
+                                  Academic Session Choice
+                              </div>
+                              <div class="card-body">
+                                <h4 class="text-center">
+                                  Select Acedemic Session
+                                </h4>
+                                <hr>
+                                <form method="POST">
+                                  {% csrf_token %}
+                
+                                  {{ form | crispy }}
+              
+                                 
+                                  <!--Check Page Title and Allocate Submit Value-->
+                                 
+                                  <input class="btn btn-info btn-block" type="submit"  value="Pay Acceptance">
+                                  
+                
+                                </form>
+                                  
+                              </div>
+                          </div> 
+                      </div>
+
+
+                  </div>
+                  <!-- End of Profile and Notice Board Container-->
+            </div>
+
+
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer -->
+        {% include 'accounts/partials/_footer.html' %}
+        <!-- End Footer -->
+ 
+    </div>
+    <!-- End Content Wrapper -->
+
+
+</div>
+
+{% endblock %}
